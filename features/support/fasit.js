@@ -1,6 +1,6 @@
 const axios = require('axios');
-const https = require('https');
 const fasitUrl = process.env.fasit || "https://fasit.adeo.no/api/v2/resources";
+
 process.env.NODE_TLS_REJECT_UNAUTHORIZED='0'
 
 function _hentUrl(data) {
