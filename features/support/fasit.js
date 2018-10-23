@@ -1,8 +1,6 @@
 const axios = require('axios');
 
-// const fasitUrl = process.env.fasit || "http://fasit.adeo.no/api/v2/resources";
-const fasitUrl = "http://192.168.65.2:8080/api/v2/resources";
-
+const fasitUrl = process.env.fasit || "http://fasit.adeo.no/api/v2/resources";
 
 function _hentUrl(data) {
     if(data && data.length > 0) {
