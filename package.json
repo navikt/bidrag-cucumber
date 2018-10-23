@@ -1,5 +1,5 @@
 {
-  "name": "cukeimage",
+  "name": "bidrag-cucumber",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -13,6 +13,8 @@
     "cucumber": "^5.0.2"
   },
   "dependencies": {
-    "axios": "^0.18.0"
+    "axios": "^0.18.0",
+    "request": "^2.88.0",
+    "request-promise": "^4.2.2"
   }
 }

@@ -1,12 +1,12 @@
 const axios = require('axios');
-
-const fasitUrl = process.env.fasit || "http://fasit.adeo.no/api/v2/resources";
+const https = require('https');
+const fasitUrl = process.env.fasit || "https://fasit.adeo.no/api/v2/resources";
+process.env.NODE_TLS_REJECT_UNAUTHORIZED='0'
 
 function _hentUrl(data) {
     if(data && data.length > 0) {
         return data[0].properties.url
     }
-    console.log("_hentUrl: ingen url funnet i", data)
     return null;
 }
 
@@ -15,7 +15,7 @@ function hentFasitRessurs(ftype, alias, env) {
         params: {
             type: ftype,
             alias: alias,
-            environmentclass: env,
+            environment: env,
             usage: false
         }
     });
@@ -26,6 +26,9 @@ function hentFasitRestUrl(alias, env) {
         .then(response => {
             return _hentUrl(response.data);
         })
+	.catch(err => {
+	    console.log("ERROR", err)
+	})
 }
 
 
@@ -34,6 +37,10 @@ function httpGet(alias, env, suffix) {
         .then(url => {
             return axios.get(url + suffix)
         })
+	.catch(err => {
+		console.log("ERROR", err)
+		return null;
+	})
 }
 
 module.exports = {
