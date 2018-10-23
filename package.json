@@ -11,5 +11,8 @@
   "license": "ISC",
   "devDependencies": {
     "cucumber": "^5.0.2"
+  },
+  "dependencies": {
+    "axios": "^0.18.0"
   }
 }
