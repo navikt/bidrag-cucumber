@@ -1,13 +1,11 @@
-FROM node:8.2.1
+FROM navikt/node-express
 LABEL maintainer="NAV Team Bidrag"
-
-#FROM navikt/node-express
 
 ADD . /
 
 WORKDIR /
 
-# unable to verify leaf sig ... do local build instead
+# unable to verify leaf sig ... do local build before docker build instead
 # RUN npm install
 
 CMD ["npm", "start"]
