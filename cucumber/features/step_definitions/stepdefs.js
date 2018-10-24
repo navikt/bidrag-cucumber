@@ -26,8 +26,8 @@ When('jeg gjør get {string}', function (suffix, done) {
             done()
         })
         .catch(err => {
-            this.response = response;
             this.error = err;
+            this.response = null;
             done()
         })
 });

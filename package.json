@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node_modules/cucumber/bin/cucumber-js features"
+    "start": "node_modules/cucumber/bin/cucumber-js cucumber/features"
   },
   "keywords": [],
   "author": "",

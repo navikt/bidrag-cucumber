@@ -1,3 +1,3 @@
 #!/bin/sh
 
-docker run -it --rm -v `pwd`/features:/features bidrag-cucumber
+docker run -it --rm -v `pwd`/cucumber:/cucumber bidrag-cucumber
