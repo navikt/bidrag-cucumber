@@ -2,11 +2,12 @@
 
 Build the image by 
 ```
+$ npm install
 $ docker build -t bidrag-cucumber .
 ```
 
-Run the image by mapping /features to your directory containing features and step definitions.
+Run the image by mapping /cucumber to your cucumber directory containing features and step definitions.
 
 ```
-$ docker run -it --rm -v `pwd`/features:/features bidrag-cucumber
+$ docker run -it --rm -v `pwd`/cucumber:/cucumber bidrag-cucumber
 ```
