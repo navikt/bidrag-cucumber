@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node_modules/cucumber/bin/cucumber-js cucumber/features"
+    "start": "node_modules/cucumber/bin/cucumber-js cucumber/features",
+    "build": "docker build -t bidrag-cucumber ."
   },
   "keywords": [],
   "author": "",
