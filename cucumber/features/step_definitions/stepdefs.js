@@ -8,7 +8,7 @@ const {
 
 const {
     httpGet
-} = require('../support/fasit')
+} = require('/support/fasit')
 
 Given('restservice {string} i {string}', function (alias, env) {
     this.alias = alias;
