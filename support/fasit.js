@@ -8,8 +8,8 @@ function _hentUrl(data, alias) {
         var res = data.filter(item => {
             return item.alias == alias;
         })
-        if(res && res.properties) {
-            url = res.properties.url
+        if(res && res.length == 1) {
+            url = res[0].properties.url
             if (url && url.substr(-1) == '/' && url.length > 1) {
                 url = url.slice(0, -1);
             }
