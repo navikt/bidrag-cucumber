@@ -2,12 +2,17 @@ const axios = require('axios');
 const fasitUrl = process.env.fasit || "https://fasit.adeo.no/api/v2/resources";
 const environment = process.env.environment || 'q0';
 
-function _hentUrl(data) {
+function _hentUrl(data, alias) {
     var url = null
-    if (data && data.length > 0 && data[0].properties) {
-        url = data[0].properties.url
-        if (url && url.substr(-1) == '/' && url.length > 1) {
-            url = url.slice(0, -1);
+    if (data) {
+        var res = data.filter(item => {
+            return item.alias == alias;
+        })
+        if(res && res.properties) {
+            url = res.properties.url
+            if (url && url.substr(-1) == '/' && url.length > 1) {
+                url = url.slice(0, -1);
+            }
         }
     }
     return url;
@@ -31,7 +36,7 @@ function hentFasitRessurs(ftype, alias, env) {
 function hentFasitRestUrl(alias, env) {
     return hentFasitRessurs('RestService', alias, env)
         .then(response => {
-            return _hentUrl(response.data);
+            return _hentUrl(response.data, alias);
         })
         .catch(err => err)
 }
