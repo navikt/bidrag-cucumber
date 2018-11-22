@@ -15,7 +15,7 @@ node {
     stage("#2: Build docker image") {
         println("${EnvironmentOut}")
         sh "npm install"
-        sh "docker build --build-arg environment=${environment} -t ${app} ."
+        sh "docker build -t ${application} ."
     }
 
 }
