@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node_modules/cucumber/bin/cucumber-js cucumber/features",
-    "build": "docker build -t bidrag-cucumber ."
+    "build": "docker build --build-arg environment -t bidrag-cucumber ."
   },
   "keywords": [],
   "author": "",

@@ -1,6 +1,13 @@
 FROM navikt/node-express
 LABEL maintainer="NAV Team Bidrag"
 
+# 
+# ARG to pick up values from --build-args
+# ENV to set ENV vars in the resulting docker image
+#
+ARG environment
+ENV environment=$environment
+
 ADD . /
 
 WORKDIR /
