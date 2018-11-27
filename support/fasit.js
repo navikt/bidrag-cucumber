@@ -8,22 +8,20 @@ function _hentToken() {
     var client_id = process.env.OIDC_CLIENT_ID || 'bidrag-dokument-ui-q0';
     var client_secret = process.env.OIDC_CLIENT_SECRET || 'xRsTbz4o48_1F0IDDnOSUoPTEoIOeYWS';
 
-    console.log('OIDC Token GET', client_id, client_secret);
     return axios.post(url,
-	'grant_type=client_credentials&scope=openid',
-	{
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded'
-            },
-	    auth: {
-		username: client_id,
-		password: client_secret
-	    }
-	})
-    .then( response => {
-	return response.data.access_token
-    })
-    .catch(err => err)
+            'grant_type=client_credentials&scope=openid', {
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                auth: {
+                    username: client_id,
+                    password: client_secret
+                }
+            })
+        .then(response => {
+            return response.data.access_token
+        })
+        .catch(err => err)
 }
 
 function _hentUrl(data, alias) {
@@ -32,7 +30,7 @@ function _hentUrl(data, alias) {
         var res = data.filter(item => {
             return item.alias == alias;
         })
-        if(res && res.length == 1) {
+        if (res && res.length == 1) {
             url = res[0].properties.url
             if (url && url.substr(-1) == '/' && url.length > 1) {
                 url = url.slice(0, -1);
@@ -66,27 +64,22 @@ function hentFasitRestUrl(alias, env) {
 }
 
 function kallFasitRestService(alias, suffix) {
-    return hentFasitRestUrl(alias, environment)
-        .then(url => {
-            console.log('kallFasitRestService', url + suffix)
-            return axios.get(url + suffix)
-        })
-        .catch(err => err)
+    return httpGet(alias, environment, suffix)
 }
 
 function httpGet(alias, env, suffix) {
     var tok = "";
     return _hentToken()
-	.then(token => {
-	    tok = token;
-	    return hentFasitRestUrl(alias, env)
-	})
+        .then(token => {
+            tok = token;
+            return hentFasitRestUrl(alias, env)
+        })
         .then(url => {
             return axios.get(url + suffix, {
-		headers: {
-			Authorization: 'Bearer ' + tok
-		}
-	    })
+                headers: {
+                    Authorization: 'Bearer ' + tok
+                }
+            })
         })
         .catch(err => err)
 }
