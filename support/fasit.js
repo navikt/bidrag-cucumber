@@ -1,6 +1,30 @@
 const axios = require('axios');
-const fasitUrl = process.env.fasit || "https://fasit.adeo.no/api/v2/resources";
+const fasitUrl = process.env.fasit || 'https://fasit.adeo.no/api/v2/resources';
 const environment = process.env.environment || 'q0';
+
+function _hentToken() {
+
+    var url = process.env.OIDC_URL || 'https://isso-q.adeo.no:443/isso/oauth2/access_token';
+    var client_id = process.env.OIDC_CLIENT_ID || 'bidrag-dokument-ui-q0';
+    var client_secret = process.env.OIDC_CLIENT_SECRET || 'xRsTbz4o48_1F0IDDnOSUoPTEoIOeYWS';
+
+    console.log('OIDC Token GET', client_id, client_secret);
+    return axios.post(url,
+	'grant_type=client_credentials&scope=openid',
+	{
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            },
+	    auth: {
+		username: client_id,
+		password: client_secret
+	    }
+	})
+    .then( response => {
+	return response.data.access_token
+    })
+    .catch(err => err)
+}
 
 function _hentUrl(data, alias) {
     var url = null
@@ -19,7 +43,7 @@ function _hentUrl(data, alias) {
 }
 
 function hentFasitRessurs(ftype, alias, env) {
-    console.log("hentFasitRessurs", alias, env, fasitUrl)
+    console.log('hentFasitRessurs', alias, env, fasitUrl)
     return axios.get(fasitUrl, {
             params: {
                 type: ftype,
@@ -44,16 +68,25 @@ function hentFasitRestUrl(alias, env) {
 function kallFasitRestService(alias, suffix) {
     return hentFasitRestUrl(alias, environment)
         .then(url => {
-            console.log("kallFasitRestService", url + suffix)
+            console.log('kallFasitRestService', url + suffix)
             return axios.get(url + suffix)
         })
         .catch(err => err)
 }
 
 function httpGet(alias, env, suffix) {
-    return hentFasitRestUrl(alias, env)
+    var tok = "";
+    return _hentToken()
+	.then(token => {
+	    tok = token;
+	    return hentFasitRestUrl(alias, env)
+	})
         .then(url => {
-            return axios.get(url + suffix)
+            return axios.get(url + suffix, {
+		headers: {
+			Authorization: 'Bearer ' + tok
+		}
+	    })
         })
         .catch(err => err)
 }
