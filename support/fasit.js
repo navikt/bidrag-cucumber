@@ -5,8 +5,8 @@ const environment = process.env.environment || 'q0';
 function _hentToken() {
 
     var url = process.env.OIDC_URL || 'https://isso-q.adeo.no:443/isso/oauth2/access_token';
-    var client_id = process.env.OIDC_CLIENT_ID || 'bidrag-dokument-ui-q0';
-    var client_secret = process.env.OIDC_CLIENT_SECRET || 'xRsTbz4o48_1F0IDDnOSUoPTEoIOeYWS';
+    var client_id = process.env.OIDC_CLIENT_ID;
+    var client_secret = process.env.OIDC_CLIENT_SECRET;
 
     return axios.post(url,
             'grant_type=client_credentials&scope=openid', {
