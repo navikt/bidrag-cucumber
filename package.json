@@ -1,11 +1,11 @@
 {
-  "name": "bidrag-cucumber",
+  "name": "bidrag-dokument-cucumber",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
     "start": "node_modules/cucumber/bin/cucumber-js cucumber/features",
-    "build": "docker build --build-arg environment -t bidrag-cucumber ."
+    "build": "docker build --build-arg environment -t bidrag-dokument-cucumber ."
   },
   "keywords": [],
   "author": "",

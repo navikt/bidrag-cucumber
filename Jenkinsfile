@@ -1,6 +1,6 @@
 node {
    def repo = "navikt"
-   def application = "bidrag-cucumber"
+   def application = "bidrag-dokument-cucumber"
    def environment = "${EnvironmentOut}"
  
     stage("#1: checkout code") {
