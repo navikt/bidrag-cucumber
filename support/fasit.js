@@ -2,26 +2,14 @@ const axios = require('axios');
 const fasitUrl = process.env.fasit || 'https://fasit.adeo.no/api/v2/resources';
 const environment = process.env.environment || 'q0';
 
-function _hentToken() {
-
-    var url = process.env.OIDC_URL || 'https://isso-q.adeo.no:443/isso/oauth2/access_token';
-    var client_id = process.env.OIDC_CLIENT_ID;
-    var client_secret = process.env.OIDC_CLIENT_SECRET;
-
-    return axios.post(url,
-            'grant_type=client_credentials&scope=openid', {
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded'
-                },
-                auth: {
-                    username: client_id,
-                    password: client_secret
-                }
-            })
-        .then(response => {
-            return response.data.access_token
-        })
-        .catch(err => err)
+function _hentToken(alias) {
+    return new Promise((resolve, reject) => {
+        var token = process.env[`${alias.toUpperCase()}_TOKEN`]
+        if(!token) {
+            token = process.env.OIDC_TOKEN
+        }
+        resolve(token ? token : "DUMMY-TOKEN")
+    })
 }
 
 function _hentUrl(data, alias) {
@@ -56,6 +44,14 @@ function hentFasitRessurs(ftype, alias, env) {
 }
 
 function hentFasitRestUrl(alias, env) {
+    
+    var override = process.env[`${alias.toUpperCase()}_URL`];
+    if(override) {
+        return new Promise((resolve, reject) => {
+            resolve(override)
+        })
+    }
+
     return hentFasitRessurs('RestService', alias, env)
         .then(response => {
             return _hentUrl(response.data, alias);
@@ -69,7 +65,7 @@ function kallFasitRestService(alias, suffix) {
 
 function httpGet(alias, env, suffix) {
     var tok = "";
-    return _hentToken()
+    return _hentToken(alias)
         .then(token => {
             tok = token;
             return hentFasitRestUrl(alias, env)
