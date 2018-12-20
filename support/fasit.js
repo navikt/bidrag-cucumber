@@ -2,16 +2,26 @@ const axios = require('axios');
 const fasitUrl = process.env.fasit || 'https://fasit.adeo.no/api/v2/resources';
 const environment = process.env.environment || 'q0';
 const token = process.env.OIDC_TOKEN;
+
 function _hentToken() {
 
     if(token) {
         console.log('bruker OIDC_TOKEN fra env var', token);
-        return token;
+        return new Promise((resolve, reject) => {
+            resolve(token)
+        })
     }
 
     var url = process.env.OIDC_URL || 'https://isso-q.adeo.no:443/isso/oauth2/access_token';
     var client_id = process.env.OIDC_CLIENT_ID;
     var client_secret = process.env.OIDC_CLIENT_SECRET;
+
+    if(!client_id || !client_secret) {
+        console.log('Mangler OIDC_CLIENT_ID og/eller OIDC_CLIENT_SECRET - bruker dummy-token')
+        return new Promise((resolve, reject) => {
+            resolve('dummy-token')
+        })
+    }
 
     return axios.post(url,
             'grant_type=client_credentials&scope=openid', {
@@ -62,12 +72,12 @@ function hentFasitRessurs(ftype, alias, env) {
 }
 
 function hentFasitRestUrl(alias, env) {
-
-    console.log('sjekk ENV variable for ', alias.toUpper())
-    var overrideUrl = process.env[alias.toUpper()];
-    if(overrideUrl) {
-        console.log('bruker URL fra env var:', overrideUrl)
-        return overrideUrl
+    
+    var override = process.env[`${alias.toUpperCase()}_URL`];
+    if(override) {
+        return new Promise((resolve, reject) => {
+            resolve(override)
+        })
     }
 
     return hentFasitRessurs('RestService', alias, env)
@@ -83,7 +93,7 @@ function kallFasitRestService(alias, suffix) {
 
 function httpGet(alias, env, suffix) {
     var tok = "";
-    return _hentToken()
+    return _hentToken(alias)
         .then(token => {
             tok = token;
             return hentFasitRestUrl(alias, env)
