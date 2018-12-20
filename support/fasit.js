@@ -1,8 +1,13 @@
 const axios = require('axios');
 const fasitUrl = process.env.fasit || 'https://fasit.adeo.no/api/v2/resources';
 const environment = process.env.environment || 'q0';
-
+const token = process.env.OIDC_TOKEN;
 function _hentToken() {
+
+    if(token) {
+        console.log('bruker OIDC_TOKEN fra env var', token);
+        return token;
+    }
 
     var url = process.env.OIDC_URL || 'https://isso-q.adeo.no:443/isso/oauth2/access_token';
     var client_id = process.env.OIDC_CLIENT_ID;
@@ -19,6 +24,7 @@ function _hentToken() {
                 }
             })
         .then(response => {
+            console.log('bruker client_credentials access token', response.data)
             return response.data.access_token
         })
         .catch(err => err)
@@ -56,6 +62,14 @@ function hentFasitRessurs(ftype, alias, env) {
 }
 
 function hentFasitRestUrl(alias, env) {
+
+    console.log('sjekk ENV variable for ', alias.toUpper())
+    var overrideUrl = process.env[alias.toUpper()];
+    if(overrideUrl) {
+        console.log('bruker URL fra env var:', overrideUrl)
+        return overrideUrl
+    }
+
     return hentFasitRessurs('RestService', alias, env)
         .then(response => {
             return _hentUrl(response.data, alias);
