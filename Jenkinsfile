@@ -1,7 +1,6 @@
 node {
    def repo = "navikt"
    def application = "bidrag-dokument-cucumber"
-   def environment = "${EnvironmentOut}"
  
     stage("#1: checkout code") {
         cleanWs()
@@ -13,7 +12,6 @@ node {
     }
 
     stage("#2: Build docker image") {
-        println("${EnvironmentOut}")
         sh "npm install"
         sh "docker build -t ${application} ."
     }
