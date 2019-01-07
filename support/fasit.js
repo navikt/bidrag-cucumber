@@ -99,6 +99,7 @@ function httpGet(alias, env, suffix) {
             return hentFasitRestUrl(alias, env)
         })
         .then(url => {
+            console.log('httpGet', url + suffix)
             return axios.get(url + suffix, {
                 headers: {
                     Authorization: 'Bearer ' + tok
