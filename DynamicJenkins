@@ -6,7 +6,7 @@ def app = Applikasjon
 @Library('bidrag-dokument-jenkins') _
     naisPipeline {
         buildImage = "maven:3.6.0-jdk-11-slim"
-        application = app
+        gitHubProjectName = app
         environemnt = env
     }
     
