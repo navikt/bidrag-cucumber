@@ -1,0 +1,12 @@
+
+def env = FASIT_ENV
+def app = Applikasjon
+
+
+@Library('bidrag-dokument-jenkins') _
+    naisPipeline {
+        buildImage = "maven:3.6.0-jdk-11-slim"
+        gitHubProjectName = app
+        environemnt = env
+    }
+    
