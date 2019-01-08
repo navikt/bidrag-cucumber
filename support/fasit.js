@@ -1,64 +1,63 @@
-const axios = require('axios');
-const fasitUrl = process.env.fasit || 'https://fasit.adeo.no/api/v2/resources';
-const environment = process.env.environment || 'q0';
-var token = null;
+const axios = require('axios')
+const FASIT_URL = process.env.fasit || 'https://fasit.adeo.no/api/v2/resources'
+const ENVIRONMENT = process.env.environment || 'q0'
+const OIDC_ALIAS = 'bidrag-dokument-ui-oidc'
+const FASIT_USER = process.env.fasit_user
+const FASIT_PASS = process.env.fasit_pass
+var OIDC_CLIENT_ID = null
+var OIDC_CLIENT_SECRET = null
+var OIDC_TOKEN_ENDPOINT = null
 
 function _hentToken() {
-
-    if(token) {
-        return new Promise((resolve, reject) => {
-            resolve(token)
+    return hentFasitRessurs('OpenIdConnect', OIDC_ALIAS, ENVIRONMENT)
+    .then(response => {
+        OIDC_CLIENT_ID = response.properties.agentName
+        OIDC_TOKEN_ENDPOINT = response.properties.issuerUrl
+        return axios.get(response.secrets.password.ref, {
+            auth:{username:FASIT_USER, password: FASIT_PASS}
         })
-    }
-
-    var url = process.env.OIDC_URL || 'https://isso-q.adeo.no:443/isso/oauth2/access_token';
-    var client_id = process.env.OIDC_CLIENT_ID + "-" + environment;
-    var client_secret = process.env.OIDC_CLIENT_SECRET;
-
-    if(!client_id || !client_secret) {
-        console.log('Mangler OIDC_CLIENT_ID og/eller OIDC_CLIENT_SECRET - bruker dummy-token')
-        return new Promise((resolve, reject) => {
-            resolve('dummy-token')
+    }).then(response => {
+        OIDC_CLIENT_SECRET = response;
+        return axios.post(OIDC_TOKEN_ENDPOINT, 'grant_type=client_credentials&scope=openid', {
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            auth: {
+                username: OIDC_CLIENT_ID,
+                password: OIDC_CLIENT_SECRET
+            }
         })
-    }
-
-    return axios.post(url,
-            'grant_type=client_credentials&scope=openid', {
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded'
-                },
-                auth: {
-                    username: client_id,
-                    password: client_secret
-                }
-            })
-        .then(response => {
-            console.log('bruker client_credentials access token', response.data)
-            token = response.data.id_token;
-            return token
-        })
-        .catch(err => err)
+    }).then(response => {
+        return response.data.id_token
+    }).catch(err => err)
 }
 
-function _hentUrl(data, alias) {
-    var url = null
+function _finnAlias(data, alias) {
     if (data) {
         var res = data.filter(item => {
             return item.alias == alias;
         })
         if (res && res.length == 1) {
-            url = res[0].properties.url
-            if (url && url.substr(-1) == '/' && url.length > 1) {
-                url = url.slice(0, -1);
-            }
+            return res[0]
+        }
+    }
+    return null;
+}
+
+function _hentUrl(item) {
+    var url = null
+    if (item) {
+        url = item.properties.url
+        if (url && url.substr(-1) == '/' && url.length > 1) {
+            url = url.slice(0, -1);
         }
     }
     return url;
 }
 
 function hentFasitRessurs(ftype, alias, env) {
-    console.log('hentFasitRessurs', alias, env, fasitUrl)
-    return axios.get(fasitUrl, {
+    console.log('hentFasitRessurs', alias, env, FASIT_URL)
+    return axios.get(FASIT_URL, {
             params: {
                 type: ftype,
                 alias: alias,
@@ -67,7 +66,9 @@ function hentFasitRessurs(ftype, alias, env) {
             },
             timeout: 10000
         })
-        .then(response => response)
+        .then(response => {
+            return _finnAlias(response.data, alias)
+        })
         .catch(err => err)
 }
 
@@ -82,13 +83,13 @@ function hentFasitRestUrl(alias, env) {
 
     return hentFasitRessurs('RestService', alias, env)
         .then(response => {
-            return _hentUrl(response.data, alias);
+            return _hentUrl(response);
         })
         .catch(err => err)
 }
 
 function kallFasitRestService(alias, suffix) {
-    return httpGet(alias, environment, suffix)
+    return httpGet(alias, ENVIRONMENT, suffix)
 }
 
 function httpGet(alias, env, suffix) {
