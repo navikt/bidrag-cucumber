@@ -1,30 +1,33 @@
+
 const axios = require('axios')
-const FASIT_URL = process.env.fasit || 'https://fasit.adeo.no/api/v2/resources'
+
 const ENVIRONMENT = process.env.environment || 'q0'
-const OIDC_ALIAS = 'bidrag-dokument-ui-oidc'
+const FASIT_URL = process.env.fasit || 'https://fasit.adeo.no/api/v2/resources'
 const FASIT_USER = process.env.fasit_user
 const FASIT_PASS = process.env.fasit_pass
-var OIDC_CLIENT_ID = null
-var OIDC_CLIENT_SECRET = null
-var OIDC_TOKEN_ENDPOINT = null
+const OIDC_ALIAS = process.env.oidc_alias || 'bidrag-dokument-ui-oidc'
 
 function _hentToken() {
+    var client_id = null
+    var client_secret = null
+    var token_endpoint = null
+
     return hentFasitRessurs('OpenIdConnect', OIDC_ALIAS, ENVIRONMENT)
     .then(response => {
-        OIDC_CLIENT_ID = response.properties.agentName
-        OIDC_TOKEN_ENDPOINT = response.properties.issuerUrl
+        client_id = response.properties.agentName
+        token_endpoint = response.properties.issuerUrl + "/access_token"
         return axios.get(response.secrets.password.ref, {
             auth:{username:FASIT_USER, password: FASIT_PASS}
         })
     }).then(response => {
-        OIDC_CLIENT_SECRET = response;
-        return axios.post(OIDC_TOKEN_ENDPOINT, 'grant_type=client_credentials&scope=openid', {
+        client_secret = response.data;
+        return axios.post(token_endpoint, 'grant_type=client_credentials&scope=openid', {
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded'
             },
             auth: {
-                username: OIDC_CLIENT_ID,
-                password: OIDC_CLIENT_SECRET
+                username: client_id,
+                password: client_secret
             }
         })
     }).then(response => {
@@ -100,8 +103,7 @@ function httpGet(alias, env, suffix) {
             return hentFasitRestUrl(alias, env)
         })
         .then(url => {
-            console.log('httpGet', url + suffix)
-            console.log('-- token: ' + tok)
+            console.log('httpGet', url + suffix, '[token]', tok)
             return axios.get(url + suffix, {
                 headers: {
                     Authorization: 'Bearer ' + tok
