@@ -12,7 +12,7 @@ function _hentToken() {
     }
 
     var url = process.env.OIDC_URL || 'https://isso-q.adeo.no:443/isso/oauth2/access_token';
-    var client_id = process.env.OIDC_CLIENT_ID;
+    var client_id = process.env.OIDC_CLIENT_ID + "-" + environment;
     var client_secret = process.env.OIDC_CLIENT_SECRET;
 
     if(!client_id || !client_secret) {
