@@ -1,7 +1,7 @@
 const axios = require('axios');
 const fasitUrl = process.env.fasit || 'https://fasit.adeo.no/api/v2/resources';
 const environment = process.env.environment || 'q0';
-const token = null;
+var token = null;
 
 function _hentToken() {
 
