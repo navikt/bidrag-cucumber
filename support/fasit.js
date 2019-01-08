@@ -7,6 +7,11 @@ const FASIT_USER = process.env.fasit_user
 const FASIT_PASS = process.env.fasit_pass
 const OIDC_ALIAS = process.env.oidc_alias || 'bidrag-dokument-ui-oidc'
 
+/**
+ * Henter et ID_TOKEN basert på opplysninger i fasit for gjeldende miljø.
+ * 
+ * Det må finnes en 'OpenIdConnect' record for miljøet hvor vi plukker agentName, issuerUrl og password
+ */
 function _hentToken() {
     var client_id = null
     var client_secret = null
@@ -35,6 +40,13 @@ function _hentToken() {
     }).catch(err => err)
 }
 
+/**
+ * Finner alias i en array av fasit ressurser. Fasit gjør substring-search så vi kan få flere treff på en alias
+ * til tross for at alias faktisk er unik.
+ * 
+ * @param {Array} data 
+ * @param {String} alias 
+ */
 function _finnAlias(data, alias) {
     if (data) {
         var res = data.filter(item => {
@@ -47,6 +59,11 @@ function _finnAlias(data, alias) {
     return null;
 }
 
+/**
+ * Hnenter URL prop fra properties i en fasit restservice record
+ * 
+ * @param {Restservice} item 
+ */
 function _hentUrl(item) {
     var url = null
     if (item) {
@@ -58,6 +75,13 @@ function _hentUrl(item) {
     return url;
 }
 
+/**
+ * Søker i Fasit etter ressurser med gitte kriterier
+ * 
+ * @param {String} ftype 
+ * @param {String} alias 
+ * @param {String} env 
+ */
 function hentFasitRessurs(ftype, alias, env) {
     console.log('hentFasitRessurs', alias, env, FASIT_URL)
     return axios.get(FASIT_URL, {
@@ -75,6 +99,12 @@ function hentFasitRessurs(ftype, alias, env) {
         .catch(err => err)
 }
 
+/**
+ * Kaller hentFasitRessurs og _hentUrl for å finne URL til en rest service.
+ * 
+ * @param {String} alias 
+ * @param {String} env 
+ */
 function hentFasitRestUrl(alias, env) {
     
     var override = process.env[`${alias.toUpperCase()}_URL`];
@@ -95,6 +125,13 @@ function kallFasitRestService(alias, suffix) {
     return httpGet(alias, ENVIRONMENT, suffix)
 }
 
+/**
+ * Finner en URL via oppslag i Fasit og gjør deretter kall til tjenesten med et bearer token.
+ * 
+ * @param {String} alias 
+ * @param {String} env 
+ * @param {String} suffix 
+ */
 function httpGet(alias, env, suffix) {
     var tok = "";
     return _hentToken(alias)
