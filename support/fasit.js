@@ -1,12 +1,11 @@
 const axios = require('axios');
 const fasitUrl = process.env.fasit || 'https://fasit.adeo.no/api/v2/resources';
 const environment = process.env.environment || 'q0';
-const token = process.env.OIDC_TOKEN;
+const token = null;
 
 function _hentToken() {
 
     if(token) {
-        console.log('bruker OIDC_TOKEN fra env var', token);
         return new Promise((resolve, reject) => {
             resolve(token)
         })
@@ -35,7 +34,8 @@ function _hentToken() {
             })
         .then(response => {
             console.log('bruker client_credentials access token', response.data)
-            return response.data.access_token
+            token = response.data.id_token;
+            return token
         })
         .catch(err => err)
 }
