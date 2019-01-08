@@ -100,6 +100,7 @@ function httpGet(alias, env, suffix) {
         })
         .then(url => {
             console.log('httpGet', url + suffix)
+            console.log('-- token: ' + tok)
             return axios.get(url + suffix, {
                 headers: {
                     Authorization: 'Bearer ' + tok
