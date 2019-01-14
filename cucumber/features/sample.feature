@@ -1,13 +1,20 @@
 Feature: bidrag-dokument-cucumber fasit API
 
-    Tester REST API til journalpost endepunktet i bidrag-dokument.
-    URLer til tjenester hentes via fasit.adeo.no og gjøres ved å spesifisere
-    alias til en RestService record i fasit for et gitt miljø.
-
-    Background: Spesifiser base-url til tjenesten her så vi slipper å gjenta for hvert scenario.
-        Given restservice 'bidragJournalpost' i 'q0'
+    Tester REST API til fasit og sjekker at vi får gyldig token
 
     Scenario: Sjekk at vi får et gyldig id_token i 'q0'
         When jeg ber om et token fra 'q0'
-        Then statuskoden skal være '201'
+        Then skal token være gyldig
+        And token skal ha følgende properties:
+	    | aud | bidrag-dokument-ui-q0 |
+	    | sub | bidrag-dokument-ui-q0 |
+	    | tokenType | JWTToken |
+
+    Scenario: Sjekk at vi får et gyldig id_token i 't0'
+        When jeg ber om et token fra 't0'
+        Then skal token være gyldig
+        And token skal ha følgende properties:
+	    | aud | bidrag-dokument-ui-t0 |
+	    | sub | bidrag-dokument-ui-t0 |
+	    | tokenType | JWTToken |
 
