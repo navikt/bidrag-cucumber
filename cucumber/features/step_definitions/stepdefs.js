@@ -16,6 +16,7 @@ When('jeg ber om et token fra {string}', function (env, done) {
     console.log("Henter token for env", env)
     hentToken(env)
         .then(response => {
+            console.log("RAW TOKEN", response)
             this.token = response;
             this.tokenJwt = jwt.decode(this.token)
             console.log("ENV TOKEN " + env, this.tokenJwt)
