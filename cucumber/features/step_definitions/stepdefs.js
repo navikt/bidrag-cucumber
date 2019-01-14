@@ -18,9 +18,11 @@ When('jeg ber om et token fra {string}', function (env, done) {
         .then(response => {
             this.token = response;
             this.tokenJwt = jwt.decode(this.token)
+            console.log("ENV TOKEN " + env, this.tokenJwt)
             done()
         })
         .catch(err => {
+            console.log("ERROR", err)
             this.error = err;
             this.response = null;
             done()
