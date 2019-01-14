@@ -7,7 +7,8 @@ const {
 } = require('cucumber');
 
 const {
-    httpGet
+    httpGet,
+    _hentToken
 } = require('/support/fasit')
 
 Given('restservice {string} i {string}', function (alias, env) {
@@ -26,6 +27,20 @@ When('jeg gjør get {string}', function (suffix, done) {
             done()
         })
         .catch(err => {
+            this.error = err;
+            this.response = null;
+            done()
+        })
+});
+
+When('jeg ber om et token fra {string}', function(env, done) {
+    _hentToken(env)
+        .then(response => {
+            this.response = response;
+            done()
+        })
+        .catch(err => {
+            console.log(err)
             this.error = err;
             this.response = null;
             done()

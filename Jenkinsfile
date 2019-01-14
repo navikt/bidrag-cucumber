@@ -16,4 +16,11 @@ node {
         sh "docker build -t ${application} ."
     }
 
+    stage("#3 Test FASIT API") {
+        println("[INFO] Run cucumber tests")
+        withCredentials([usernamePassword(credentialsId: 'nexusCredentials', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
+            sh "docker run --rm -e fasit_user=${env.USERNAME} -e fasit_pass='${env.PASSWORD}' -e environment=${environment} -v ${env.WORKSPACE}/cucumber:/cucumber bidrag-dokument-cucumber"
+        }
+    }
+
 }
