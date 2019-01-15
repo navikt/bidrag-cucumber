@@ -5,7 +5,7 @@ node {
     stage("#1: Checkout code") {
         cleanWs()
 
-        withCredentials([usernamePassword(credentialsId: 'jenkinsPipeline', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']) {
+        withCredentials([usernamePassword(credentialsId: 'jenkinsPipeline', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
             withEnv(['HTTPS_PROXY=http://webproxy-utvikler.nav.no:8088']) {
                 sh(script: "git clone https://${USERNAME}:${PASSWORD}@github.com/${repo}/${application}.git .")
             }
