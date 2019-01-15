@@ -2,11 +2,12 @@ node {
    def repo = "navikt"
    def application = "bidrag-dokument-cucumber"
  
-    stage("#1: checkout code") {
+    stage("#1: Checkout code") {
         cleanWs()
-        withCredentials([string(credentialsId: 'OAUTH_TOKEN', variable: 'token')]) {
+
+        withCredentials([usernamePassword(credentialsId: 'jenkinsPipeline', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']) {
             withEnv(['HTTPS_PROXY=http://webproxy-utvikler.nav.no:8088']) {
-                sh(script: "git clone https://${token}:x-oauth-basic@github.com/${repo}/${application}.git .")
+                sh(script: "git clone https://${USERNAME}:${PASSWORD}@github.com/${repo}/${application}.git .")
             }
         }
     }
@@ -16,7 +17,7 @@ node {
         sh "docker build -t ${application} ."
     }
 
-    stage("#3 Test FASIT API") {
+    stage("#3 Cucumber tests") {
         println("[INFO] Run cucumber tests")
         withCredentials([usernamePassword(credentialsId: 'naisUploader', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
             sh "docker run --rm -e fasit_user=${env.USERNAME} -e fasit_pass='${env.PASSWORD}' -v ${env.WORKSPACE}/cucumber:/cucumber bidrag-dokument-cucumber"
