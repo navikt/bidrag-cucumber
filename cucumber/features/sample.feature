@@ -10,11 +10,19 @@ Feature: bidrag-dokument-cucumber fasit API
             | sub       | bidrag-dokument-ui-q0 |
             | tokenType | JWTToken              |
 
-    Scenario: Sjekk at vi får et gyldig id_token i 't0'
-        When jeg ber om et token fra 't0'
+    Scenario: Sjekk at vi får et gyldig id_token i 'q1'
+        When jeg ber om et token fra 'q1'
         Then skal token være gyldig
         And token skal ha følgende properties:
-            | aud       | bidrag-dokument-ui-t0 |
-            | sub       | bidrag-dokument-ui-t0 |
+            | aud       | bidrag-dokument-ui-q1 |
+            | sub       | bidrag-dokument-ui-q1 |
+            | tokenType | JWTToken              |
+
+    Scenario: Sjekk at vi får et gyldig id_token i 'q4'
+        When jeg ber om et token fra 'q4'
+        Then skal token være gyldig
+        And token skal ha følgende properties:
+            | aud       | bidrag-dokument-ui-q4 |
+            | sub       | bidrag-dokument-ui-q4 |
             | tokenType | JWTToken              |
 
