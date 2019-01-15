@@ -22,6 +22,19 @@ node {
         withCredentials([usernamePassword(credentialsId: 'naisUploader', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
             sh "docker run --rm -e fasit_user=${env.USERNAME} -e fasit_pass='${env.PASSWORD}' -v ${env.WORKSPACE}/cucumber:/cucumber bidrag-dokument-cucumber"
         }
+
+        if(fileExists('cucumber/cucumber.json')) {
+            cucumber buildStatus: 'UNSTABLE',
+                fileIncludePattern: 'cucumber/*.json',
+                trendsLimit: 10,
+                classifications: [
+                        [
+                                'key'  : 'Browser',
+                                'value': 'Firefox'
+                        ]
+                ]
+        }
+
     }
 
 }
