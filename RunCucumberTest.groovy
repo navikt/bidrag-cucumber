@@ -1,7 +1,7 @@
 node {
    def repo = "navikt"
-   def application = ${env.Application}
-   def branch = ${env.Branch}
+   def application = env.Application
+   def branch = env.Branch
  
     stage("#1: Checkout code") {
         cleanWs()
