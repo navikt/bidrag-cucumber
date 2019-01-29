@@ -6,7 +6,7 @@ node {
     stage("#1: Checkout code") {
         cleanWs()
 
-        println "[INFO] Application = ${application}, branch = ${branch}"
+        println("[INFO] Application = ${application}, branch = ${branch}")
 
         withCredentials([usernamePassword(credentialsId: 'jenkinsPipeline', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
             withEnv(['HTTPS_PROXY=http://webproxy-utvikler.nav.no:8088']) {
