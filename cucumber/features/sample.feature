@@ -1,4 +1,4 @@
-Feature: bidrag-dokument-cucumber fasit API
+Feature: bidrag-cucumber fasit API
 
     Tester REST API til fasit og sjekker at vi får gyldig token
 
