@@ -29,7 +29,7 @@ node {
 
     stage("#4 Create reports") {
         cucumber buildStatus: 'UNSTABLE',
-            fileIncludePattern: 'cucumber/${application}/*.json',
+            fileIncludePattern: '${env.WORKSPACE}/cucumber/${application}/*.json',
             trendsLimit: 10
     }
 
