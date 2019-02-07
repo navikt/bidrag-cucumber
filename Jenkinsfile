@@ -23,7 +23,7 @@ node {
     stage("#3 Cucumber tests") {
         println("[INFO] Run cucumber tests for ${application}")
         withCredentials([usernamePassword(credentialsId: 'naisUploader', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
-            sh "docker run --rm -e fasit_user=${env.USERNAME} -e fasit_pass='${env.PASSWORD}' -v "${env.WORKSPACE}/cucumber/${application}":/cucumber bidrag-cucumber"
+            sh "docker run --rm -e fasit_user=${env.USERNAME} -e fasit_pass='${env.PASSWORD}' -v '${env.WORKSPACE}/cucumber/${application}':/cucumber bidrag-cucumber"
         }
 
         if(fileExists('cucumber/${application}/cucumber.json')) {
