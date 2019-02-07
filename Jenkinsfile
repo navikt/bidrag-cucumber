@@ -1,6 +1,6 @@
 node {
    def repo = "navikt"
-   def application = "bidrag-dokument-cucumber"
+   def application = "bidrag-cucumber"
  
     stage("#1: Checkout code") {
         cleanWs()
@@ -20,7 +20,7 @@ node {
     stage("#3 Cucumber tests") {
         println("[INFO] Run cucumber tests")
         withCredentials([usernamePassword(credentialsId: 'naisUploader', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
-            sh "docker run --rm -e fasit_user=${env.USERNAME} -e fasit_pass='${env.PASSWORD}' -v ${env.WORKSPACE}/cucumber:/cucumber bidrag-dokument-cucumber"
+            sh "docker run --rm -e fasit_user=${env.USERNAME} -e fasit_pass='${env.PASSWORD}' -v ${env.WORKSPACE}/cucumber:/cucumber bidrag-cucumber"
         }
 
         if(fileExists('cucumber/cucumber.json')) {
