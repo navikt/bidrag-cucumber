@@ -10,8 +10,9 @@ Feature: bidrag-sak REST API
 
     Scenario: Sjekk at health endpoint er operativt
         When jeg kaller status endpoint
-        Then skal tjenesten returnere 'OK'
-        And statuskoden skal være '200'
+        Then statuskoden skal være '200'
+        And header 'content-type' skal være 'application/json;charset=UTF-8'
+        And skal tjenesten returnere 'status' = 'UP' i payload
 
     Scenario: Sjekk at vi får bidragssaker som involverer person angitt
         When jeg henter bidragssaker for person med fnr "10099447805"

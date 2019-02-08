@@ -37,7 +37,10 @@ function hentToken(env) {
         })
     }).then(response => {
         return response.data.id_token
-    }).catch(err => err)
+    }).catch(err => {
+	console.log("ERROR", err)
+	throw err
+    })
 }
 
 /**
@@ -47,10 +50,10 @@ function hentToken(env) {
  * @param {Array} data 
  * @param {String} alias 
  */
-function _finnAlias(data, alias) {
+function _finnAlias(data, alias, env) {
     if (data) {
         var res = data.filter(item => {
-            return item.alias == alias;
+            return item.alias == alias && item.scope && item.scope.environment == env;
         })
         if (res && res.length == 1) {
             return res[0]
@@ -94,9 +97,11 @@ function hentFasitRessurs(ftype, alias, env) {
             timeout: 10000
         })
         .then(response => {
-            return _finnAlias(response.data, alias)
+            return _finnAlias(response.data, alias, env)
         })
-        .catch(err => err)
+        .catch(err => {
+	    console.log("ERRORX", err)
+	})
 }
 
 /**
@@ -134,13 +139,13 @@ function kallFasitRestService(alias, suffix) {
  */
 function httpGet(alias, env, suffix) {
     var tok = "";
-    return hentToken()
+    return hentToken(env)
         .then(token => {
             tok = token;
             return hentFasitRestUrl(alias, env)
         })
         .then(url => {
-            console.log('httpGet', url + suffix, '[token]', tok)
+            console.log('httpGet', url + suffix)
             return axios.get(url + suffix, {
                 headers: {
                     Authorization: 'Bearer ' + tok
