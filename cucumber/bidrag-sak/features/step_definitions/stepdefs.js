@@ -92,7 +92,7 @@ Then('header {string} skal være {string}', function (hdr, value) {
 Then('skal tjenesten returnere {string} = {string} i payload', function (prop, value) {
    assert(this.response != null, 'Response er null')
    assert(this.response.data != null, 'Response mangler data')
-   assert(this.response.data[prop] == value, `Forventet '${value}' fant '${this.response.data[prop]}'`)
+   assert(this.response.data[prop] == 'value', `Forventet '${value}' fant '${this.response.data[prop]}'`)
 });
 
 
