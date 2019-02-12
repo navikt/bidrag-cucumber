@@ -1,14 +1,7 @@
 const assert = require('assert');
 const util = require('util');
-const {
-    Given,
-    When,
-    Then
-} = require('cucumber');
-
-const {
-    kallFasitRestService
-} = require('/support/fasit')
+const { Given, When, Then } = require('cucumber');
+const { kallFasitRestService } = require('/support/fasit')
 
 /** Felles rutiner for alle tjenester */
 

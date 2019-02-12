@@ -159,7 +159,6 @@ function httpGet(alias, env, suffix) {
 
 /**
  * Cucumber report forventer base64 encoded data i attachments/embeddings
- * Må kalles fra step slik at vi har tilgang til World (this).
  * 
  * @param {String} str 
  */
@@ -167,12 +166,39 @@ function toB64(str) {
     return base64encode(str);
 }
 
+/**
+ * Legg ved JSON payload til cucumber embeddings
+ * 
+ * @param {Object} world 
+ * @param {JSONObject} json 
+ */
+function attachJSON(world, json) {
+    try {
+        attachText(world, toB64(JSON.stringify(json, null, 4)))
+    } catch(e) {
+        attachText('attachJSON: ' + e)
+    }
+}
+
+/**
+ * Legg ved text til cucumber embeddings
+ * 
+ * @param {Object} world 
+ * @param {String} text
+ */
+function attachText(world, text) {
+    world.attach(text)
+}
+
+
 module.exports = {
     hentToken,
     httpGet,
     hentFasitRessurs,
     hentFasitRestUrl,
     kallFasitRestService,
-    toB64
+    toB64,
+    attachJSON,
+    attachText
 };
 
