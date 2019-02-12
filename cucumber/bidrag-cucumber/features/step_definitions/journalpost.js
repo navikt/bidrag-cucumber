@@ -18,54 +18,53 @@ function sakSuffix(saksnummer, fagomrade) {
     return util.format("/sak/%s?fagomrade=%s", saksnummer, fagomrade)
 }
 
-Given('restservice {string}', alias => {
-    this.alias = alias;
-});
-
-When('jeg henter journalposter for sak {string} med fagområde {string}', async (saksnummer, fagomrade) => {
+When('jeg henter journalposter for sak {string} med fagområde {string}', function(saksnummer, fagomrade, done) {
     pathAndParam = sakSuffix(saksnummer, fagomrade)
     console.log("henter journalposter", this.alias, pathAndParam)
-    this.response = await kallFasitRestService(this.alias, pathAndParam)
-    assert(this.response != null, "Intet svar mottatt fra tjenesten")
-    assert(undefined === this.response.errno, "Feilmelding: " + this.response.errno);
+    kallFasitRestService(this.alias, pathAndParam)
+        .then(response => {
+            this.response = response
+            assert(this.response != null, "Intet svar mottatt fra tjenesten")
+            assert(undefined === this.response.errno, "Feilmelding: " + this.response.errno);
+            done()
+        })
+        .catch(err => {
+            done(err)
+        })
 });
 
-When('jeg henter journalpost for id {string}', async journalpostId => {
-    this.response = await kallFasitRestService(this.alias, journalpostSuffix(journalpostId))
+When('jeg henter journalpost for id {string}', function(journalpostId) {
+    kallFasitRestService(this.alias, journalpostSuffix(journalpostId))
+        .then(response => {
+            this.response = response
+            done()
+        })
+        .catch(err => {
+            done(err)
+        })
 });
 
-Then('skal tjenesten returnere {string}', body => {
-    assert.ok(this.response != null, "response er null")
-    var r = this.response.response ? this.response.response : this.response;
-    assert.equal(r.data, body, util.format("forventet '%s' fikk '%s'", body, r.data));
-})
 
-Then('statuskoden skal være {string}', status => {
-    assert.ok(this.response != null, "response er null")
-    var r = this.response.response ? this.response.response : this.response;
-    assert.ok(r.status == status, r.status + " " + r.statusText)
-});
-
-Then('skal resultatet være en liste med journalposter', () => {
+Then('skal resultatet være en liste med journalposter', function() {
     assert.ok(Array.isArray(this.response.data), "resultatet er ikke en liste: " + JSON.stringify(this.list));
 });
 
-Then('hver journalpost i listen skal ha saksnummer {string} i {string} feltet', (saksnummer, prop) => {
+Then('hver journalpost i listen skal ha saksnummer {string} i {string} feltet', function(saksnummer, prop) {
     var arr = this.response.data.filter(jp => jp[prop] == saksnummer);
     assert.ok(arr.length == this.response.data.length, "Det finnes forskjellige saksnummer i listen!")
 });
 
-Then('{string} skal være {string}', (prop, fagomradeString) => {
+Then('{string} skal være {string}', function(prop, fagomradeString) {
     var arr = this.response.data.filter(jp => jp[prop] == fagomradeString);
     assert.ok(arr.length == this.response.data.length, "Det finnes forskjellige fagområder i listen!")
 });
 
-Then('objektet skal inneholde følgende verdier', (data) => {
+Then('objektet skal inneholde følgende verdier', function(data) {
     var expected = JSON.parse(data)
     assert.deepEqual(this.response.data, expected, "Objektene er forskjellige");
 })
 
-Then('journalposten skal ha følgende properties:', (table) => {
+Then('journalposten skal ha følgende properties:', function(table) {
     var jp = this.response.data;
     var missing = []
     table.rawTable.forEach(item => {
@@ -76,7 +75,7 @@ Then('journalposten skal ha følgende properties:', (table) => {
     assert.equal(missing.length, 0, "Mangler properties: " + missing.join(","));
 })
 
-Then('journalposten sitt dokument skal ha følgende properties:', (table) => {
+Then('journalposten sitt dokument skal ha følgende properties:', function(table) {
     var jp = this.response.data.dokumenter[0];
     var missing = []
     table.rawTable.forEach(item => {
