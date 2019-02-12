@@ -10,6 +10,11 @@ const {
     kallFasitRestService
 } = require('/support/fasit')
 
+const {
+    attachString
+} = require('/support/utils')
+
+
 function journalpostSuffix(saksnummer, fagomrade) {
     return util.format("/sakjournal/%s?fagomrade=%s", saksnummer, fagomrade)
 }

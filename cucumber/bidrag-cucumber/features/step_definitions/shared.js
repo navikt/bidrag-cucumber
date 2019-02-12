@@ -12,15 +12,6 @@ const {
     kallFasitRestService
 } = require('/support/fasit')
 
-/**
- * Cucumber report forventer base64 encoded data i attachments/embeddings
- * 
- * @param {String} str 
- */
-function attachString(str) {
-    this.attach(base64encode(str), 'text/plain')
-}
-
 /** Felles rutiner for alle tjenester */
 
 
