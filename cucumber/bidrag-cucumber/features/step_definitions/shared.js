@@ -1,7 +1,7 @@
 const assert = require('assert');
 const util = require('util');
 const { Given, When, Then } = require('cucumber');
-const { kallFasitRestService, attachText } = require('/support/fasit')
+const { kallFasitRestService, attachText, attachJSON } = require('/support/fasit')
 
 /** Felles rutiner for alle tjenester */
 
@@ -98,7 +98,7 @@ Then('hvert element i listen skal ha {string} = {string}', function(prop, feltve
  * Sjekk at resultatet er et object (e.g ikke null eller Array)
  * 
  */
-Then('skal resultatet være et objekt', function() {
+Then('resultatet skal være et objekt', function() {
     assert(this.response != null, 'Response er null')
     assert(this.response.data != null, 'Response mangler data')
     assert.ok(!Array.isArray(this.response.data), "resultatet er en liste")
