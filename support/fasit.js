@@ -1,6 +1,8 @@
 
 const axios = require('axios')
 
+const { base64encode } = require('nodejs-base64')
+
 const ENVIRONMENT = process.env.environment || 'q0'
 const FASIT_URL = process.env.fasit || 'https://fasit.adeo.no/api/v2/resources'
 const FASIT_USER = process.env.fasit_user
@@ -155,10 +157,26 @@ function httpGet(alias, env, suffix) {
         .catch(err => err)
 }
 
+/**
+ * Cucumber report forventer base64 encoded data i attachments/embeddings
+ * Må kalles fra step slik at vi har tilgang til World (this).
+ * 
+ * @param {String} str 
+ */
+function toB64(str) {
+    return base64encode(str);
+}
+
 module.exports = {
     hentToken,
     httpGet,
     hentFasitRessurs,
     hentFasitRestUrl,
-    kallFasitRestService
+    kallFasitRestService,
+    toB64
 };
+
+
+module.exports = {
+};
+

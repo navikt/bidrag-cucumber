@@ -7,12 +7,9 @@ const {
 } = require('cucumber');
 
 const {
-    kallFasitRestService
-} = require('/support/fasit')
-
-const {
+    kallFasitRestService,
     toB64
-} = require('/support/utils')
+} = require('/support/fasit')
 
 
 function journalpostSuffix(saksnummer, fagomrade) {
@@ -44,7 +41,7 @@ Then('hver journalpost i listen skal ha {string} {string}', function(prop, feltv
     console.log('hver journalpost i listen', this.response)
     assert.ok(this.response != null, "Response er null")
     assert.ok(this.response.data != null, "Response.data er null")
-    this.attach(toB64(JSON.stringify(this.response.data)))
+    this.attach(toB64(JSON.stringify(this.response.data, null, 4)))
     var arr = this.response.data.filter(jp => jp[prop] == feltverdi);
     assert.ok(arr.length == this.response.data.length, "Det finnes forskjellige saksnummer i listen!")
 });
