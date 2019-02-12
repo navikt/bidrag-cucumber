@@ -50,7 +50,6 @@ Then('hver rad i listen skal ha følgende properties satt:', function(table) {
 })
 
 When('jeg kaller status endpoint', function(done) {
-    attach("Kaller /actuator/health endpoint")
     kallFasitRestService(this.alias, "/actuator/health")
         .then(response => {
             this.response = response;
