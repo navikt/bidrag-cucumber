@@ -47,7 +47,6 @@ Then('hver rad i listen skal ha følgende properties satt:', function(table) {
 
 When('jeg kaller status endpoint', function(done) {
     console.log("Kaller /status endpoint")
-    this.response = await 
     kallFasitRestService(this.alias, "/status")
         .then(response => {
             this.response = response;
