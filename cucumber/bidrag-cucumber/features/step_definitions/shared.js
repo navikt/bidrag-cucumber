@@ -59,3 +59,12 @@ When('jeg kaller status endpoint', function(done) {
         })
 })
 
+Then('header {string} skal være {string}', function (hdr, value) {
+    assert(this.response != null, 'Response er null')
+    var headerValue = this.response.headers[hdr]
+    assert(headerValue != null, `Header ${hdr} er ikke i respons`)
+    assert(headerValue == value, `Forventet ${value} fant '${headerValue}'`)
+ });
+ 
+ 
+
