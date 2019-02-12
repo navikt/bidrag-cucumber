@@ -11,13 +11,13 @@ Feature: bidrag-dokument REST API
     Scenario: Sjekk at vi får en liste med journalposter for en gitt sak
         When jeg henter journalposter for sak "0000003" med fagområde "BID"
         Then statuskoden skal være '200'
-        And skal resultatet være en liste med journalposter
+        And skal resultatet være en liste
         And hver journalpost i listen skal ha saksnummer '0000003' i 'saksnummer' feltet
 
     Scenario: Sjekk at vi får en journalpost for et farskap på gitt sak
         When jeg henter journalposter for sak "0603479" med fagområde "FAR"
         Then statuskoden skal være '200'
-        And skal resultatet være en liste med journalposter
+        And skal resultatet være en liste
         And hver journalpost i listen skal ha saksnummer '0603479' i 'saksnummer' feltet
         And "fagomrade" skal være "FAR"
 

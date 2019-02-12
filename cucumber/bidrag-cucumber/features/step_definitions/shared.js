@@ -46,8 +46,8 @@ Then('hver rad i listen skal ha følgende properties satt:', function(table) {
 })
 
 When('jeg kaller status endpoint', function(done) {
-    console.log("Kaller /status endpoint")
-    kallFasitRestService(this.alias, "/status")
+    this.attach("Kaller /actuator/health endpoint")
+    kallFasitRestService(this.alias, "/actuator/health")
         .then(response => {
             this.response = response;
             assert(this.response != null, "Intet svar mottatt fra tjenesten")
@@ -59,12 +59,20 @@ When('jeg kaller status endpoint', function(done) {
         })
 })
 
-Then('header {string} skal være {string}', function (hdr, value) {
+ Then('header {string} skal være {string}', function (hdr, value) {
     assert(this.response != null, 'Response er null')
     var headerValue = this.response.headers[hdr]
     assert(headerValue != null, `Header ${hdr} er ikke i respons`)
     assert(headerValue == value, `Forventet ${value} fant '${headerValue}'`)
  });
  
+ Then('skal tjenesten returnere {string} = {string} i payload', function (prop, value) {
+    assert(this.response != null, 'Response er null')
+    assert(this.response.data != null, 'Response mangler data')
+    assert(this.response.data[prop] == value, `Forventet '${value}' fant '${this.response.data[prop]}'`)
+ });
  
+ Then('skal resultatet være en liste', function() {
+    assert.ok(Array.isArray(this.response.data), "resultatet er ikke en liste: " + JSON.stringify(this.list));
+});
 

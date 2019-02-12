@@ -29,10 +29,6 @@ When('jeg henter journalposter for sak {string} på fagområdet {string}', funct
         })
 });
 
-Then('skal resultatet være en liste med journalposter', function() {
-    assert.ok(Array.isArray(this.response.data), "resultatet er ikke en liste: " + JSON.stringify(this.list));
-});
-
 Then('skal resultatet være et journalpost objekt', function() {
     var data = this.response ? this.response.data : null;
     assert.ok(data != null, "posten finnes ikke");

@@ -33,7 +33,7 @@ When('jeg henter journalposter for sak {string} med fagområde {string}', functi
         })
 });
 
-When('jeg henter journalpost for id {string}', function(journalpostId) {
+When('jeg henter journalpost for id {string}', function(journalpostId, done) {
     kallFasitRestService(this.alias, journalpostSuffix(journalpostId))
         .then(response => {
             this.response = response
@@ -44,10 +44,6 @@ When('jeg henter journalpost for id {string}', function(journalpostId) {
         })
 });
 
-
-Then('skal resultatet være en liste med journalposter', function() {
-    assert.ok(Array.isArray(this.response.data), "resultatet er ikke en liste: " + JSON.stringify(this.list));
-});
 
 Then('hver journalpost i listen skal ha saksnummer {string} i {string} feltet', function(saksnummer, prop) {
     var arr = this.response.data.filter(jp => jp[prop] == saksnummer);
