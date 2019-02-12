@@ -36,6 +36,10 @@ Then('skal resultatet være et journalpost objekt', function() {
 });
 
 Then('hver journalpost i listen skal ha {string} {string}', (prop, feltverdi) => {
+    console.log('hver journalpost i listen', this.response)
+    assert.ok(this.response != null, "Response er null")
+    this.attach(JSON.stringify(this.response), "application/json")
+    assert.ok(this.response.data != null, "Response.data er null")
     var arr = this.response.data.filter(jp => jp[prop] == feltverdi);
     assert.ok(arr.length == this.response.data.length, "Det finnes forskjellige saksnummer i listen!")
 });
