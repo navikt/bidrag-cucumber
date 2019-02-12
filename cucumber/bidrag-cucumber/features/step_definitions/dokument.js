@@ -39,8 +39,7 @@ Then('hver journalpost i listen skal ha {string} {string}', function(prop, feltv
     console.log('hver journalpost i listen', this.response)
     assert.ok(this.response != null, "Response er null")
     assert.ok(this.response.data != null, "Response.data er null")
-    this.attach("aGVsbG8gd29ybGQK", "text/plain")
-    this.attach(JSON.stringify(this.response.data), "text/plain")
+    attachString(JSON.stringify(this.response.data))
     var arr = this.response.data.filter(jp => jp[prop] == feltverdi);
     assert.ok(arr.length == this.response.data.length, "Det finnes forskjellige saksnummer i listen!")
 });

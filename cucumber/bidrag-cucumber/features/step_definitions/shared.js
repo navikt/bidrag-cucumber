@@ -6,9 +6,22 @@ const {
     Then
 } = require('cucumber');
 
+const { base64encode } = require('nodejs-base64')
+
 const {
     kallFasitRestService
 } = require('/support/fasit')
+
+/**
+ * Cucumber report forventer base64 encoded data i attachments/embeddings
+ * 
+ * @param {String} str 
+ */
+function attachString(str) {
+    this.attach(base64encode(str), 'text/plain')
+}
+
+/** Felles rutiner for alle tjenester */
 
 
 Given('restservice {string}', function(alias) {
@@ -46,7 +59,7 @@ Then('hver rad i listen skal ha følgende properties satt:', function(table) {
 })
 
 When('jeg kaller status endpoint', function(done) {
-    this.attach("Kaller /actuator/health endpoint")
+    attach("Kaller /actuator/health endpoint")
     kallFasitRestService(this.alias, "/actuator/health")
         .then(response => {
             this.response = response;
