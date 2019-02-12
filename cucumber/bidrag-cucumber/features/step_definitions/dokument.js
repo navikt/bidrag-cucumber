@@ -11,7 +11,7 @@ const {
 } = require('/support/fasit')
 
 const {
-    attachString
+    toB64
 } = require('/support/utils')
 
 
@@ -44,7 +44,7 @@ Then('hver journalpost i listen skal ha {string} {string}', function(prop, feltv
     console.log('hver journalpost i listen', this.response)
     assert.ok(this.response != null, "Response er null")
     assert.ok(this.response.data != null, "Response.data er null")
-    attachString(JSON.stringify(this.response.data))
+    this.attach(toB64(JSON.stringify(this.response.data)))
     var arr = this.response.data.filter(jp => jp[prop] == feltverdi);
     assert.ok(arr.length == this.response.data.length, "Det finnes forskjellige saksnummer i listen!")
 });

@@ -6,10 +6,10 @@ const { base64encode } = require('nodejs-base64')
  * 
  * @param {String} str 
  */
-function attachString(str) {
-    this.attach(base64encode(str), 'text/plain')
+function toB64(str) {
+    return base64encode(str);
 }
 
 module.exports = {
-    attachString
+    toB64
 };
