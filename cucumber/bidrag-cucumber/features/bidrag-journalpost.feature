@@ -7,7 +7,8 @@ Feature: bidrag-journalpost /journalpost REST API
     Scenario: Sjekk at vi får en journalpost for en gitt journalpostId
         When jeg henter journalpost for id "19650256"
         Then statuskoden skal være '200'
-        And journalposten skal ha følgende properties:
+        And resultatet skal være et objekt
+        And objektet skal ha følgende properties:
             | avsenderNavn      |
             | dokumentDato      |
             | dokumenter        |

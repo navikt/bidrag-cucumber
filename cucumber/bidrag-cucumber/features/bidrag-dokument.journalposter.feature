@@ -10,21 +10,22 @@ Feature: bidrag-dokument journalposter REST API
 
     Scenario: Sjekk at health endpoint er operativt
         When jeg kaller status endpoint
-        Then skal tjenesten returnere 'status' = 'UP' i payload
+        Then resultatet skal være et objekt
+        And objektet skal ha 'status' = 'UP'
         And statuskoden skal være '200'
 
     Scenario: Sjekk at vi får en liste med journalposter på fagområdet
         When jeg henter journalposter for sak "0000003" på fagområdet "BID"
         Then statuskoden skal være '200'
         And skal resultatet være en liste
-        And hver journalpost i listen skal ha 'saksnummer' '0000003'
-        And hver journalpost i listen skal ha 'fagomrade' 'BID'
+        And hvert element i listen skal ha 'saksnummer' = '0000003'
+        And hvert element i listen skal ha 'fagomrade' = 'BID'
 
     Scenario: Sjekk innholdet av en enkelt journalpost i bidrag
         When jeg henter journalposter for sak "0000003" på fagområdet "BID"
         Then statuskoden skal være '200'
         And skal resultatet være en liste
-        And hver rad i listen skal ha følgende properties satt:
+        And hvert element i listen skal ha følgende properties satt:
             | fagomrade   |
             | dokumenter  |
             | saksnummer  |

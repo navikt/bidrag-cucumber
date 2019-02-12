@@ -12,12 +12,13 @@ Feature: bidrag-sak REST API
         When jeg kaller status endpoint
         Then statuskoden skal være '200'
         And header 'content-type' skal være 'application/json;charset=UTF-8'
-        And skal tjenesten returnere 'status' = 'UP' i payload
+        And resultatet skal være et objekt
+        And objektet skal ha 'status' = 'UP'
 
     Scenario: Sjekk at vi får bidragssaker som involverer person angitt
         When jeg henter bidragssaker for person med fnr "10099447805"
         Then statuskoden skal være '200'
-        And hver rad i listen skal ha følgende properties satt:
+        And hvert element i listen skal ha følgende properties satt:
             | roller     |
             | eierfogd   |
             | saksnummer |

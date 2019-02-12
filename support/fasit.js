@@ -174,7 +174,7 @@ function toB64(str) {
  */
 function attachJSON(world, json) {
     try {
-        attachText(world, toB64(JSON.stringify(json, null, 4)))
+        attachText(world, JSON.stringify(json, null, 4))
     } catch(e) {
         attachText('attachJSON: ' + e)
     }
@@ -187,7 +187,7 @@ function attachJSON(world, json) {
  * @param {String} text
  */
 function attachText(world, text) {
-    world.attach(text)
+    world.attach(toB64(text))
 }
 
 

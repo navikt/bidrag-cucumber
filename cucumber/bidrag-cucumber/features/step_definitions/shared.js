@@ -1,7 +1,7 @@
 const assert = require('assert');
 const util = require('util');
 const { Given, When, Then } = require('cucumber');
-const { kallFasitRestService } = require('/support/fasit')
+const { kallFasitRestService, attachText } = require('/support/fasit')
 
 /** Felles rutiner for alle tjenester */
 
@@ -27,16 +27,18 @@ Then('objektet skal inneholde følgende verdier', function(data) {
     assert.deepEqual(this.response.data, expected, "Objektene er forskjellige");
 })
 
-Then('hver rad i listen skal ha følgende properties satt:', function(table) {
+Then('hvert element i listen skal ha følgende properties satt:', function(table) {
     var missing = [];
     this.response.data.forEach(row => {
         table.rawTable.forEach(item => {
             if (!row[item[0]]) {
-                console.log("-- mangler", item[0], "i", row)
                 missing.push(item[0])
             }
         })
     })
+    if(missing.length > 0) {
+        attachText(this, "Mangler: " + missing.join(","))
+    }
     assert.ok(missing.length == 0, "Properties mangler: " + missing.join(","))
 })
 
@@ -53,20 +55,77 @@ When('jeg kaller status endpoint', function(done) {
         })
 })
 
- Then('header {string} skal være {string}', function (hdr, value) {
+/**
+ * Sjekker at http header i response inneholder gitt header/verdi
+ * 
+ */
+Then('header {string} skal være {string}', function (hdr, value) {
     assert(this.response != null, 'Response er null')
     var headerValue = this.response.headers[hdr]
     assert(headerValue != null, `Header ${hdr} er ikke i respons`)
     assert(headerValue == value, `Forventet ${value} fant '${headerValue}'`)
- });
- 
- Then('skal tjenesten returnere {string} = {string} i payload', function (prop, value) {
+});
+
+Then('objektet skal ha {string} = {string}', function (prop, value) {
     assert(this.response != null, 'Response er null')
     assert(this.response.data != null, 'Response mangler data')
     assert(this.response.data[prop] == value, `Forventet '${value}' fant '${this.response.data[prop]}'`)
- });
+});
  
- Then('skal resultatet være en liste', function() {
+/**
+ * Sjekk at resultatet er en Array
+ * 
+ */
+Then('skal resultatet være en liste', function() {
     assert.ok(Array.isArray(this.response.data), "resultatet er ikke en liste: " + JSON.stringify(this.list));
 });
+
+/**
+ * Sjekk hvert element i listen at de har gitt property=verdi.
+ * 
+ */
+Then('hvert element i listen skal ha {string} = {string}', function(prop, feltverdi) {
+    assert.ok(this.response != null, "Response er null")
+    assert.ok(this.response.data != null, "Response.data er null")
+    attachJSON(this, this.response.data)
+    var arr = this.response.data.filter(jp => jp[prop] == feltverdi)
+
+    assert.ok(arr.length == this.response.data.length, "Det finnes forskjellige saksnummer i listen!")
+})
+
+
+/**
+ * Sjekk at resultatet er et object (e.g ikke null eller Array)
+ * 
+ */
+Then('skal resultatet være et objekt', function() {
+    assert(this.response != null, 'Response er null')
+    assert(this.response.data != null, 'Response mangler data')
+    assert.ok(!Array.isArray(this.response.data), "resultatet er en liste")
+});
+
+/**
+ * 
+ * Sjekker om objektet inneholder properties og eventuelt sjekk på verdier
+ * om det også er gitt av tabellen (e.g. 2 kolonner istedet for 1)
+ * 
+ */
+Then('objektet skal ha følgende properties:', function(table) {
+    var jp = this.response.data;
+    var missing = []
+    table.rawTable.forEach(item => {
+        var value = jp[item[0]]
+        if (!value) {
+            missing.push(item[0])
+        }
+        if(item.length > 1) {
+            if(value != item[1]) {
+                missing.push(item[0])
+                attachText(this, `property ${item[0]} har feil verdi: ${value}`)
+            }
+        }
+    })
+    assert.equal(missing.length, 0, "Mangler properties: " + missing.join(","));
+})
+
 
