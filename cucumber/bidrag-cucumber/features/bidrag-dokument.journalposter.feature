@@ -10,7 +10,7 @@ Feature: bidrag-dokument journalposter REST API
 
     Scenario: Sjekk at health endpoint er operativt
         When jeg kaller status endpoint
-        Then skal tjenesten returnere 'OK'
+        Then skal tjenesten returnere 'status' = 'UP' i payload
         And statuskoden skal være '200'
 
     Scenario: Sjekk at vi får en liste med journalposter på fagområdet
