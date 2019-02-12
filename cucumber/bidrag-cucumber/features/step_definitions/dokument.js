@@ -35,7 +35,7 @@ Then('skal resultatet være et journalpost objekt', function() {
     assert.ok(data.jp_id != null, "journalposten mangler påkrevde properties");
 });
 
-Then('hver journalpost i listen skal ha {string} {string}', (prop, feltverdi) => {
+Then('hver journalpost i listen skal ha {string} {string}', function(prop, feltverdi) {
     console.log('hver journalpost i listen', this.response)
     assert.ok(this.response != null, "Response er null")
     this.attach(JSON.stringify(this.response), "application/json")
