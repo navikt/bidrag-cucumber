@@ -6,8 +6,6 @@ const {
     Then
 } = require('cucumber');
 
-const { base64encode } = require('nodejs-base64')
-
 const {
     kallFasitRestService
 } = require('/support/fasit')

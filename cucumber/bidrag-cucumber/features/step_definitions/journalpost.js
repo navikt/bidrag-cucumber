@@ -7,12 +7,9 @@ const {
 } = require('cucumber');
 
 const {
-    kallFasitRestService
+    kallFasitRestService,
+    toB64
 } = require('/support/fasit')
-
-const {
-    attachString
-} = require('/support/utils')
 
 function journalpostSuffix(saksnummer) {
     return util.format("/journalpost/%s", saksnummer)

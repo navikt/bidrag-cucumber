@@ -176,7 +176,3 @@ module.exports = {
     toB64
 };
 
-
-module.exports = {
-};
-
