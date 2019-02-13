@@ -6,9 +6,7 @@ const { attachJSON } = require('fasit')
 const fs = require('fs')
 const rex = /^\s*(Given|When|Then)\('([^\']*)'.*/i
 
-var fixtures = {}
-
-function findFixtures(path, duplicates) {
+function findFixtures(path, duplicates, fixtures) {
     fs.readFileSync(path, 'UTF-8').split(/[\r\n]/).forEach(line => {
         var m = line.match(rex)
         if(m) {
@@ -16,7 +14,8 @@ function findFixtures(path, duplicates) {
             if(fixtures[xp]) {
                 duplicates.push({
                     xp: xp,
-                    path: path
+                    path: fixtures[xp],
+                    duplicateIn: path
                 })
             } else {
                 fixtures[xp] = path
@@ -25,10 +24,10 @@ function findFixtures(path, duplicates) {
     })
 }
 
-function checkForDuplicateFixtures(dir, duplicates) {
+function checkForDuplicateFixtures(dir, duplicates, fixtures) {
     var files = fs.readdirSync(dir)
     files.forEach( item => {
-        findFixtures(`${dir}/${item}`, duplicates)
+        findFixtures(`${dir}/${item}`, duplicates, fixtures)
     })
 }
 
@@ -49,7 +48,8 @@ When('adding the following fixture to {string}:', function (fname, body) {
 
 When('validating cucumber fixtures', function () {
     this.duplicates = []
-    checkForDuplicateFixtures(this.dir, this.duplicates)
+    this.fixtures = {}
+    checkForDuplicateFixtures(this.dir, this.duplicates, this.fixtures)
     removeFile(this.dupfile)
 })
 
