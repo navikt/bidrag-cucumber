@@ -33,7 +33,7 @@ function checkForDuplicateFixtures(dir) {
     })
 }
 
-Given('cucumber fixtures in directory {string}', function(dir) {
+Given('cucumber fixtures in {string}', function(dir) {
     this.dir = dir
 })
 
