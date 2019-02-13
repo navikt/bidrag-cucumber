@@ -9,7 +9,6 @@ const rex = /^\s*(Given|When|Then)\('([^\']*)'.*/i
 var fixtures = {}
 
 function findFixtures(path, duplicates) {
-    console.log(`check ${path}`)
     fs.readFileSync(path, 'UTF-8').split(/[\r\n]/).forEach(line => {
         var m = line.match(rex)
         if(m) {
@@ -19,10 +18,8 @@ function findFixtures(path, duplicates) {
                     xp: xp,
                     path: path
                 })
-                console.log(`duplikat for ${xp} i ${path} og ${fixtures[xp]}`)
             } else {
                 fixtures[xp] = path
-                console.log(`legg til ${xp} i ${path}`)
             }
         }
     })
@@ -35,21 +32,25 @@ function checkForDuplicateFixtures(dir, duplicates) {
     })
 }
 
+function removeFile(path) {
+    try {
+        fs.unlink(path)
+    } catch(err) {}
+}
+
 Given('cucumber fixtures in {string}', function(dir) {
     this.dir = dir
 })
 
 When('adding the following fixture to {string}:', function (fname, body) {
-    try {
-        fs.unlink(`${this.dir}/${fname}`)
-    } catch(err) {}
-
-    fs.writeFileSync(`${this.dir}/${fname}`, body)
+    this.dupfile = `${this.dir}/${fname}`
+    fs.writeFileSync(this.dupfile)
 })
 
 When('validating cucumber fixtures', function () {
     this.duplicates = []
     checkForDuplicateFixtures(this.dir, this.duplicates)
+    removeFile(this.dupfile)
 })
 
 When('there should be no duplicates', function () {

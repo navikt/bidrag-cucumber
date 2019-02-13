@@ -24,8 +24,9 @@ node {
 
     stage("#3 Cucumber tests") {
         println("[INFO] Run cucumber tests")
+        def project = Image == "true" ? "bidrag-cucumber" : ""
         withCredentials([usernamePassword(credentialsId: 'naisUploader', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
-            sh (script: "docker run --rm -e fasit_user=${env.USERNAME} -e fasit_pass='${env.PASSWORD}' -v '${env.WORKSPACE}/cucumber':/cucumber bidrag-cucumber", returnStatus:true)
+            sh (script: "docker run --rm -e fasit_user=${env.USERNAME} -e fasit_pass='${env.PASSWORD}' -e project=${project} -v '${env.WORKSPACE}/cucumber':/cucumber bidrag-cucumber", returnStatus:true)
         }
     }
 
