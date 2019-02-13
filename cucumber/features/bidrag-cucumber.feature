@@ -26,3 +26,7 @@ Feature: bidrag-cucumber fasit API
             | sub       | bidrag-dokument-ui-q4 |
             | tokenType | JWTToken              |
 
+    Scenario: Sjekk duplikater i fixture kode
+        Given cucumber fixtures in 'cucumber/features/step_definitions'
+        When validating cucumber fixtures
+        Then there should be no duplicates

@@ -5,7 +5,6 @@ const { kallFasitRestService, attachText, attachJSON } = require('/support/fasit
 
 /** Felles rutiner for alle tjenester */
 
-
 Given('restservice {string}', function(alias) {
     this.alias = alias;
 });
