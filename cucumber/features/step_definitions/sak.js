@@ -1,7 +1,7 @@
 const assert = require('assert');
 const util = require('util');
 const { When } = require('cucumber');
-const { kallFasitRestService } = require('/support/fasit');
+const { kallFasitRestService } = require('fasit');
 
 function sakSuffix(foedselsnummer) {
     return util.format("/person/sak/%s", foedselsnummer)

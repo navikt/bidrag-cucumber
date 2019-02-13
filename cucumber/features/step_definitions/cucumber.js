@@ -1,7 +1,7 @@
 const assert = require('assert');
 const jwt = require('jsonwebtoken')
 const { When, Then } = require('cucumber');
-const { hentToken, attachString, attachJSON } = require('/support/fasit')
+const { hentToken, attachString, attachJSON } = require('fasit')
 
 /**
  * 

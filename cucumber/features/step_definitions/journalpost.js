@@ -1,7 +1,7 @@
 const assert = require('assert');
 const util = require('util');
 const { When, Then } = require('cucumber');
-const { kallFasitRestService, attachString, attachJSON } = require('/support/fasit')
+const { kallFasitRestService, attachString, attachJSON } = require('fasit')
 
 function journalpostSuffix(saksnummer) {
     return util.format("/journalpost/%s", saksnummer)

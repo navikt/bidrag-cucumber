@@ -15,6 +15,7 @@
   },
   "dependencies": {
     "axios": "0.18.0",
+    "fasit": "file:fasit",
     "jsonwebtoken": "^8.4.0",
     "nodejs-base64": "^1.0.3",
     "request": "2.88.0",

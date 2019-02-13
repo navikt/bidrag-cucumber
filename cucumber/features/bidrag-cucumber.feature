@@ -30,3 +30,14 @@ Feature: bidrag-cucumber fasit API
         Given cucumber fixtures in 'cucumber/features/step_definitions'
         When validating cucumber fixtures
         Then there should be no duplicates
+
+    Scenario: Sjekk at duplikater i fixture kode blir funnet
+        Given cucumber fixtures in 'cucumber/features/step_definitions'
+        And adding the following fixture to 'duplicate1.js':
+        """
+        const { When } = require('cucumber');
+        When('skal token være gyldig', function () {
+        })
+        """
+        When validating cucumber fixtures
+        Then there should be duplicates
