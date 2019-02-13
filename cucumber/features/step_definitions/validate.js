@@ -7,8 +7,7 @@ const rex = /^\s*(Given|When|Then)\('([^\']*)'.*/i
 
 var fixtures = {}
 
-function findFixtures(path) {
-    var duplicates = []
+function findFixtures(path, duplicates) {
     fs.readFileSync(path, 'UTF-8').split(/\r\n/).forEach(line => {
         var m = line.match(rex)
         if(m) {
@@ -26,10 +25,10 @@ function findFixtures(path) {
     })
 }
 
-function checkForDuplicateFixtures(dir) {
+function checkForDuplicateFixtures(dir, duplicates) {
     var files = fs.readdirSync(dir)
     files.forEach( item => {
-        findFixtures(`${dir}/${item}`)
+        findFixtures(`${dir}/${item}`, duplicates)
     })
 }
 
@@ -38,7 +37,8 @@ Given('cucumber fixtures in {string}', function(dir) {
 })
 
 When('validating cucumber fixtures', function () {
-    this.duplicates = checkForDuplicateFixtures(this.dir)
+    this.duplicates = []
+    checkForDuplicateFixtures(this.dir, this.duplicates)
 })
 
 When('there should be no duplicates', function () {
