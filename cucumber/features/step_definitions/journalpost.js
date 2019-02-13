@@ -1,7 +1,7 @@
 const assert = require('assert');
 const util = require('util');
 const { When, Then } = require('cucumber');
-const { kallFasitRestService, attachString, attachJSON } = require('fasit')
+const { kallFasitRestService, attachText, attachJSON } = require('fasit')
 
 function journalpostSuffix(saksnummer) {
     return util.format("/journalpost/%s", saksnummer)
@@ -18,7 +18,7 @@ When('jeg henter journalposter for sak {string} med fagområde {string}', functi
         .then(response => {
             this.response = response
             assert(this.response != null, "Intet svar mottatt fra tjenesten")
-            attachString(this, `Status: ${this.response}`)
+            attachText(this, `Status: ${this.response}`)
             assert(undefined === this.response.errno, "Feilmelding: " + this.response.errno);
             done()
         })

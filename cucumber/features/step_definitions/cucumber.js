@@ -1,7 +1,7 @@
 const assert = require('assert');
 const jwt = require('jsonwebtoken')
 const { When, Then } = require('cucumber');
-const { hentToken, attachString, attachJSON } = require('fasit')
+const { hentToken, attachText, attachJSON } = require('fasit')
 
 /**
  * 
@@ -15,7 +15,7 @@ When('jeg ber om et token fra {string}', function (env, done) {
             done()
         })
         .catch(err => {
-            attachString("ERROR: " + err)
+            attachText("ERROR: " + err)
             this.error = err;
             this.response = null;
             done(err)
