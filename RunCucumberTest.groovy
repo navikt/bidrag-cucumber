@@ -11,15 +11,16 @@ node {
 
         withCredentials([usernamePassword(credentialsId: 'jenkinsPipeline', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
             withEnv(['HTTPS_PROXY=http://webproxy-utvikler.nav.no:8088']) {
-                sh(script: "git clone -b ${branch} https://${USERNAME}:${PASSWORD}@github.com/${repo}/${application}.git .")
+                sh(script: "git clone https://${USERNAME}:${PASSWORD}@github.com/${repo}/bidrag-cucumber.git .")
+                sh(script: "git checkout ${branch}", returnStatus:true)
             }
         }
     }
 
     stage("#2 Cucumber tests") {
-        println("[INFO] Run cucumber tests")
+        println("[INFO] Run cucumber tests for ${application}")
         withCredentials([usernamePassword(credentialsId: 'naisUploader', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
-            sh "docker run --rm -e environment=${ns} -e fasit_user=${env.USERNAME} -e fasit_pass='${env.PASSWORD}' -v ${env.WORKSPACE}/cucumber:/cucumber bidrag-cucumber"
+            sh "docker run --rm -e environment=${ns} -e fasit_user=${env.USERNAME} -e fasit_pass='${env.PASSWORD}' -e project=${application} -v ${env.WORKSPACE}/cucumber:/cucumber bidrag-cucumber"
         }
 
         if(fileExists('cucumber/cucumber.json')) {
