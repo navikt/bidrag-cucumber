@@ -1,7 +1,7 @@
 const assert = require('assert');
 const util = require('util');
 const { When, Then } = require('cucumber');
-const { kallFasitRestService, attachText, attachJSON } = require('fasit')
+const { kallFasitRestService, attachText, attachJSON, httpPost } = require('fasit')
 
 function journalpostSuffix(saksnummer) {
     return util.format("/journalpost/%s", saksnummer)
@@ -48,4 +48,15 @@ Then('journalposten sitt dokument skal ha følgende properties:', function(table
         }
     })
     assert.equal(missing.length, 0, "Mangler properties: " + missing.join(","));
+})
+
+When('jeg endrer journalpost {string}', function(jpid, body, done) {
+    httpPost(this.alias, "/journalpost", body)
+        .then(response => {
+            this.response = response;
+            done()
+        })
+        .catch(err => {
+            done(err)
+        })
 })

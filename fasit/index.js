@@ -158,6 +158,32 @@ function httpGet(alias, env, suffix) {
 }
 
 /**
+ * Finner en URL via oppslag i Fasit og gjør deretter kall til tjenesten med et bearer token.
+ * 
+ * @param {String} alias 
+ * @param {String} env 
+ * @param {String} suffix 
+ */
+function httpPost(alias, env, suffix, body) {
+    var tok = "";
+    return hentToken(env)
+        .then(token => {
+            tok = token;
+            return hentFasitRestUrl(alias, env)
+        })
+        .then(url => {
+            return axios.post(url + suffix, {
+                headers: {
+                    Authorization: 'Bearer ' + tok,
+                    "Content-Type": "application/json"
+                },
+                body: body
+            })
+        })
+        .catch(err => err)
+}
+
+/**
  * Cucumber report forventer base64 encoded data i attachments/embeddings
  * 
  * @param {String} str 
@@ -194,6 +220,7 @@ function attachText(world, text) {
 module.exports = {
     hentToken,
     httpGet,
+    httpPost,
     hentFasitRessurs,
     hentFasitRestUrl,
     kallFasitRestService,
