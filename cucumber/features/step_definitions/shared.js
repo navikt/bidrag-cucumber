@@ -21,11 +21,19 @@ Then('statuskoden skal være {string}', function(status) {
     assert.ok(r.status == status, r.status + " " + r.statusText)
 });
 
+/**
+ * Sjekker at resultatet matcher en gitt JSON payload
+ * 
+ */
 Then('objektet skal inneholde følgende verdier', function(data) {
     var expected = JSON.parse(data)
     assert.deepEqual(this.response.data, expected, "Objektene er forskjellige");
 })
 
+/**
+ * Sjekker at hvert element har properties gitt i tabellen. Om tabellen har to kolonner
+ * sjekkes det også på verdien av property.
+ */
 Then('hvert element i listen skal ha følgende properties satt:', function(table) {
     var missing = [];
     this.response.data.forEach(row => {
@@ -41,6 +49,9 @@ Then('hvert element i listen skal ha følgende properties satt:', function(table
     assert.ok(missing.length == 0, "Properties mangler: " + missing.join(","))
 })
 
+/**
+ * Kaller actuator/health endpoint 
+ */
 When('jeg kaller status endpoint', function(done) {
     kallFasitRestService(this.alias, "/actuator/health")
         .then(response => {
@@ -65,6 +76,10 @@ Then('header {string} skal være {string}', function (hdr, value) {
     assert(headerValue == value, `Forventet ${value} fant '${headerValue}'`)
 });
 
+/**
+ * Sjekk om property i response har gitt verdi
+ * 
+ */
 Then('objektet skal ha {string} = {string}', function (prop, value) {
     assert(this.response != null, 'Response er null')
     assert(this.response.data != null, 'Response mangler data')

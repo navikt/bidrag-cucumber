@@ -33,3 +33,46 @@ Feature: bidrag-dokument journalposter REST API
     Scenario: Sjekk at ukjent sak gir 204 med ingen data
         When jeg henter journalposter for sak "XYZ" på fagområdet "BID"
         Then statuskoden skal være '204'
+
+
+    Scenario: Sjekk at journalpost kan oppdateres
+        When jeg endrer journalpost '30040789':
+        """
+        {
+            "journalpostId": 30040789,
+            "saksnummer": {
+                "erTilknyttetNySak": false,
+                "saksnummer": "0000004",
+                "saksnummerSomSkalErstattes":
+                "0000004"
+            },
+            "gjelder": "29118044353",
+            "avsenderEtternavn": "Vinterfred",
+            "avsenderFornavn": "Vinterfred",
+            "beskrivelse": "Søknad, Bidrag",
+            "journaldato": "2006-05-09"
+        }
+        """
+        Then statuskoden skal være '202'
+        And response objektet skal ha 'avsenderFornavn' = 'Vinterfred'
+
+    Scenario: Sjekk at journalpost kan oppdateres
+        When jeg endrer journalpost '30040789':
+        """
+        {
+            "journalpostId": 30040789,
+            "saksnummer": {
+                "erTilknyttetNySak": false,
+                "saksnummer": "0000004",
+                "saksnummerSomSkalErstattes":
+                "0000004"
+            },
+            "gjelder": "29118044353",
+            "avsenderEtternavn": "Sommervold",
+            "avsenderFornavn": "Sommervold",
+            "beskrivelse": "Søknad, Bidrag",
+            "journaldato": "2006-05-09"
+        }
+        """
+        Then statuskoden skal være '202'
+        And response objektet skal ha 'avsenderFornavn' = 'Sommervold'
