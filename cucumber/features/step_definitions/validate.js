@@ -1,7 +1,7 @@
 const assert = require('assert');
 const util = require('util');
 const { Given, When } = require('cucumber');
-const { attachJSON } = require('fasit')
+const { attachJSON, attachText } = require('fasit')
 
 const fs = require('fs')
 const rex = /^\s*(Given|When|Then)\('([^\']*)'.*/i
