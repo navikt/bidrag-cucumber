@@ -15,7 +15,7 @@ Feature: bidrag-dokument journalposter REST API
         And statuskoden skal være '200'
 
     Scenario: Sjekk at vi får en liste med journalposter på fagområdet
-        When jeg henter journalposter for sak "0000003" på fagområdet "BID" via dokument-journalpost
+        When jeg henter journalposter for sak "0000003" med fagområde "BID" via dokument-journalpost
         Then statuskoden skal være '200'
         And skal resultatet være en liste
         And hvert element i listen skal ha 'saksnummer' = '0000003'

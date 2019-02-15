@@ -7,7 +7,7 @@ function journalpostSuffix(saksnummer, fagomrade) {
     return util.format("/sakjournal/%s?fagomrade=%s", saksnummer, fagomrade)
 }
 
-When('jeg henter journalposter for sak {string} på fagområdet {string}', function(saksnummer, fagomrade, done) {
+When('jeg henter journalposter for sak {string} med fagområde {string}', function(saksnummer, fagomrade, done) {
     var pathAndParam = journalpostSuffix(saksnummer, fagomrade)
     attachText(this, `Kaller journalposter med ${pathAndParam}`)
     kallFasitRestService(this.alias, pathAndParam)
