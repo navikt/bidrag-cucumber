@@ -11,7 +11,7 @@ function sakSuffix(saksnummer, fagomrade) {
     return util.format("/sak/%s?fagomrade=%s", saksnummer, fagomrade)
 }
 
-When('jeg henter journalposter for sak {string} med fagområde {string}', function(saksnummer, fagomrade, done) {
+When('jeg henter journalposter for sak {string} med fagområde {string} via dokument-journalpost', function(saksnummer, fagomrade, done) {
     pathAndParam = sakSuffix(saksnummer, fagomrade)
     console.log("henter journalposter", this.alias, pathAndParam)
     kallFasitRestService(this.alias, pathAndParam)
