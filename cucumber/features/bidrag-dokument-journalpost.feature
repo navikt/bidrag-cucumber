@@ -5,7 +5,7 @@ Feature: bidrag-journalpost /journalpost REST API
         Given restservice 'bidragDokumentJournalpost'
 
     Scenario: Sjekk at vi får en journalpost for en gitt journalpostId
-        When jeg henter journalpost for id "19650256"
+        When jeg henter journalpost for id "19650256" via dokument-journalpost
         Then statuskoden skal være '200'
         And resultatet skal være et objekt
         And objektet skal ha følgende properties:
