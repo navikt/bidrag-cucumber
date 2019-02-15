@@ -57,6 +57,7 @@ When('there should be no duplicates', function () {
     if(this.duplicates.length > 0) {
         attachJSON(this, this.duplicates)
     }
+    attachJSON(this, this.fixtures)
     assert.ok(this.duplicates.length == 0, "There are duplicate fixture methods")
 })
 
@@ -64,5 +65,6 @@ When('there should be duplicates', function () {
     if(this.duplicates.length > 0) {
         attachJSON(this, this.duplicates)
     }
+    attachJSON(this, this.fixtures)
     assert.ok(this.duplicates.length > 0, "Duplicate fixture methods not detected")
 })
