@@ -43,7 +43,8 @@ Given('cucumber fixtures in {string}', function(dir) {
 
 When('adding the following fixture to {string}:', function (fname, body) {
     this.dupfile = `${this.dir}/${fname}`
-    fs.writeFileSync(this.dupfile)
+    attachText(this, `Skrev data til: ${this.dupfile}`)
+    fs.writeFileSync(this.dupfile, body)
 })
 
 When('validating cucumber fixtures', function () {
