@@ -10,9 +10,14 @@ const FASIT_PASS = process.env.fasit_pass
 const OIDC_ALIAS = process.env.oidc_alias || 'bidrag-dokument-ui-oidc'
 
 last_oidc_token = ""
+last_url = ""
 
 function lastOidcToken() {
     return last_oidc_token
+}
+
+function lastUrl() {
+    return last_url
 }
 
 /**
@@ -173,6 +178,7 @@ function httpGet(alias, env, suffix) {
         })
         .then(url => {
             console.log('httpGet', url + suffix)
+            last_url = url
             return axios.get(url + suffix, {
                 headers: {
                     Authorization: 'Bearer ' + tok
@@ -200,12 +206,12 @@ function httpPost(alias, suffix, body) {
         })
         .then(url => {
             console.log('httpPost', url + suffix)
-            return axios.post(url + suffix, {
+            last_url = url
+            return axios.post(url + suffix, body, {
                 headers: {
                     Authorization: 'Bearer ' + tok,
                     "Content-Type": "application/json"
-                },
-                body: body
+                }
             })
         })
         .catch(err => err)
@@ -256,6 +262,7 @@ module.exports = {
     toB64,
     attachJSON,
     attachText,
-    lastOidcToken
+    lastOidcToken,
+    lastUrl
 };
 
