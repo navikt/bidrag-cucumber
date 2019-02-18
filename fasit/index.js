@@ -161,11 +161,13 @@ function httpGet(alias, env, suffix) {
  * Finner en URL via oppslag i Fasit og gjør deretter kall til tjenesten med et bearer token.
  * 
  * @param {String} alias 
- * @param {String} env 
  * @param {String} suffix 
+ * @param {String} body 
  */
-function httpPost(alias, env, suffix, body) {
-    var tok = "";
+function httpPost(alias, suffix, body) {
+    var tok = ""
+    var env = ENVIRONMENT
+    
     return hentToken(env)
         .then(token => {
             tok = token;

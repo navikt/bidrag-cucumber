@@ -70,7 +70,7 @@ Then('journalposten sitt dokument skal ha følgende properties:', function(table
     assert.equal(missing.length, 0, "Mangler properties: " + missing.join(","));
 })
 
-When('jeg endrer journalpost {string}:', function(jpid, body, done) {
+When('jeg endrer journalpost {string} til:', function(jpid, body, done) {
     httpPost(this.alias, "/journalpost", body)
         .then(response => {
             this.response = response;
