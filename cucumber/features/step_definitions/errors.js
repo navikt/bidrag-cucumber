@@ -28,6 +28,13 @@ function handleError(world, error) {
     console.log(error.config);
 }
 
+function checkStatus(world, response) {
+    if(response && response.error) {
+        console.log("checkStatus", response.error)
+    }
+}
+
 module.exports = {
-    handleError
+    handleError,
+    checkStatus
 }

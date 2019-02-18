@@ -2,7 +2,7 @@ const assert = require('assert');
 const util = require('util');
 const { When, Then } = require('cucumber');
 const { kallFasitRestService, attachText, attachJSON, httpPost, lastOidcToken } = require('fasit')
-const { handleError } = require('./errors')
+const { handleError, checkStatus } = require('./errors')
 
 function journalpostSuffix(saksnummer) {
     return util.format("/journalpost/%s", saksnummer)
@@ -77,7 +77,8 @@ When('jeg endrer journalpost {string} til:', function(jpid, body, done) {
     attachText(this, `Using token: ${lastOidcToken()}`)
     httpPost(this.alias, "/journalpost", body)
         .then(response => {
-            this.response = response;
+            this.response = response
+            checkStatus(this, response)
             done()
         })
         .catch(err => {
