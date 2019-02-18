@@ -22,7 +22,7 @@ Feature: bidrag-dokument journalposter REST API
         And hvert element i listen skal ha 'fagomrade' = 'BID'
 
     Scenario: Sjekk innholdet av en enkelt journalpost i bidrag
-        When jeg henter journalposter for sak "0000003" på fagområdet "BID"
+        When jeg henter journalposter for sak "0000003" med fagområde "BID"
         Then statuskoden skal være '200'
         And skal resultatet være en liste
         And hvert element i listen skal ha følgende properties satt:
@@ -31,7 +31,7 @@ Feature: bidrag-dokument journalposter REST API
             | saksnummer  |
 
     Scenario: Sjekk at ukjent sak gir 204 med ingen data
-        When jeg henter journalposter for sak "XYZ" på fagområdet "BID"
+        When jeg henter journalposter for sak "XYZ" med fagområde "BID"
         Then statuskoden skal være '204'
 
 
