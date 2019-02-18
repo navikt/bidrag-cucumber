@@ -7,12 +7,32 @@ function journalpostSuffix(saksnummer) {
     return util.format("/journalpost/%s", saksnummer)
 }
 
+/**
+ * bidrag-dokument bruker denne URL for å få journalposter for en sak
+ * 
+ * @param {String} saksnummer 
+ * @param {String} fagomrade 
+ */
+function journalpostSuffixBD(saksnummer, fagomrade) {
+    return util.format("/sakjournal/%s?fagomrade=%s", saksnummer, fagomrade)
+}
+
+/**
+ * bidrag-dokument-journalpost bruker denne URL for å få journalposter for en sak
+ * 
+ * @param {String} saksnummer 
+ * @param {String} fagomrade 
+ */
 function sakSuffix(saksnummer, fagomrade) {
     return util.format("/sak/%s?fagomrade=%s", saksnummer, fagomrade)
 }
 
-When('jeg henter journalposter for sak {string} med fagområde {string} via dokument-journalpost', function(saksnummer, fagomrade, done) {
-    pathAndParam = sakSuffix(saksnummer, fagomrade)
+/**
+ * Bruker enten bidrag-dokumnet eller bidrag-dokument-journalpost sin URL for å hente journalposter
+ * for et gitt saksnummer i et fagområde.
+ */
+When('jeg henter journalposter for sak {string} med fagområde {string}', function(saksnummer, fagomrade, done) {
+    pathAndParam = this.alias == "bidragDokument" ? journalpostSuffixBD(saksnummer, fagomrade) :  sakSuffix(saksnummer, fagomrade)
     console.log("henter journalposter", this.alias, pathAndParam)
     kallFasitRestService(this.alias, pathAndParam)
         .then(response => {

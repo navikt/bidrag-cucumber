@@ -5,7 +5,7 @@ Feature: bidrag-journalpost /journalpost REST API
         Given restservice 'bidragDokumentJournalpost'
 
     Scenario: Sjekk at vi får en journalpost for en gitt journalpostId
-        When jeg henter journalpost for id "19650256" via dokument-journalpost
+        When jeg henter journalpost for id "19650256"
         Then statuskoden skal være '200'
         And resultatet skal være et objekt
         And objektet skal ha følgende properties:
@@ -15,6 +15,13 @@ Feature: bidrag-journalpost /journalpost REST API
         And journalposten sitt dokument skal ha følgende properties:
             | dokumentreferanse |
             | dokumentType      |
+
+    Scenario: Sjekk at vi får en liste med journalposter med sak/fagområde
+        When jeg henter journalposter for sak "0000003" med fagområde "BID"
+        Then statuskoden skal være '200'
+        And skal resultatet være en liste
+        And hvert element i listen skal ha 'saksnummer' = '0000003'
+        And hvert element i listen skal ha 'fagomrade' = 'BID'
 
     Scenario: Sjekk at ukjent id gir 204
         When jeg henter journalpost for id "12345"
