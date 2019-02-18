@@ -9,6 +9,12 @@ const FASIT_USER = process.env.fasit_user
 const FASIT_PASS = process.env.fasit_pass
 const OIDC_ALIAS = process.env.oidc_alias || 'bidrag-dokument-ui-oidc'
 
+last_oidc_token = ""
+
+function lastOidcToken() {
+    return last_oidc_token
+}
+
 /**
  * Henter et ID_TOKEN basert på opplysninger i fasit for gjeldende miljø.
  * 
@@ -55,6 +61,7 @@ function hentTokenFor(env, oidcAlias, fasitUser, fasitPass, username, password) 
             })
         })
         .then(response => {
+            last_oidc_token = respose.data.id_token
             return response.data.id_token
         })
         .catch(err => {
@@ -248,6 +255,7 @@ module.exports = {
     kallFasitRestService,
     toB64,
     attachJSON,
-    attachText
+    attachText,
+    lastOidcToken
 };
 

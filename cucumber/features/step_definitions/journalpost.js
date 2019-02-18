@@ -1,7 +1,7 @@
 const assert = require('assert');
 const util = require('util');
 const { When, Then } = require('cucumber');
-const { kallFasitRestService, attachText, attachJSON, httpPost } = require('fasit')
+const { kallFasitRestService, attachText, attachJSON, httpPost, lastOidcToken } = require('fasit')
 
 function journalpostSuffix(saksnummer) {
     return util.format("/journalpost/%s", saksnummer)
@@ -72,7 +72,8 @@ Then('journalposten sitt dokument skal ha følgende properties:', function(table
 
 When('jeg endrer journalpost {string} til:', function(jpid, body, done) {
     // Både bid-dok og bid-dok-journalpost bruker /journalpost som endpoint
-    attachJSON(this, body)
+    attachText(this, body)
+    attachText(this, `Using token: ${lastOidcToken()}`)
     httpPost(this.alias, "/journalpost", body)
         .then(response => {
             this.response = response;
