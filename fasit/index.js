@@ -218,7 +218,7 @@ function httpPost(alias, suffix, body) {
                 data: body,
                 proxy: false,
                 headers: {
-                    "Authorization": `Bearer ${token}`,
+                    "Authorization": `Bearer ${tok}`,
                     "Content-Type": "application/json"
                 }
             })
