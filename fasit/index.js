@@ -36,7 +36,7 @@ function hentToken(env) {
  * @param {String} password Passord for username (ikke implementert)
  */
 function hentTokenFor(env, oidcAlias, fasitUser, fasitPass, username, password) {
-        var client_id = null
+    var client_id = null
     var client_secret = null
     var token_endpoint = null
 
@@ -61,7 +61,7 @@ function hentTokenFor(env, oidcAlias, fasitUser, fasitPass, username, password) 
             })
         })
         .then(response => {
-            last_oidc_token = respose.data.id_token
+            last_oidc_token = response.data.id_token
             return response.data.id_token
         })
         .catch(err => {
