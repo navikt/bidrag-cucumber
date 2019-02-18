@@ -2,6 +2,7 @@ const assert = require('assert');
 const util = require('util');
 const { When, Then } = require('cucumber');
 const { kallFasitRestService, attachText, attachJSON, httpPost, lastOidcToken } = require('fasit')
+const { handleError } = require('./errors')
 
 function journalpostSuffix(saksnummer) {
     return util.format("/journalpost/%s", saksnummer)
@@ -80,6 +81,7 @@ When('jeg endrer journalpost {string} til:', function(jpid, body, done) {
             done()
         })
         .catch(err => {
+            handleError(this, err)
             console.log("endre journalpost", err)
             done(err)
         })
