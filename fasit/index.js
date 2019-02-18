@@ -15,34 +15,52 @@ const OIDC_ALIAS = process.env.oidc_alias || 'bidrag-dokument-ui-oidc'
  * Det må finnes en 'OpenIdConnect' record for miljøet hvor vi plukker agentName, issuerUrl og password
  */
 function hentToken(env) {
-    var client_id = null
+    return hentTokenFor(env || ENVIRONMENT, OIDC_ALIAS, FASIT_USER, FASIT_PASS, null, null)
+}
+
+/**
+ * Kaller AM for å hente et id_token. Hvis username/password ikke er gitt benyttes "client_credentials".
+ * Hvis username/password er gitt benyttes "password" i token request.
+ * 
+ * @param {String} env Fasit environment
+ * @param {String} oidcAlias default bidrag-dokument-ui-oidc
+ * @param {String} fasitUser  Fasit brukernavn
+ * @param {String} fasitPass  Passord for fasit brukernavn
+ * @param {String} username Brukernavn for password auth (ikke implementert)
+ * @param {String} password Passord for username (ikke implementert)
+ */
+function hentTokenFor(env, oidcAlias, fasitUser, fasitPass, username, password) {
+        var client_id = null
     var client_secret = null
     var token_endpoint = null
 
-    return hentFasitRessurs('OpenIdConnect', OIDC_ALIAS, env || ENVIRONMENT)
-    .then(response => {
-        client_id = response.properties.agentName
-        token_endpoint = response.properties.issuerUrl + "/access_token"
-        return axios.get(response.secrets.password.ref, {
-            auth:{username:FASIT_USER, password: FASIT_PASS}
+    return hentFasitRessurs('OpenIdConnect', oidcAlias, env)
+        .then(response => {
+            client_id = response.properties.agentName
+            token_endpoint = response.properties.issuerUrl + "/access_token"
+            return axios.get(response.secrets.password.ref, {
+                auth:{username:fasitUser, password: fasitPass}
+            })
         })
-    }).then(response => {
-        client_secret = response.data;
-        return axios.post(token_endpoint, 'grant_type=client_credentials&scope=openid', {
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded'
-            },
-            auth: {
-                username: client_id,
-                password: client_secret
-            }
+        .then(response => {
+            client_secret = response.data;
+            return axios.post(token_endpoint, 'grant_type=client_credentials&scope=openid', {
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                auth: {
+                    username: client_id,
+                    password: client_secret
+                }
+            })
         })
-    }).then(response => {
-        return response.data.id_token
-    }).catch(err => {
-	console.log("ERROR", err)
-	throw err
-    })
+        .then(response => {
+            return response.data.id_token
+        })
+        .catch(err => {
+            console.log("ERROR", err)
+            throw err
+        })
 }
 
 /**
@@ -102,8 +120,8 @@ function hentFasitRessurs(ftype, alias, env) {
             return _finnAlias(response.data, alias, env)
         })
         .catch(err => {
-	    console.log("ERRORX", err)
-	})
+	        console.log("ERROR", err)
+	    })
 }
 
 /**
@@ -167,13 +185,14 @@ function httpGet(alias, env, suffix) {
 function httpPost(alias, suffix, body) {
     var tok = ""
     var env = ENVIRONMENT
-    
+
     return hentToken(env)
         .then(token => {
             tok = token;
             return hentFasitRestUrl(alias, env)
         })
         .then(url => {
+            console.log('httpPost', url + suffix)
             return axios.post(url + suffix, {
                 headers: {
                     Authorization: 'Bearer ' + tok,
@@ -221,6 +240,7 @@ function attachText(world, text) {
 
 module.exports = {
     hentToken,
+    hentTokenFor,
     httpGet,
     httpPost,
     hentFasitRessurs,
