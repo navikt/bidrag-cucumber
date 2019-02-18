@@ -1,4 +1,4 @@
-FROM navikt/node-express
+FROM node:latest
 LABEL maintainer="NAV Team Bidrag"
 
 ADD . /
