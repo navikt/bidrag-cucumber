@@ -80,6 +80,7 @@ When('jeg endrer journalpost {string} til:', function(jpid, body, done) {
             done()
         })
         .catch(err => {
+            console.log("endre journalpost", err)
             done(err)
         })
 })
