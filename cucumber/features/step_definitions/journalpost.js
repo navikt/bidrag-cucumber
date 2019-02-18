@@ -13,7 +13,7 @@ function journalpostSuffix(saksnummer) {
  * @param {String} saksnummer 
  * @param {String} fagomrade 
  */
-function journalpostSuffixBD(saksnummer, fagomrade) {
+function sakSuffixBD(saksnummer, fagomrade) {
     return util.format("/sakjournal/%s?fagomrade=%s", saksnummer, fagomrade)
 }
 
@@ -23,7 +23,7 @@ function journalpostSuffixBD(saksnummer, fagomrade) {
  * @param {String} saksnummer 
  * @param {String} fagomrade 
  */
-function sakSuffix(saksnummer, fagomrade) {
+function sakSuffixBDJ(saksnummer, fagomrade) {
     return util.format("/sak/%s?fagomrade=%s", saksnummer, fagomrade)
 }
 
@@ -32,7 +32,7 @@ function sakSuffix(saksnummer, fagomrade) {
  * for et gitt saksnummer i et fagområde.
  */
 When('jeg henter journalposter for sak {string} med fagområde {string}', function(saksnummer, fagomrade, done) {
-    pathAndParam = this.alias == "bidragDokument" ? journalpostSuffixBD(saksnummer, fagomrade) :  sakSuffix(saksnummer, fagomrade)
+    pathAndParam = this.alias == "bidragDokument" ? sakSuffixBD(saksnummer, fagomrade) :  sakSuffixBDJ(saksnummer, fagomrade)
     console.log("henter journalposter", this.alias, pathAndParam)
     kallFasitRestService(this.alias, pathAndParam)
         .then(response => {
@@ -71,6 +71,7 @@ Then('journalposten sitt dokument skal ha følgende properties:', function(table
 })
 
 When('jeg endrer journalpost {string} til:', function(jpid, body, done) {
+    // Både bid-dok og bid-dok-journalpost bruker /journalpost som endpoint
     httpPost(this.alias, "/journalpost", body)
         .then(response => {
             this.response = response;

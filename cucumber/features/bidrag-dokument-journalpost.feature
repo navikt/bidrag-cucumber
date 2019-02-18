@@ -30,3 +30,45 @@ Feature: bidrag-journalpost /journalpost REST API
     Scenario: Sjekk at id som feil type gir 400
         When jeg henter journalpost for id "abcd"
         Then statuskoden skal være '400'
+
+    Scenario: Sjekk at journalpost kan oppdateres - Vinterfred
+        When jeg endrer journalpost '30040789' til:
+        """
+        {
+            "journalpostId": 30040789,
+            "saksnummer": {
+                "erTilknyttetNySak": false,
+                "saksnummer": "0000004",
+                "saksnummerSomSkalErstattes":
+                "0000004"
+            },
+            "gjelder": "29118044353",
+            "avsenderEtternavn": "Vinterfred",
+            "avsenderFornavn": "Vinterfred",
+            "beskrivelse": "Søknad, Bidrag",
+            "journaldato": "2006-05-09"
+        }
+        """
+        Then statuskoden skal være '202'
+        And objektet skal ha 'avsenderFornavn' = 'Vinterfred'
+
+    Scenario: Sjekk at journalpost kan oppdateres - Sommervold
+        When jeg endrer journalpost '30040789' til:
+        """
+        {
+            "journalpostId": 30040789,
+            "saksnummer": {
+                "erTilknyttetNySak": false,
+                "saksnummer": "0000004",
+                "saksnummerSomSkalErstattes":
+                "0000004"
+            },
+            "gjelder": "29118044353",
+            "avsenderEtternavn": "Sommervold",
+            "avsenderFornavn": "Sommervold",
+            "beskrivelse": "Søknad, Bidrag",
+            "journaldato": "2006-05-09"
+        }
+        """
+        Then statuskoden skal være '202'
+        And objektet skal ha 'avsenderFornavn' = 'Sommervold'
