@@ -207,12 +207,17 @@ function httpPost(alias, suffix, body) {
         .then(url => {
             console.log('httpPost', url + suffix)
             last_url = url
-            return axios.post(url + suffix, body, {
-                headers: {
-                    Authorization: 'Bearer ' + tok,
+
+	    return axios.request({
+        	url: url + suffix,
+        	method: 'POST',
+        	data: body,
+        	proxy: false,
+        	headers: {
+                    "Authorization": `Bearer ${token}`,
                     "Content-Type": "application/json"
-                }
-            })
+        	}
+	    })
         })
         .catch(err => err)
 }
