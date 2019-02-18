@@ -1,7 +1,8 @@
-
 const axios = require('axios')
 
-const { base64encode } = require('nodejs-base64')
+const {
+    base64encode
+} = require('nodejs-base64')
 
 const ENVIRONMENT = process.env.environment || 'q0'
 const FASIT_URL = process.env.fasit || 'https://fasit.adeo.no/api/v2/resources'
@@ -50,7 +51,10 @@ function hentTokenFor(env, oidcAlias, fasitUser, fasitPass, username, password) 
             client_id = response.properties.agentName
             token_endpoint = response.properties.issuerUrl + "/access_token"
             return axios.get(response.secrets.password.ref, {
-                auth:{username:fasitUser, password: fasitPass}
+                auth: {
+                    username: fasitUser,
+                    password: fasitPass
+                }
             })
         })
         .then(response => {
@@ -132,8 +136,8 @@ function hentFasitRessurs(ftype, alias, env) {
             return _finnAlias(response.data, alias, env)
         })
         .catch(err => {
-	        console.log("ERROR", err)
-	    })
+            console.log("ERROR", err)
+        })
 }
 
 /**
@@ -143,9 +147,9 @@ function hentFasitRessurs(ftype, alias, env) {
  * @param {String} env 
  */
 function hentFasitRestUrl(alias, env) {
-    
+
     var override = process.env[`${alias.toUpperCase()}_URL`];
-    if(override) {
+    if (override) {
         return new Promise((resolve, reject) => {
             resolve(override)
         })
@@ -208,16 +212,16 @@ function httpPost(alias, suffix, body) {
             console.log('httpPost', url + suffix)
             last_url = url
 
-	    return axios.request({
-        	url: url + suffix,
-        	method: 'POST',
-        	data: body,
-        	proxy: false,
-        	headers: {
+            return axios.request({
+                url: url + suffix,
+                method: 'POST',
+                data: body,
+                proxy: false,
+                headers: {
                     "Authorization": `Bearer ${token}`,
                     "Content-Type": "application/json"
-        	}
-	    })
+                }
+            })
         })
         .catch(err => err)
 }
@@ -240,7 +244,7 @@ function toB64(str) {
 function attachJSON(world, json) {
     try {
         attachText(world, JSON.stringify(json, null, 4))
-    } catch(e) {
+    } catch (e) {
         attachText('attachJSON: ' + e)
     }
 }
@@ -270,4 +274,3 @@ module.exports = {
     lastOidcToken,
     lastUrl
 };
-
