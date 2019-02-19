@@ -75,7 +75,7 @@ When('jeg endrer journalpost {string} til:', function(jpid, body, done) {
     // Både bid-dok og bid-dok-journalpost bruker /journalpost som endpoint
     attachText(this, body)
     attachText(this, `Using token: ${lastOidcToken()}`)
-    httpPost(this.alias, "/journalpost", body)
+    httpPost(this.alias, "/journalpost/" + jpid, body)
         .then(response => {
             this.response = response
             checkStatus(this, response)
