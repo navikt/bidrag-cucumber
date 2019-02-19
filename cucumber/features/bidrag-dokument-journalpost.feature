@@ -50,7 +50,7 @@ Feature: bidrag-journalpost
         }
         """
         Then statuskoden skal være '202'
-        And objektet skal ha 'avsenderFornavn' = 'Vinterfred'
+        And objektet skal ha 'avsenderNavn' = 'Vinterfred, Vinterfred'
 
     Scenario: Sjekk at journalpost kan oppdateres - Sommervold
         When jeg endrer journalpost '30040789' til:
@@ -71,4 +71,4 @@ Feature: bidrag-journalpost
         }
         """
         Then statuskoden skal være '202'
-        And objektet skal ha 'avsenderFornavn' = 'Sommervold'
+        And objektet skal ha 'avsenderNavn' = 'Sommervold, Sommervold'
