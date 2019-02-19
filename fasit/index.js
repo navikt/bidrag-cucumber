@@ -200,6 +200,28 @@ function httpGet(alias, env, suffix) {
  * @param {String} body 
  */
 function httpPost(alias, suffix, body) {
+    return axiosRequest('POST', alias, suffix, body)
+}
+
+/**
+ * Finner en URL via oppslag i Fasit og gjør deretter kall til tjenesten med et bearer token.
+ * 
+ * @param {String} alias 
+ * @param {String} suffix 
+ * @param {String} body 
+ */
+function httpPut(alias, suffix, body) {
+    return axiosRequest('PUT', alias, suffix, body)
+}
+
+/**
+ * Finner en URL via oppslag i Fasit og gjør deretter kall til tjenesten med et bearer token.
+ * 
+ * @param {String} alias 
+ * @param {String} suffix 
+ * @param {String} body 
+ */
+function axiosRequest(method, alias, suffix, body) {
     var tok = ""
     var env = ENVIRONMENT
 
@@ -214,7 +236,7 @@ function httpPost(alias, suffix, body) {
 
             return axios.request({
                 url: url + suffix,
-                method: 'POST',
+                method: method,
                 data: body,
                 proxy: false,
                 headers: {
