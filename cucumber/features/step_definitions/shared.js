@@ -83,6 +83,7 @@ Then('header {string} skal være {string}', function (hdr, value) {
 Then('objektet skal ha {string} = {string}', function (prop, value) {
     assert(this.response != null, 'Response er null')
     assert(this.response.data != null, 'Response mangler data')
+    attachJSON(this, this.response.data)
     assert(this.response.data[prop] == value, `Forventet '${value}' fant '${this.response.data[prop]}'`)
 });
  
