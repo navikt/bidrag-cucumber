@@ -1,4 +1,4 @@
-Feature: bidrag-dokument-ui REST API
+Feature: bidrag-dokument-ui
 
     Tester REST API til bidrag dokument ui.
     URLer til tjenester hentes via fasit.adeo.no og gjøres ved å spesifisere

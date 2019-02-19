@@ -1,4 +1,4 @@
-Feature: bidrag-sak REST API
+Feature: bidrag-sak
 
     Tester REST API til endepunktet BidragSakController i bidrag-sak.
     URLer til tjenester hentes via fasit.adeo.no og gjøres ved å spesifisere

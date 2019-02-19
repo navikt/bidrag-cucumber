@@ -1,4 +1,4 @@
-Feature: bidrag-dokument sak REST API
+Feature: bidrag-dokument (/sak REST API)
 
     Tester REST API til bidrag dokument ui.
     URLer til tjenester hentes via fasit.adeo.no og gjøres ved å spesifisere
