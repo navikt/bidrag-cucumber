@@ -2,6 +2,7 @@ const assert = require('assert');
 const util = require('util');
 const { When, Then } = require('cucumber');
 const { kallFasitRestService, attachText, attachJSON, httpPost, lastOidcToken } = require('fasit')
+const { kallFasitRestService, attachText, attachJSON, httpPut, lastOidcToken } = require('fasit')
 const { handleError, checkStatus } = require('./errors')
 
 function journalpostSuffix(saksnummer) {
@@ -47,7 +48,6 @@ When('jeg henter journalpost for id {string}', function(journalpostId, done) {
             done(err)
         })
 });
-
 
 Then('journalposten sitt dokument skal ha følgende properties:', function(table) {
     var jp = this.response.data.dokumenter[0];

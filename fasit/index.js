@@ -231,7 +231,7 @@ function axiosRequest(method, alias, suffix, body) {
             return hentFasitRestUrl(alias, env)
         })
         .then(url => {
-            console.log('httpPost', url + suffix)
+            console.log('axiosRequest', url + suffix)
             last_url = url
 
             return axios.request({
@@ -287,6 +287,7 @@ module.exports = {
     hentTokenFor,
     httpGet,
     httpPost,
+    httpPut,
     hentFasitRessurs,
     hentFasitRestUrl,
     kallFasitRestService,
