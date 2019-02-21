@@ -1,4 +1,4 @@
-Feature: bidrag-journalpost
+Feature: bidrag-dokument-journalpost
 
     Background: Spesifiser base-url til tjenesten her så vi slipper å gjenta for hvert scenario.
         Fasit url og environment er gitt ved ENV variabler ved oppstart.
