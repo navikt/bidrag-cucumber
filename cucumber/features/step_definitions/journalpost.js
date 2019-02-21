@@ -1,8 +1,7 @@
 const assert = require('assert');
 const util = require('util');
 const { When, Then } = require('cucumber');
-const { kallFasitRestService, attachText, attachJSON, httpPost, lastOidcToken } = require('fasit')
-const { kallFasitRestService, attachText, attachJSON, httpPut, lastOidcToken } = require('fasit')
+const { kallFasitRestService, attachText, attachJSON, httpPost, httpPut, lastOidcToken } = require('fasit')
 const { handleError, checkStatus } = require('./errors')
 
 function journalpostSuffix(saksnummer) {
