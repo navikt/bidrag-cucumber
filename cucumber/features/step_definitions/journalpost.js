@@ -1,7 +1,7 @@
 const assert = require('assert');
 const util = require('util');
 const { When, Then } = require('cucumber');
-const { kallFasitRestService, attachText, attachJSON, httpPost, lastOidcToken } = require('fasit')
+const { kallFasitRestService, attachText, attachJSON, httpPost, httpPut, lastOidcToken } = require('fasit')
 const { handleError, checkStatus } = require('./errors')
 
 function journalpostSuffix(saksnummer) {
@@ -9,31 +9,20 @@ function journalpostSuffix(saksnummer) {
 }
 
 /**
- * bidrag-dokument bruker denne URL for å få journalposter for en sak
+ * URL for å få journalposter for en sak
  * 
  * @param {String} saksnummer 
  * @param {String} fagomrade 
  */
-function sakSuffixBD(saksnummer, fagomrade) {
+function sakSuffix(saksnummer, fagomrade) {
     return util.format("/sakjournal/%s?fagomrade=%s", saksnummer, fagomrade)
 }
 
 /**
- * bidrag-dokument-journalpost bruker denne URL for å få journalposter for en sak
- * 
- * @param {String} saksnummer 
- * @param {String} fagomrade 
- */
-function sakSuffixBDJ(saksnummer, fagomrade) {
-    return util.format("/sak/%s?fagomrade=%s", saksnummer, fagomrade)
-}
-
-/**
- * Bruker enten bidrag-dokumnet eller bidrag-dokument-journalpost sin URL for å hente journalposter
- * for et gitt saksnummer i et fagområde.
+ * Henter journalposter for et gitt saksnummer i et fagområde.
  */
 When('jeg henter journalposter for sak {string} med fagområde {string}', function(saksnummer, fagomrade, done) {
-    pathAndParam = this.alias == "bidragDokument" ? sakSuffixBD(saksnummer, fagomrade) :  sakSuffixBDJ(saksnummer, fagomrade)
+    pathAndParam = sakSuffix(saksnummer, fagomrade)
     console.log("henter journalposter", this.alias, pathAndParam)
     kallFasitRestService(this.alias, pathAndParam)
         .then(response => {
@@ -59,7 +48,6 @@ When('jeg henter journalpost for id {string}', function(journalpostId, done) {
         })
 });
 
-
 Then('journalposten sitt dokument skal ha følgende properties:', function(table) {
     var jp = this.response.data.dokumenter[0];
     var missing = []
@@ -75,7 +63,7 @@ When('jeg endrer journalpost {string} til:', function(jpid, body, done) {
     // Både bid-dok og bid-dok-journalpost bruker /journalpost som endpoint
     attachText(this, body)
     attachText(this, `Using token: ${lastOidcToken()}`)
-    httpPost(this.alias, "/journalpost", body)
+    httpPut(this.alias, "/journalpost/" + jpid, body)
         .then(response => {
             this.response = response
             checkStatus(this, response)
