@@ -16,7 +16,7 @@ Feature: bidrag-dokument-journalpost
             | dokumentreferanse |
             | dokumentType      |
 
-    Scenario: Sjekk at vi får en liste med journalposter med sak/fagområde
+    Scenario: Sjekk at vi får en sakjournal for sak/fagområde
         When jeg henter journalposter for sak "0000003" med fagområde "BID"
         Then statuskoden skal være '200'
         And skal resultatet være en liste
