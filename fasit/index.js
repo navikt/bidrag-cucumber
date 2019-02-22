@@ -231,7 +231,7 @@ function axiosRequest(method, alias, suffix, body) {
             return hentFasitRestUrl(alias, env)
         })
         .then(url => {
-            console.log("axiosRequest: " + alias, url + suffix)
+            console.log("axiosRequest: " + method, url + suffix)
             last_url = url
 
             return axios.request({
