@@ -36,7 +36,7 @@ Feature: bidrag-dokument (/journalposter REST API)
 
 
     Scenario: Sjekk at journalpost kan oppdateres - Vinterfred
-        When jeg endrer journalpost '30040789' til:
+        When jeg endrer journalpost 'BID-30040789' til:
         """
         {
             "journalpostId": 30040789,
@@ -57,7 +57,7 @@ Feature: bidrag-dokument (/journalposter REST API)
         And objektet skal ha 'avsenderNavn' = 'Vinterfred, Vinterfred'
 
     Scenario: Sjekk at journalpost kan oppdateres - Sommervold
-        When jeg endrer journalpost '30040789' til:
+        When jeg endrer journalpost 'BID-30040789' til:
         """
         {
             "journalpostId": 30040789,
