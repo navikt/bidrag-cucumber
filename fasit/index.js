@@ -1,24 +1,26 @@
-const axios = require('axios')
+const axios = require('axios');
+
+require('dotenv').config();
 
 const {
     base64encode
-} = require('nodejs-base64')
+} = require('nodejs-base64');
 
-const ENVIRONMENT = process.env.environment || 'q0'
-const FASIT_URL = process.env.fasit || 'https://fasit.adeo.no/api/v2/resources'
-const FASIT_USER = process.env.fasit_user
-const FASIT_PASS = process.env.fasit_pass
-const OIDC_ALIAS = process.env.oidc_alias || 'bidrag-dokument-ui-oidc'
+const ENVIRONMENT = process.env.environment || 'q0';
+const FASIT_URL = process.env.fasit || 'https://fasit.adeo.no/api/v2/resources';
+const TEST_USER = process.env.TEST_USER;
+const TEST_PASS = process.env.TEST_PASS;
+const OIDC_ALIAS = process.env.oidc_alias || 'bidrag-dokument-ui-oidc';
 
-last_oidc_token = ""
-last_url = ""
+last_oidc_token = "";
+last_url = "";
 
 function lastOidcToken() {
-    return last_oidc_token
+    return last_oidc_token;
 }
 
 function lastUrl() {
-    return last_url
+    return last_url;
 }
 
 /**
@@ -27,7 +29,8 @@ function lastUrl() {
  * Det må finnes en 'OpenIdConnect' record for miljøet hvor vi plukker agentName, issuerUrl og password
  */
 function hentToken(env) {
-    return hentTokenFor(env || ENVIRONMENT, OIDC_ALIAS, FASIT_USER, FASIT_PASS, null, null)
+    console.log("TEST_USER:", TEST_USER);
+    return hentTokenFor(env || ENVIRONMENT, OIDC_ALIAS, TEST_USER, TEST_PASS)
 }
 
 /**
@@ -36,47 +39,118 @@ function hentToken(env) {
  * 
  * @param {String} env Fasit environment
  * @param {String} oidcAlias default bidrag-dokument-ui-oidc
- * @param {String} fasitUser  Fasit brukernavn
- * @param {String} fasitPass  Passord for fasit brukernavn
  * @param {String} username Brukernavn for password auth (ikke implementert)
  * @param {String} password Passord for username (ikke implementert)
  */
-function hentTokenFor(env, oidcAlias, fasitUser, fasitPass, username, password) {
-    var client_id = null
-    var client_secret = null
-    var token_endpoint = null
+function hentTokenFor(env, oidcAlias, username, password) {
+    var token_endpoint = null;
+    var openam_agent_name = null;
+    var redirect_uri = hentFasitRessurs('restService', 'bidragDokumentUi', env);
 
-    return hentFasitRessurs('OpenIdConnect', oidcAlias, env)
+    return hentFasitRessurs('OpenIdConnect', oidcAlias, env)    
         .then(response => {
-            client_id = response.properties.agentName
-            token_endpoint = response.properties.issuerUrl + "/access_token"
-            return axios.get(response.secrets.password.ref, {
-                auth: {
-                    username: fasitUser,
-                    password: fasitPass
+            if (response != undefined) {
+                
+                openam_agent_name = response.properties.agentName;        
+                token_endpoint = response.properties.issuerUrl + "/access_token";
+
+                if (token_endpoint != undefined) {
+                    console.log("STEP 1, username:", username);
+                    _oidcStep1Authenticate(token_endpoint, username, password)                    
+                    .then(response => {
+                        console.log("STEP 2, response.tokenId:", response.tokenId);
+                        _oidcStep2Authorize(token_endpoint, response.tokenId, openam_agent_name, redirect_uri);                        
+                    })
+                    .then(response => {
+                        var authorizationCode = response.Location.code;
+                        console.log("STEP 3, authorizationCode:", authorizationCode);
+                        _oidcStep3IdToken(token_endpoint, username, password, authorizationCode, redirect_uri);
+                    })
+                    .then(response => {
+
+                        last_oidc_token = response.data.id_token
+                        return response.data.id_token   
+                    })
+                    .catch(err => {
+                        console.log("ERROR", err)
+                        throw err
+                    })
                 }
-            })
+            }
         })
-        .then(response => {
-            client_secret = response.data;
-            return axios.post(token_endpoint, 'grant_type=client_credentials&scope=openid', {
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded'
-                },
-                auth: {
-                    username: client_id,
-                    password: client_secret
-                }
-            })
-        })
-        .then(response => {
-            last_oidc_token = response.data.id_token
-            return response.data.id_token
-        })
-        .catch(err => {
-            console.log("ERROR", err)
-            throw err
-        })
+            
+    ;
+}
+
+/**
+ * First step in the process of obtaining id-token for
+ * user. Authenticates user with OpenAM. 
+ * 
+ * Input: User credentials
+ * Output: Cookie containing authentication code. Valid for
+ * 120s.
+ */
+function _oidcStep1Authenticate(token_endpoint, username, password) {
+    var response  = axios.post(token_endpoint, 'authIndexType=service&authIndexValue=ldapservice', {
+        headers: {
+            'Cache-Control': 'no-cache', 
+            'Content-Type': 'application/json',
+            'X-OpenAM-Password': toB64(password),
+            'X-OpenAM-Username': username
+        }
+    });
+
+    console.log('STEP-1, response: ', response)
+
+    return response;
+}
+
+/**
+ * Second step in obtaining id-token from user.
+ * Authorizes user with OpenAM.
+ * 
+ * Input: Authentication cookie from step 1
+ * Output: Authorization code for step 3. Valid for
+ * 120s.
+ */
+function _oidcStep2Authorize(token_endpoint, authCookie, openam_agent_name, redirect_uri) {    
+
+    return axios.post(token_endpoint, 'authIndexType=service&authIndexValue=ldapservice', {
+        headers: {
+            'Cache-Control': 'no-cache', 
+            'Content-Type': 'application/x-www-form-urlencoded',
+            'Cookie': 'nva-isso=' + authCookie 
+        },
+        data: {
+            client_id: openam_agent_name,
+            response_type: 'code',
+            redirect_uri: redirect_uri,
+            decision: 'allow',
+            csrf: authCookie,
+            scope: 'openid' 
+        }
+    })
+}
+
+/**
+ * Third and final step in obtaining id-token from user.
+ * 
+ * Input:Authorization code from step 2
+ * Output: Id-token with 3600s validity.
+ */
+function _oidcStep3IdToken(token_endpoint, username, password, authorizationCode, redirect_uri) {
+    return axios.post(token_endpoint, 'authIndexType=service&authIndexValue=ldapservice', {
+        headers: {
+            'Authorization': 'Basic' + toB64(username + ':' + password),
+            'Cache-Control': 'no-cache', 
+            'Content-Type': 'application/x-www-form-urlencoded'            
+        },
+        data: {
+            grant_type: 'authorization_code',
+            code: authorizationCode,
+            redirect_uri: redirect_uri,
+        }
+    })
 }
 
 /**
