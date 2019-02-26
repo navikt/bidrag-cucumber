@@ -19,7 +19,6 @@
     "fasit": "file:fasit",
     "jsonwebtoken": "^8.4.0",
     "nodejs-base64": "^1.0.3",
-    "request": "2.88.0",
-    "request-promise": "4.2.2"
+    "request": "^2.88.0"
   }
 }
