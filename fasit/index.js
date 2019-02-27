@@ -1,4 +1,5 @@
 const axios = require('axios')
+const { getUserIDToken } = require('./userid-token')
 
 const {
     base64encode
@@ -9,7 +10,13 @@ const FASIT_URL = process.env.fasit || 'https://fasit.adeo.no/api/v2/resources'
 const FASIT_USER = process.env.fasit_user
 const FASIT_PASS = process.env.fasit_pass
 const OIDC_ALIAS = process.env.oidc_alias || 'bidrag-dokument-ui-oidc'
+const TEST_USER = process.env.test_user
+const TEST_PASS = process.env.test_pass
 
+/**
+ * Siste URL og token brukt
+ *
+ */
 last_oidc_token = ""
 last_url = ""
 
@@ -27,28 +34,29 @@ function lastUrl() {
  * Det må finnes en 'OpenIdConnect' record for miljøet hvor vi plukker agentName, issuerUrl og password
  */
 function hentToken(env) {
-    return hentTokenFor(env || ENVIRONMENT, OIDC_ALIAS, FASIT_USER, FASIT_PASS, null, null)
+    return hentTokenFor(env || ENVIRONMENT, OIDC_ALIAS, FASIT_USER, FASIT_PASS, TEST_USER, TEST_PASS)
 }
 
 /**
- * Kaller AM for å hente et id_token. Hvis username/password ikke er gitt benyttes "client_credentials".
- * Hvis username/password er gitt benyttes "password" i token request.
+ * Kaller AM for å hente et id_token for oidcAlias (client_credentials) eller for bruker (username/password != null).
  * 
  * @param {String} env Fasit environment
  * @param {String} oidcAlias default bidrag-dokument-ui-oidc
  * @param {String} fasitUser  Fasit brukernavn
  * @param {String} fasitPass  Passord for fasit brukernavn
- * @param {String} username Brukernavn for password auth (ikke implementert)
- * @param {String} password Passord for username (ikke implementert)
+ * @param {String} username Brukernavn for password auth
+ * @param {String} password Passord for username
  */
 function hentTokenFor(env, oidcAlias, fasitUser, fasitPass, username, password) {
     var client_id = null
     var client_secret = null
     var token_endpoint = null
+    var issuerUrl = null
 
     return hentFasitRessurs('OpenIdConnect', oidcAlias, env)
         .then(response => {
             client_id = response.properties.agentName
+            issuerUrl = response.properties.issuerUrl
             token_endpoint = response.properties.issuerUrl + "/access_token"
             return axios.get(response.secrets.password.ref, {
                 auth: {
@@ -59,19 +67,24 @@ function hentTokenFor(env, oidcAlias, fasitUser, fasitPass, username, password) 
         })
         .then(response => {
             client_secret = response.data;
-            return axios.post(token_endpoint, 'grant_type=client_credentials&scope=openid', {
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded'
-                },
-                auth: {
-                    username: client_id,
-                    password: client_secret
-                }
-            })
+	    if(username && password) {
+		return getUserIDToken(issuerUrl, client_id, client_secret, 'https://bidrag-dokument-ui.nais.preprod.local/', username, password)
+	    } else {
+		return axios.post(token_endpoint, 'grant_type=client_credentials&scope=openid', {
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    },
+                    auth: {
+                        username: client_id,
+                        password: client_secret
+                    }
+                })
+	    }
         })
         .then(response => {
-            last_oidc_token = response.data.id_token
-            return response.data.id_token
+	    // client_credentials gir response.data mens user/pwd ikke gjør det
+            last_oidc_token = response.data ? response.data.id_token : response.id_token
+            return last_oidc_token
         })
         .catch(err => {
             console.log("ERROR", err)
