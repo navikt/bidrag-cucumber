@@ -6,6 +6,8 @@ node {
         println("[INFO] Clean workspace")
         cleanWs()
 
+        sh(script: "env")
+
         println("[INFO] Checkout ${sourceapp}")
         withCredentials([usernamePassword(credentialsId: 'jenkinsPipeline', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
             withEnv(['HTTPS_PROXY=http://webproxy-utvikler.nav.no:8088']) {
