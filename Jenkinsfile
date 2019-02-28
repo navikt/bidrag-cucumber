@@ -24,7 +24,7 @@ node {
 
     stage("#3 Cucumber tests") {
         println("[INFO] Run cucumber tests")
-        def project = Image == "true" ? "bidrag-cucumber" : Project
+        def project = Image == "true" ? "bidrag-cucumber" : FeaturePrefix
         def naisEnv = NaisEnvironment
         if (Testuser == "true") {
             withCredentials([
