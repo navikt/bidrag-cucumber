@@ -10,6 +10,14 @@ Feature: bidrag-cucumber
             | sub       | bidrag-dokument-ui-q0 |
             | tokenType | JWTToken              |
 
+    Scenario: Sjekk at vi får et gyldig id_token i 'q0' for testbruker
+        When jeg ber om et token fra 'q0' med testbruker
+        Then skal token være gyldig
+        And token skal ha følgende properties:
+            | aud       | bidrag-dokument-ui-q0  |
+            | sub       | $process.env.test_user |
+            | tokenType | JWTToken               |
+
     Scenario: Sjekk at vi får et gyldig id_token i 'q1'
         When jeg ber om et token fra 'q1'
         Then skal token være gyldig
@@ -34,10 +42,10 @@ Feature: bidrag-cucumber
     Scenario: Sjekk at duplikater i fixture kode blir funnet
         Given cucumber fixtures in 'cucumber/features/step_definitions'
         And adding the following fixture to 'duplicate1.js':
-        """
+            """
         const { When } = require('cucumber');
         When('skal token være gyldig', function () {
-        })
-        """
+            })
+            """
         When validating cucumber fixtures
         Then there should be duplicates
