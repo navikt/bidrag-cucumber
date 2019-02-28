@@ -1,13 +1,13 @@
 const assert = require('assert');
 const jwt = require('jsonwebtoken')
 const { When, Then } = require('cucumber');
-const { hentTokenFor, attachText, attachJSON } = require('fasit')
+const { OIDC_ALIAS, hentTokenFor, attachText, attachJSON } = require('fasit')
 
 /**
  * 
  */
 When('jeg ber om et token fra {string}', function (env, done) {
-    hentTokenFor(env, oidcAlias, process.env.fasit_user, process.env.fasit_pass, null, null)
+    hentTokenFor(env, OIDC_ALIAS, process.env.fasit_user, process.env.fasit_pass, null, null)
         .then(response => {
             this.token = response;
             this.tokenJwt = jwt.decode(this.token)
@@ -25,8 +25,8 @@ When('jeg ber om et token fra {string}', function (env, done) {
 /**
  * 
  */
-When('jeg ber om et token fra {string} med en testbruker', function (env, done) {
-    hentTokenFor(env, oidcAlias, process.env.fasit_user, process.env.fasit_pass, process.env.test_user, process.env.test_pass)
+When('jeg ber om et bruker-token fra {string}', function (env, done) {
+    hentTokenFor(env, OIDC_ALIAS, process.env.fasit_user, process.env.fasit_pass, process.env.test_user, process.env.test_pass)
         .then(response => {
             this.token = response;
             this.tokenJwt = jwt.decode(this.token)

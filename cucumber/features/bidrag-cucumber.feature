@@ -11,7 +11,7 @@ Feature: bidrag-cucumber
             | tokenType | JWTToken              |
 
     Scenario: Sjekk at vi får et gyldig id_token i 'q0' for testbruker
-        When jeg ber om et token fra 'q0' med testbruker
+        When jeg ber om et bruker-token fra 'q0'
         Then skal token være gyldig
         And token skal ha følgende properties:
             | aud       | bidrag-dokument-ui-q0  |

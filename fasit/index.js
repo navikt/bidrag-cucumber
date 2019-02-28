@@ -290,5 +290,6 @@ module.exports = {
     attachJSON,
     attachText,
     lastOidcToken,
-    lastUrl
+    lastUrl,
+    OIDC_ALIAS
 };
