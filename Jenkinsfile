@@ -6,8 +6,6 @@ node {
         println("[INFO] Clean workspace")
         cleanWs()
 
-        sh(script: "env")
-
         println("[INFO] Checkout ${sourceapp}")
         withCredentials([usernamePassword(credentialsId: 'jenkinsPipeline', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
             withEnv(['HTTPS_PROXY=http://webproxy-utvikler.nav.no:8088']) {
@@ -32,6 +30,7 @@ node {
                     usernamePassword(credentialsId: 'naisUploader', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD'),
                     usernamePassword(credentialsId: 'testUser', usernameVariable: 'TEST_USER', passwordVariable: 'TEST_PASS')
                 ]) {
+                sh (script: "env")
                 sh (script: "docker run --rm -e test_user=${Username} -e test_pass='${Password}' -e fasit_user=${env.USERNAME} -e fasit_pass='${env.PASSWORD}' -e project=${project} -v '${env.WORKSPACE}/cucumber':/cucumber bidrag-cucumber", returnStatus:true)
             }
         } else {
