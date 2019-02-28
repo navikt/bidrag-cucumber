@@ -26,7 +26,10 @@ node {
         println("[INFO] Run cucumber tests")
         def project = Image == "true" ? "bidrag-cucumber" : ""
         if (Testuser == "true") {
-            withCredentials([usernamePassword(credentialsId: 'naisUploader', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
+            withCredentials([
+                    usernamePassword(credentialsId: 'naisUploader', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD'),
+                    usernamePassword(credentialsId: 'testUser', usernameVariable: 'TEST_USER', passwordVariable: 'TEST_PASS')
+                ]) {
                 sh (script: "docker run --rm -e test_user=${Username} -e test_pass='${Password}' -e fasit_user=${env.USERNAME} -e fasit_pass='${env.PASSWORD}' -e project=${project} -v '${env.WORKSPACE}/cucumber':/cucumber bidrag-cucumber", returnStatus:true)
             }
         } else {
