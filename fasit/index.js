@@ -185,7 +185,7 @@ function hentFasitRestUrl(alias, env) {
  * @param {String} suffix 
  */
 function httpGet(alias, suffix) {
-    axiosRequest('GET', alias, suffix, null)
+    return axiosRequest('GET', alias, suffix, null)
 }
 
 /**
