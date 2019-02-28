@@ -1,7 +1,7 @@
 const assert = require('assert');
 const util = require('util');
 const { When, Then } = require('cucumber');
-const { kallFasitRestService, attachText, attachJSON, httpPost, httpPut, lastOidcToken } = require('fasit')
+const { httpGet, httpPut, attachText, lastOidcToken } = require('fasit')
 const { handleError, checkStatus } = require('./errors')
 
 function journalpostSuffix(saksnummer) {
@@ -24,7 +24,7 @@ function sakSuffix(saksnummer, fagomrade) {
 When('jeg henter journalposter for sak {string} med fagområde {string}', function(saksnummer, fagomrade, done) {
     pathAndParam = sakSuffix(saksnummer, fagomrade)
     console.log("henter journalposter", this.alias, pathAndParam)
-    kallFasitRestService(this.alias, pathAndParam)
+    httpGet(this.alias, pathAndParam)
         .then(response => {
             this.response = response
             assert(this.response != null, "Intet svar mottatt fra tjenesten")
@@ -38,7 +38,7 @@ When('jeg henter journalposter for sak {string} med fagområde {string}', functi
 });
 
 When('jeg henter journalpost for id {string}', function(journalpostId, done) {
-    kallFasitRestService(this.alias, journalpostSuffix(journalpostId))
+    httpGet(this.alias, journalpostSuffix(journalpostId))
         .then(response => {
             this.response = response
             done()

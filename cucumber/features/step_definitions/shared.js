@@ -1,7 +1,7 @@
 const assert = require('assert');
 const util = require('util');
 const { Given, When, Then } = require('cucumber');
-const { kallFasitRestService, attachText, attachJSON } = require('fasit')
+const { httpGet, attachText, attachJSON } = require('fasit')
 
 /** Felles rutiner for alle tjenester */
 
@@ -53,7 +53,7 @@ Then('hvert element i listen skal ha følgende properties satt:', function(table
  * Kaller actuator/health endpoint 
  */
 When('jeg kaller status endpoint', function(done) {
-    kallFasitRestService(this.alias, "/actuator/health")
+    httpGet(this.alias, "/actuator/health")
         .then(response => {
             this.response = response;
             assert(this.response != null, "Intet svar mottatt fra tjenesten")

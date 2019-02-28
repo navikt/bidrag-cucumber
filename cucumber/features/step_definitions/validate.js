@@ -1,5 +1,4 @@
 const assert = require('assert');
-const util = require('util');
 const { Given, When } = require('cucumber');
 const { attachJSON, attachText } = require('fasit')
 
@@ -25,8 +24,7 @@ function findFixtures(path, duplicates, fixtures) {
 }
 
 function checkForDuplicateFixtures(dir, duplicates, fixtures) {
-    var files = fs.readdirSync(dir)
-    files.forEach( item => {
+    fs.readdirSync(dir).forEach( item => {
         findFixtures(`${dir}/${item}`, duplicates, fixtures)
     })
 }

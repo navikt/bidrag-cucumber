@@ -1,5 +1,7 @@
 const axios = require('axios')
-const { getUserIDToken } = require('./userid-token')
+const {
+    getUserIDToken
+} = require('./userid-token')
 
 const {
     base64encode
@@ -67,10 +69,10 @@ function hentTokenFor(env, oidcAlias, fasitUser, fasitPass, username, password) 
         })
         .then(response => {
             client_secret = response.data;
-	    if(username && password) {
-		return getUserIDToken(issuerUrl, client_id, client_secret, 'https://bidrag-dokument-ui.nais.preprod.local/', username, password)
-	    } else {
-		return axios.post(token_endpoint, 'grant_type=client_credentials&scope=openid', {
+            if (username && password) {
+                return getUserIDToken(issuerUrl, client_id, client_secret, 'https://bidrag-dokument-ui.nais.preprod.local/', username, password)
+            } else {
+                return axios.post(token_endpoint, 'grant_type=client_credentials&scope=openid', {
                     headers: {
                         'Content-Type': 'application/x-www-form-urlencoded'
                     },
@@ -79,10 +81,10 @@ function hentTokenFor(env, oidcAlias, fasitUser, fasitPass, username, password) 
                         password: client_secret
                     }
                 })
-	    }
+            }
         })
         .then(response => {
-	    // client_credentials gir response.data mens user/pwd ikke gjør det
+            // client_credentials gir response.data mens user/pwd ikke gjør det
             last_oidc_token = response.data ? response.data.id_token : response.id_token
             return last_oidc_token
         })
@@ -175,10 +177,6 @@ function hentFasitRestUrl(alias, env) {
         .catch(err => err)
 }
 
-function kallFasitRestService(alias, suffix) {
-    return httpGet(alias, ENVIRONMENT, suffix)
-}
-
 /**
  * Finner en URL via oppslag i Fasit og gjør deretter kall til tjenesten med et bearer token.
  * 
@@ -186,23 +184,8 @@ function kallFasitRestService(alias, suffix) {
  * @param {String} env 
  * @param {String} suffix 
  */
-function httpGet(alias, env, suffix) {
-    var tok = "";
-    return hentToken(env)
-        .then(token => {
-            tok = token;
-            return hentFasitRestUrl(alias, env)
-        })
-        .then(url => {
-            console.log('httpGet', url + suffix)
-            last_url = url
-            return axios.get(url + suffix, {
-                headers: {
-                    Authorization: 'Bearer ' + tok
-                }
-            })
-        })
-        .catch(err => err)
+function httpGet(alias, suffix) {
+    axiosRequest('GET', alias, suffix, null)
 }
 
 /**
@@ -303,7 +286,6 @@ module.exports = {
     httpPut,
     hentFasitRessurs,
     hentFasitRestUrl,
-    kallFasitRestService,
     toB64,
     attachJSON,
     attachText,
