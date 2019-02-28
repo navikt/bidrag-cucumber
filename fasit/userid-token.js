@@ -60,7 +60,8 @@ function auth3Options(tokenEndpoint, agentName, agentSecret, authCode, redirectU
 			grant_type: 'authorization_code',
 			redirect_uri: redirectUri,
 			code: authCode
-		}
+		},
+		json: true
 	}
 	return callParams.options3
 }
@@ -86,7 +87,7 @@ function getUserIDToken(token_endpoint, client_id, client_secret, redirect_uri, 
 		})
 		.catch(err => {
 			console.log("ERROR GETTING TOKEN", err.statusCode)
-			console.log()
+			console.log('getUserIDToken', token_endpoint, client_id, client_secret, redirect_uri, username, password)
 			for (var key in callParams) {
 				console.log(key, callParams[key])
 			}
@@ -97,3 +98,4 @@ function getUserIDToken(token_endpoint, client_id, client_secret, redirect_uri, 
 module.exports = {
 	getUserIDToken
 }
+
