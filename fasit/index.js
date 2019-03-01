@@ -314,10 +314,9 @@ function logResponse(world, response) {
             } else {
                 attachJSON(world, response.data)
             }
-
         }
-    } catch(err) {
-        attachText(world, 'logResponse feilet: ' + err)
+    } catch(error) {
+        attachText(world, 'logResponse feilet: ' + error + "; " + err)
     }
 }
 /**
@@ -331,13 +330,17 @@ function logError(world, err) {
         if(err.response) {
             attachText(world, `${err.response.status} ${err.response.statusText}`)
             if(err.response.data) {
-                attachText(world, err.response.data)    
+                if(typeof(err.response.data) == 'string') {
+                    attachText(world, err.response.data)
+                } else {
+                    attachJSON(world, err.response.data)
+                }
             }
         } else {
             attachText(world, `Feil ved oppkobling: ${err.errno}`)
         }
-    } catch(err) {
-        attachText(world, 'logError feilet: ' + err)
+    } catch(error) {
+        attachText(world, 'logError feilet: ' + error + "; " + err)
     }
 }
 
