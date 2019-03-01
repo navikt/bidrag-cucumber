@@ -53,7 +53,7 @@ Then('hvert element i listen skal ha følgende properties satt:', function(table
  * Kaller actuator/health endpoint 
  */
 When('jeg kaller status endpoint', function(done) {
-    httpGet(this.alias, "/actuator/health")
+    httpGet(this, this.alias, "/actuator/health")
         .then(response => {
             this.response = response;
             assert(this.response != null, "Intet svar mottatt fra tjenesten")

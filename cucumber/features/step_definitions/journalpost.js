@@ -24,7 +24,7 @@ function sakSuffix(saksnummer, fagomrade) {
 When('jeg henter journalposter for sak {string} med fagområde {string}', function(saksnummer, fagomrade, done) {
     pathAndParam = sakSuffix(saksnummer, fagomrade)
     console.log("henter journalposter", this.alias, pathAndParam)
-    httpGet(this.alias, pathAndParam)
+    httpGet(this, this.alias, pathAndParam)
         .then(response => {
             this.response = response
             assert(this.response != null, "Intet svar mottatt fra tjenesten")
@@ -38,7 +38,7 @@ When('jeg henter journalposter for sak {string} med fagområde {string}', functi
 });
 
 When('jeg henter journalpost for id {string}', function(journalpostId, done) {
-    httpGet(this.alias, journalpostSuffix(journalpostId))
+    httpGet(this, this.alias, journalpostSuffix(journalpostId))
         .then(response => {
             this.response = response
             done()
@@ -63,7 +63,7 @@ When('jeg endrer journalpost {string} til:', function(jpid, body, done) {
     // Både bid-dok og bid-dok-journalpost bruker /journalpost som endpoint
     attachText(this, body)
     attachText(this, `Using token: ${lastOidcToken()}`)
-    httpPut(this.alias, "/journalpost/" + jpid, body)
+    httpPut(this, this.alias, "/journalpost/" + jpid, body)
         .then(response => {
             this.response = response
             checkStatus(this, response)

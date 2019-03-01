@@ -10,7 +10,7 @@ function sakSuffix(foedselsnummer) {
 When('jeg henter bidragssaker for person med fnr {string}', function(foedselsnummer, done) {
     let pathAndParam = sakSuffix(foedselsnummer);
     console.log("henter bidragssaker for " + foedselsnummer, this.alias, pathAndParam);
-    httpGet(this.alias, pathAndParam)
+    httpGet(this, this.alias, pathAndParam)
         .then(response => {
             this.response = response            
             assert(this.response != null, "Intet svar mottatt fra tjenesten");

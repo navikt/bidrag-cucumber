@@ -184,8 +184,8 @@ function hentFasitRestUrl(alias, env) {
  * @param {String} env 
  * @param {String} suffix 
  */
-function httpGet(alias, suffix) {
-    return axiosRequest('GET', alias, suffix, null)
+function httpGet(world, alias, suffix) {
+    return axiosRequest(world, 'GET', alias, suffix, null)
 }
 
 /**
@@ -195,8 +195,8 @@ function httpGet(alias, suffix) {
  * @param {String} suffix 
  * @param {String} body 
  */
-function httpPost(alias, suffix, body) {
-    return axiosRequest('POST', alias, suffix, body)
+function httpPost(world, alias, suffix, body) {
+    return axiosRequest(world, 'POST', alias, suffix, body)
 }
 
 /**
@@ -206,8 +206,8 @@ function httpPost(alias, suffix, body) {
  * @param {String} suffix 
  * @param {String} body 
  */
-function httpPut(alias, suffix, body) {
-    return axiosRequest('PUT', alias, suffix, body)
+function httpPut(world, alias, suffix, body) {
+    return axiosRequest(world, 'PUT', alias, suffix, body)
 }
 
 /**
@@ -217,7 +217,7 @@ function httpPut(alias, suffix, body) {
  * @param {String} suffix 
  * @param {String} body 
  */
-function axiosRequest(method, alias, suffix, body) {
+function axiosRequest(method, alias, suffix, body, world) {
     var tok = ""
     var env = ENVIRONMENT
 
@@ -227,7 +227,12 @@ function axiosRequest(method, alias, suffix, body) {
             return hentFasitRestUrl(alias, env)
         })
         .then(url => {
-            console.log("axiosRequest: " + method, url + suffix)
+            attachText(world, `${method} ${url}${suffix}`)
+            if(typeof body == "object") {
+                attachJSON(world, body)
+            } else if(typeof body == "string") {
+                attachText(world, body)
+            }
             last_url = url
 
             return axios.request({

@@ -11,7 +11,7 @@ function journalpostSuffix(saksnummer, fagomrade) {
 When('jeg henter journalposter for sak {string} med fagområde {string} via dokument-ui', function(saksnummer, fagomrade, done) {
     console.log("henter journalpost", saksnummer, this.alias, "fagområde", fagomrade)
     
-    httpGet(this.alias, journalpostSuffix(saksnummer, fagomrade))
+    httpGet(this, this.alias, journalpostSuffix(saksnummer, fagomrade))
         .then(response => {
             this.response = response
             assert(this.response != null, "Intet svar mottatt fra tjenesten")
