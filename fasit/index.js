@@ -238,12 +238,6 @@ function axiosRequest(world, method, alias, suffix, body) {
             return hentFasitRestUrl(alias, env)
         })
         .then(url => {
-            attachText(world, `${method} ${url}${suffix}`)
-            if(body && typeof body == "object") { // null and undefined -> 'object'
-                attachJSON(world, body)
-            } else if(typeof body == "string") {
-                attachText(world, body)
-            }
             last_url = url
 
             return axios.request({
@@ -257,11 +251,11 @@ function axiosRequest(world, method, alias, suffix, body) {
                 }
             })
         }).then(response => {
-            logResponse(world, response)
+            logResponse(world, response, method, url, body)
             return response
         })
         .catch(err => {
-            logError(world, err)
+            logError(world, err, method, url, body)
             return err
         })
 }
@@ -305,16 +299,10 @@ function attachText(world, text) {
  * @param {Object} world 
  * @param {Object} response 
  */
-function logResponse(world, response) {
+function logResponse(world, response, method, url, body) {
     try {
-        attachText(world, `${response.status} ${response.statusText}`)
-        if(response.data) {
-            if(typeof(response.data) == 'string') {
-                attachText(world, response.data)
-            } else {
-                attachJSON(world, response.data)
-            }
-        }
+        logRequestAndBodyString(world, method, url, body)
+        logRequestAndBodyString(world, response.status, response.statusText, response.data)
     } catch(error) {
         attachText(world, 'logResponse feilet: ' + error + "; " + err)
     }
@@ -325,22 +313,33 @@ function logResponse(world, response) {
  * @param {Object} world 
  * @param {Object} err 
  */
-function logError(world, err) {
+function logError(world, err, method, url, body) {
     try {
+        logRequestAndBodyString(world, method, url, body)
         if(err.response) {
-            attachText(world, `${err.response.status} ${err.response.statusText}`)
-            if(err.response.data) {
-                if(typeof(err.response.data) == 'string') {
-                    attachText(world, err.response.data)
-                } else {
-                    attachJSON(world, err.response.data)
-                }
-            }
+            logRequestAndBodyString(world, err.response.status, err.response.statusText, err.response.data)
         } else {
             attachText(world, `Feil ved oppkobling: ${err.errno}`)
         }
     } catch(error) {
         attachText(world, 'logError feilet: ' + error + "; " + err)
+    }
+}
+
+function logRequestAndBodyString(world, method, url, body) {
+    try {
+        var msg = []
+        msg.push(`${method} ${url}${suffix}`)
+        if(body) {
+            if(body && typeof body == "object") { // null and undefined -> 'object'
+                msg.push(JSON.stringify(body, null, 4))    
+            } else if(typeof body == "string") {
+                msg.push(body)
+            }
+        }
+        attachText(world, msg.join('\n'))
+    } catch(err) {
+        attachText(world, 'logRequestAndBodyString failed ' + err);
     }
 }
 
