@@ -262,7 +262,7 @@ function axiosRequest(world, method, alias, suffix, body) {
         })
         .catch(err => {
             logError(world, err)
-            throw err
+            return err
         })
 }
 
