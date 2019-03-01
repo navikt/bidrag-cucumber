@@ -83,7 +83,6 @@ Then('header {string} skal være {string}', function (hdr, value) {
 Then('objektet skal ha {string} = {string}', function (prop, value) {
     assert(this.response != null, 'Response er null')
     assert(this.response.data != null, 'Response mangler data')
-    attachJSON(this, this.response.data)
     assert(this.response.data[prop] == value, `Forventet '${value}' fant '${this.response.data[prop]}'`)
 });
  
@@ -102,7 +101,6 @@ Then('skal resultatet være en liste', function() {
 Then('hvert element i listen skal ha {string} = {string}', function(prop, feltverdi) {
     assert.ok(this.response != null, "Response er null")
     assert.ok(this.response.data != null, "Response.data er null")
-    attachJSON(this, this.response.data)
     var arr = this.response.data.filter(jp => jp[prop] == feltverdi)
 
     assert.ok(arr.length == this.response.data.length, "Det finnes forskjellige saksnummer i listen!")

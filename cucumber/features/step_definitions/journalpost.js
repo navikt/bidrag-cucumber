@@ -2,7 +2,6 @@ const assert = require('assert');
 const util = require('util');
 const { When, Then } = require('cucumber');
 const { httpGet, httpPut, attachText, lastOidcToken } = require('fasit')
-const { handleError, checkStatus } = require('./errors')
 
 function journalpostSuffix(saksnummer) {
     return util.format("/journalpost/%s", saksnummer)
@@ -28,7 +27,6 @@ When('jeg henter journalposter for sak {string} med fagområde {string}', functi
         .then(response => {
             this.response = response
             assert(this.response != null, "Intet svar mottatt fra tjenesten")
-            attachText(this, `Status: ${this.response}`)
             assert(undefined === this.response.errno, "Feilmelding: " + this.response.errno);
             done()
         })
@@ -61,17 +59,12 @@ Then('journalposten sitt dokument skal ha følgende properties:', function(table
 
 When('jeg endrer journalpost {string} til:', function(jpid, body, done) {
     // Både bid-dok og bid-dok-journalpost bruker /journalpost som endpoint
-    attachText(this, body)
-    attachText(this, `Using token: ${lastOidcToken()}`)
     httpPut(this, this.alias, "/journalpost/" + jpid, body)
         .then(response => {
             this.response = response
-            checkStatus(this, response)
             done()
         })
         .catch(err => {
-            handleError(this, err)
-            console.log("endre journalpost", err)
             done(err)
         })
 })
