@@ -1,9 +1,5 @@
 const axios = require('axios')
 const {
-    logResponse,
-    logError
-} = require('./logutils')
-const {
     getUserIDToken
 } = require('./userid-token')
 
@@ -303,6 +299,47 @@ function attachText(world, text) {
     world.attach(toB64(text))
 }
 
+/**
+ * Legg ved relevant info fra response objekt
+ * 
+ * @param {Object} world 
+ * @param {Object} response 
+ */
+function logResponse(world, response) {
+    try {
+        attachText(world, `${response.status} ${response.statusText}`)
+        if(response.data) {
+            if(typeof(response.data) == 'string') {
+                attachText(world, response.data)
+            } else {
+                attachJSON(world, response.data)
+            }
+
+        }
+    } catch(err) {
+        attachText(world, 'logResponse feilet: ' + err)
+    }
+}
+/**
+ * Legg ved relevant info fra error objekt
+ * 
+ * @param {Object} world 
+ * @param {Object} err 
+ */
+function logError(world, err) {
+    try {
+        if(err.response) {
+            attachText(world, `${err.response.status} ${err.response.statusText}`)
+            if(err.response.data) {
+                attachText(world, err.response.data)    
+            }
+        } else {
+            attachText(world, `Feil ved oppkobling: ${err.errno}`)
+        }
+    } catch(err) {
+        attachText(world, 'logError feilet: ' + err)
+    }
+}
 
 module.exports = {
     hentToken,
