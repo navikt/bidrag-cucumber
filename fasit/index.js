@@ -251,11 +251,14 @@ function axiosRequest(world, method, alias, suffix, body) {
                 }
             })
         }).then(response => {
-            logResponse(world, response, method, url, body)
+            logResponse(world, response, method, last_url+suffix, body)
             return response
         })
         .catch(err => {
-            logError(world, err, method, url, body)
+            logError(world, err, method, last_url+suffix, body)
+            if(err.response && err.response.status == 401) {
+                attachText(world, `Token: ${tok}`)
+            }
             return err
         })
 }
@@ -301,8 +304,8 @@ function attachText(world, text) {
  */
 function logResponse(world, response, method, url, body) {
     try {
-        logRequestAndBodyString(world, method, url, body)
-        logRequestAndBodyString(world, response.status, response.statusText, response.data)
+        logMessageAndBodyString(world, method, url, body)
+        logMessageAndBodyString(world, response.status, response.statusText, response.data)
     } catch(error) {
         attachText(world, 'logResponse feilet: ' + error + "; " + err)
     }
@@ -315,9 +318,9 @@ function logResponse(world, response, method, url, body) {
  */
 function logError(world, err, method, url, body) {
     try {
-        logRequestAndBodyString(world, method, url, body)
+        logMessageAndBodyString(world, method, url, body)
         if(err.response) {
-            logRequestAndBodyString(world, err.response.status, err.response.statusText, err.response.data)
+            logMessageAndBodyString(world, err.response.status, err.response.statusText, err.response.data)
         } else {
             attachText(world, `Feil ved oppkobling: ${err.errno}`)
         }
@@ -326,10 +329,10 @@ function logError(world, err, method, url, body) {
     }
 }
 
-function logRequestAndBodyString(world, method, url, body) {
+function logMessageAndBodyString(world, p1, p2, body) {
     try {
         var msg = []
-        msg.push(`${method} ${url}${suffix}`)
+        msg.push(`${p1} ${p2}`)
         if(body) {
             if(body && typeof body == "object") { // null and undefined -> 'object'
                 msg.push(JSON.stringify(body, null, 4))    
@@ -339,7 +342,7 @@ function logRequestAndBodyString(world, method, url, body) {
         }
         attachText(world, msg.join('\n'))
     } catch(err) {
-        attachText(world, 'logRequestAndBodyString failed ' + err);
+        attachText(world, 'logMessageAndBodyString failed ' + err);
     }
 }
 
