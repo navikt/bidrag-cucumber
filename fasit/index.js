@@ -228,7 +228,7 @@ function axiosRequest(world, method, alias, suffix, body) {
         })
         .then(url => {
             attachText(world, `${method} ${url}${suffix}`)
-            if(typeof body == "object") {
+            if(body && typeof body == "object") { // null and undefined -> 'object'
                 attachJSON(world, body)
             } else if(typeof body == "string") {
                 attachText(world, body)
@@ -245,6 +245,9 @@ function axiosRequest(world, method, alias, suffix, body) {
                     "Content-Type": "application/json"
                 }
             })
+        }).then(response => {
+            // placeholder code for mer logging
+            return response
         })
         .catch(err => err)
 }
