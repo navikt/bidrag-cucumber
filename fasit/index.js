@@ -1,5 +1,9 @@
 const axios = require('axios')
 const {
+    logResponse,
+    logError
+} = require('./logutils')
+const {
     getUserIDToken
 } = require('./userid-token')
 
@@ -178,7 +182,7 @@ function hentFasitRestUrl(alias, env) {
 }
 
 /**
- * Finner en URL via oppslag i Fasit og gjør deretter kall til tjenesten med et bearer token.
+ * Finner en URL via oppslag i Fasit og gjør deretter GET kall til tjenesten med et bearer token.
  * 
  * @param {String} alias 
  * @param {String} env 
@@ -189,7 +193,18 @@ function httpGet(world, alias, suffix) {
 }
 
 /**
- * Finner en URL via oppslag i Fasit og gjør deretter kall til tjenesten med et bearer token.
+ * Finner en URL via oppslag i Fasit og gjør deretter DELETE kall til tjenesten med et bearer token.
+ * 
+ * @param {String} alias 
+ * @param {String} env 
+ * @param {String} suffix 
+ */
+function httpDelete(world, alias, suffix) {
+    return axiosRequest(world, 'DELETE', alias, suffix, null)
+}
+
+/**
+ * Finner en URL via oppslag i Fasit og gjør deretter POST kall til tjenesten med et bearer token.
  * 
  * @param {String} alias 
  * @param {String} suffix 
@@ -200,7 +215,7 @@ function httpPost(world, alias, suffix, body) {
 }
 
 /**
- * Finner en URL via oppslag i Fasit og gjør deretter kall til tjenesten med et bearer token.
+ * Finner en URL via oppslag i Fasit og gjør deretter PUT kall til tjenesten med et bearer token.
  * 
  * @param {String} alias 
  * @param {String} suffix 
@@ -246,10 +261,13 @@ function axiosRequest(world, method, alias, suffix, body) {
                 }
             })
         }).then(response => {
-            // placeholder code for mer logging
+            logResponse(world, response)
             return response
         })
-        .catch(err => err)
+        .catch(err => {
+            logError(world, response)
+            throw err
+        })
 }
 
 /**
@@ -289,6 +307,7 @@ function attachText(world, text) {
 module.exports = {
     hentToken,
     hentTokenFor,
+    httpDelete,
     httpGet,
     httpPost,
     httpPut,
