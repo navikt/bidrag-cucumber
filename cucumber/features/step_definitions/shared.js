@@ -1,7 +1,8 @@
 const assert = require('assert');
 const util = require('util');
 const { Given, When, Then } = require('cucumber');
-const { httpGet, attachText, attachJSON } = require('fasit')
+const { httpGet, attachText, attachJSON, lastOidcToken } = require('fasit')
+const jwt = require('jsonwebtoken')
 
 /** Felles rutiner for alle tjenester */
 
@@ -18,6 +19,15 @@ Then('skal tjenesten returnere {string}', function(body) {
 Then('statuskoden skal være {string}', function(status) {
     assert.ok(this.response != null, "response er null")
     var r = this.response.response ? this.response.response : this.response;
+    if(r.status == '401' || r.status == '403') {
+        attachText(this, "ID_TOKEN: " + lastOidcToken())
+        try {
+            var token = jwt.decode(lastOidcToken())
+            if(token) {
+                attachJSON(this, token)
+            }
+        }
+    }
     assert.ok(r.status == status, r.status + " " + r.statusText)
 });
 
