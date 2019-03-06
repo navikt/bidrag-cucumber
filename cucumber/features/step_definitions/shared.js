@@ -26,7 +26,7 @@ Then('statuskoden skal være {string}', function(status) {
             if(token) {
                 attachJSON(this, token)
             }
-        }
+        } catch(err) {}
     }
     assert.ok(r.status == status, r.status + " " + r.statusText)
 });
