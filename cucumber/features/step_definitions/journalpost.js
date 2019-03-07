@@ -47,7 +47,7 @@ When('jeg henter journalpost for id {string}', function(journalpostId, done) {
 });
 
 Then('journalposten sitt dokument skal ha følgende properties:', function(table) {
-    var jp = this.response.data.dokumenter[0];
+    var jp = this.response.body.dokumenter[0];
     var missing = []
     table.rawTable.forEach(item => {
         if (!jp[item[0]]) {
@@ -59,7 +59,7 @@ Then('journalposten sitt dokument skal ha følgende properties:', function(table
 
 When('jeg endrer journalpost {string} til:', function(jpid, body, done) {
     // Både bid-dok og bid-dok-journalpost bruker /journalpost som endpoint
-    httpPut(this, this.alias, "/journalpost/" + jpid, body)
+    httpPut(this, this.alias, "/journalpost/" + jpid, JSON.parse(body))
         .then(response => {
             this.response = response
             done()

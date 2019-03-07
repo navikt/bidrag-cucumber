@@ -19,7 +19,7 @@ Then('skal tjenesten returnere {string}', function(body) {
 Then('statuskoden skal være {string}', function(status) {
     assert.ok(this.response != null, "response er null")
     var r = this.response.response ? this.response.response : this.response;
-    if(r.status == '401' || r.status == '403') {
+    if(r.statusCode == '401' || r.statusCode == '403') {
         attachText(this, "ID_TOKEN: " + lastOidcToken())
         try {
             var token = jwt.decode(lastOidcToken())
@@ -28,7 +28,7 @@ Then('statuskoden skal være {string}', function(status) {
             }
         } catch(err) {}
     }
-    assert.ok(r.status == status, r.status + " " + r.statusText)
+    assert.ok(r.statusCode == status, r.statusCode + " " + r.statusMessage)
 });
 
 /**
@@ -37,7 +37,7 @@ Then('statuskoden skal være {string}', function(status) {
  */
 Then('objektet skal inneholde følgende verdier', function(data) {
     var expected = JSON.parse(data)
-    assert.deepEqual(this.response.data, expected, "Objektene er forskjellige");
+    assert.deepEqual(this.response.body, expected, "Objektene er forskjellige");
 })
 
 /**
@@ -46,7 +46,7 @@ Then('objektet skal inneholde følgende verdier', function(data) {
  */
 Then('hvert element i listen skal ha følgende properties satt:', function(table) {
     var missing = [];
-    this.response.data.forEach(row => {
+    this.response.body.forEach(row => {
         table.rawTable.forEach(item => {
             if (!row[item[0]]) {
                 missing.push(item[0])
@@ -92,8 +92,8 @@ Then('header {string} skal være {string}', function (hdr, value) {
  */
 Then('objektet skal ha {string} = {string}', function (prop, value) {
     assert(this.response != null, 'Response er null')
-    assert(this.response.data != null, 'Response mangler data')
-    assert(this.response.data[prop] == value, `Forventet '${value}' fant '${this.response.data[prop]}'`)
+    assert(this.response.body != null, 'Response mangler body')
+    assert(this.response.body[prop] == value, `Forventet '${value}' fant '${this.response.body[prop]}'`)
 });
  
 /**
@@ -101,7 +101,7 @@ Then('objektet skal ha {string} = {string}', function (prop, value) {
  * 
  */
 Then('skal resultatet være en liste', function() {
-    assert.ok(Array.isArray(this.response.data), "resultatet er ikke en liste: " + JSON.stringify(this.list));
+    assert.ok(Array.isArray(this.response.body), "resultatet er ikke en liste: " + JSON.stringify(this.list));
 });
 
 /**
@@ -110,10 +110,10 @@ Then('skal resultatet være en liste', function() {
  */
 Then('hvert element i listen skal ha {string} = {string}', function(prop, feltverdi) {
     assert.ok(this.response != null, "Response er null")
-    assert.ok(this.response.data != null, "Response.data er null")
-    var arr = this.response.data.filter(jp => jp[prop] == feltverdi)
+    assert.ok(this.response.body != null, "Response.data er null")
+    var arr = this.response.body.filter(jp => jp[prop] == feltverdi)
 
-    assert.ok(arr.length == this.response.data.length, "Det finnes forskjellige saksnummer i listen!")
+    assert.ok(arr.length == this.response.body.length, "Det finnes forskjellige saksnummer i listen!")
 })
 
 
@@ -123,8 +123,8 @@ Then('hvert element i listen skal ha {string} = {string}', function(prop, feltve
  */
 Then('resultatet skal være et objekt', function() {
     assert(this.response != null, 'Response er null')
-    assert(this.response.data != null, 'Response mangler data')
-    assert.ok(!Array.isArray(this.response.data), "resultatet er en liste")
+    assert(this.response.body != null, 'Response mangler data')
+    assert.ok(!Array.isArray(this.response.body), "resultatet er en liste")
 });
 
 /**
@@ -134,7 +134,7 @@ Then('resultatet skal være et objekt', function() {
  * 
  */
 Then('objektet skal ha følgende properties:', function(table) {
-    var jp = this.response.data;
+    var jp = this.response.body;
     var missing = []
     table.rawTable.forEach(item => {
         var value = jp[item[0]]

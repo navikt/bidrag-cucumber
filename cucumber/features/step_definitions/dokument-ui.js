@@ -4,7 +4,6 @@ const { When } = require('cucumber');
 const { httpGet } = require('fasit')
 
 function journalpostSuffix(saksnummer, fagomrade) {
-    console.log("SUFFIX", saksnummer, fagomrade)
     return util.format("/api/journalposter/%s?fagomrade=%s", saksnummer, fagomrade)
 }
 
@@ -19,6 +18,7 @@ When('jeg henter journalposter for sak {string} med fagområde {string} via doku
             done()
         })
         .catch(err => {
+	    console.log('scheisse!')
             done(err)
         })
 });
