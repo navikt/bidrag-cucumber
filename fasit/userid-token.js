@@ -71,16 +71,13 @@ function getCodeFromHeader(loc) {
 }
 
 function getUserIDToken(token_endpoint, client_id, client_secret, redirect_uri, username, password) {
-	var tokenId = null
 	return request(auth1Options(token_endpoint, username, password))
 		.then(response => {
-			tokenId = response.tokenId
-			return request(auth2Options(token_endpoint, client_id, tokenId, redirect_uri))
+			return request(auth2Options(token_endpoint, client_id, response.tokenId, redirect_uri))
 		})
 		.then(response => {
 			if (response && response.statusCode == 302) {
-				var code = getCodeFromHeader(response.headers.location)
-				return request(auth3Options(token_endpoint, client_id, client_secret, code, redirect_uri))
+				return request(auth3Options(token_endpoint, client_id, client_secret, getCodeFromHeader(response.headers.location), redirect_uri))
 			} else {
 				throw "Expected 302 got " + response.statusCode
 			}
