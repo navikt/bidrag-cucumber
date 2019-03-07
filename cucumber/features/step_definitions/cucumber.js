@@ -1,7 +1,15 @@
 const assert = require('assert');
 const jwt = require('jsonwebtoken')
-const { When, Then } = require('cucumber');
-const { OIDC_ALIAS, hentTokenFor, attachText, attachJSON } = require('fasit')
+const {
+    When,
+    Then
+} = require('cucumber');
+const {
+    OIDC_ALIAS,
+    hentTokenFor,
+    attachText,
+    attachJSON
+} = require('fasit')
 
 /**
  * 
@@ -51,7 +59,7 @@ Then('token skal ha følgende properties:', function (table) {
     table.rawTable.forEach(item => {
         var key = item[0]
         var value = item[1]
-        if(value.startsWith('$')) {
+        if (value.startsWith('$')) {
             value = eval(value.substring(1))
         }
         if (!tok[key] || tok[key] != value) {
@@ -59,4 +67,3 @@ Then('token skal ha følgende properties:', function (table) {
         }
     })
 });
-

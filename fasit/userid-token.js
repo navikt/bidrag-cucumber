@@ -98,4 +98,3 @@ function getUserIDToken(token_endpoint, client_id, client_secret, redirect_uri, 
 module.exports = {
 	getUserIDToken
 }
-

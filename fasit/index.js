@@ -61,13 +61,13 @@ function hentTokenFor(env, oidcAlias, fasitUser, fasitPass, username, password) 
             issuerUrl = response.properties.issuerUrl
             token_endpoint = response.properties.issuerUrl + "/access_token"
             return request({
-		method: 'GET',
-		url: response.secrets.password.ref, 
+                method: 'GET',
+                url: response.secrets.password.ref,
                 auth: {
                     username: fasitUser,
                     password: fasitPass
                 },
-		resolveWithFullResponse: true
+                resolveWithFullResponse: true
             })
         })
         .then(response => {
@@ -76,9 +76,9 @@ function hentTokenFor(env, oidcAlias, fasitUser, fasitPass, username, password) 
                 return getUserIDToken(issuerUrl, client_id, client_secret, 'https://bidrag-dokument-ui.nais.preprod.local/', username, password)
             } else {
                 return request({
-		    method: 'POST',
-		    url: token_endpoint,
-		    body: 'grant_type=client_credentials&scope=openid',
+                    method: 'POST',
+                    url: token_endpoint,
+                    body: 'grant_type=client_credentials&scope=openid',
                     headers: {
                         'Content-Type': 'application/x-www-form-urlencoded'
                     },
@@ -86,8 +86,8 @@ function hentTokenFor(env, oidcAlias, fasitUser, fasitPass, username, password) 
                         username: client_id,
                         password: client_secret
                     },
-		    json: true,
-		    resolveWithFullResponse: true
+                    json: true,
+                    resolveWithFullResponse: true
                 })
             }
         })
@@ -147,16 +147,16 @@ function _hentUrl(item) {
 function hentFasitRessurs(ftype, alias, env) {
     console.log('hentFasitRessurs', alias, env, FASIT_URL)
     return request({
-	    method: 'GET',
-	    url: FASIT_URL,
+            method: 'GET',
+            url: FASIT_URL,
             qs: {
                 type: ftype,
                 alias: alias,
                 environment: env,
                 usage: false
             },
-	    json: true,
-	    resolveWithFullResponse: true
+            json: true,
+            resolveWithFullResponse: true
         })
         .then(response => {
             return _finnAlias(response.body, alias, env)
@@ -259,20 +259,20 @@ function sendRequest(world, method, alias, suffix, body) {
                     "Authorization": `Bearer ${tok}`,
                     "Content-Type": "application/json"
                 },
-		resolveWithFullResponse: true,
-		json: true
+                resolveWithFullResponse: true,
+                json: true
             }
-	    if(body) {
-		options.body = body
-	    }
+            if (body) {
+                options.body = body
+            }
             return request(options)
         }).then(response => {
-            logResponse(world, response, method, last_url+suffix, body)
+            logResponse(world, response, method, last_url + suffix, body)
             return response
         })
         .catch(err => {
-            logError(world, err, method, last_url+suffix, body)
-            if(err && err.statusCode == 401) {
+            logError(world, err, method, last_url + suffix, body)
+            if (err && err.statusCode == 401) {
                 attachText(world, `Token: ${tok}`)
             }
             return err
@@ -322,7 +322,7 @@ function logResponse(world, response, method, url, body) {
     try {
         logMessageAndBodyString(world, method, url, body)
         logMessageAndBodyString(world, response.statusCode, response.statusMessage, response.body)
-    } catch(error) {
+    } catch (error) {
         attachText(world, 'logResponse feilet: ' + error + "; " + err)
     }
 }
@@ -335,12 +335,12 @@ function logResponse(world, response, method, url, body) {
 function logError(world, err, method, url, body) {
     try {
         logMessageAndBodyString(world, method, url, body)
-        if(err) {
+        if (err) {
             logMessageAndBodyString(world, err.statusCode, err.error ? err.error.error : err.statusMessage, err.response.body)
         } else {
             attachText(world, `Feil ved oppkobling: ${err.errno}`)
         }
-    } catch(error) {
+    } catch (error) {
         attachText(world, 'logError feilet: ' + error + "; " + err)
     }
 }
@@ -349,15 +349,15 @@ function logMessageAndBodyString(world, p1, p2, body) {
     try {
         var msg = []
         msg.push(`${p1} ${p2}`)
-        if(body) {
-            if(body && typeof body == "object") { // null and undefined -> 'object'
-                msg.push(JSON.stringify(body, null, 4))    
-            } else if(typeof body == "string") {
+        if (body) {
+            if (body && typeof body == "object") { // null and undefined -> 'object'
+                msg.push(JSON.stringify(body, null, 4))
+            } else if (typeof body == "string") {
                 msg.push(body)
             }
         }
         attachText(world, msg.join('\n'))
-    } catch(err) {
+    } catch (err) {
         attachText(world, 'logMessageAndBodyString failed ' + err);
     }
 }

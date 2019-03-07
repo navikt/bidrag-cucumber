@@ -1,6 +1,12 @@
 const assert = require('assert');
-const { Given, When } = require('cucumber');
-const { attachJSON, attachText } = require('fasit')
+const {
+    Given,
+    When
+} = require('cucumber');
+const {
+    attachJSON,
+    attachText
+} = require('fasit')
 
 const fs = require('fs')
 const rex = /^\s*(Given|When|Then)\('([^\']*)'.*/i
@@ -8,9 +14,9 @@ const rex = /^\s*(Given|When|Then)\('([^\']*)'.*/i
 function findFixtures(path, duplicates, fixtures) {
     fs.readFileSync(path, 'UTF-8').split(/[\r\n]/).forEach(line => {
         var m = line.match(rex)
-        if(m) {
+        if (m) {
             var xp = m[2]
-            if(fixtures[xp]) {
+            if (fixtures[xp]) {
                 duplicates.push({
                     xp: xp,
                     path: fixtures[xp],
@@ -24,7 +30,7 @@ function findFixtures(path, duplicates, fixtures) {
 }
 
 function checkForDuplicateFixtures(dir, duplicates, fixtures) {
-    fs.readdirSync(dir).forEach( item => {
+    fs.readdirSync(dir).forEach(item => {
         findFixtures(`${dir}/${item}`, duplicates, fixtures)
     })
 }
@@ -32,10 +38,10 @@ function checkForDuplicateFixtures(dir, duplicates, fixtures) {
 function removeFile(path) {
     try {
         fs.unlink(path)
-    } catch(err) {}
+    } catch (err) {}
 }
 
-Given('cucumber fixtures in {string}', function(dir) {
+Given('cucumber fixtures in {string}', function (dir) {
     this.dir = dir
 })
 
@@ -53,7 +59,7 @@ When('validating cucumber fixtures', function () {
 })
 
 When('there should be no duplicates', function () {
-    if(this.duplicates.length > 0) {
+    if (this.duplicates.length > 0) {
         attachJSON(this, this.duplicates)
     }
     attachJSON(this, this.fixtures)
@@ -61,7 +67,7 @@ When('there should be no duplicates', function () {
 })
 
 When('there should be duplicates', function () {
-    if(this.duplicates.length > 0) {
+    if (this.duplicates.length > 0) {
         attachJSON(this, this.duplicates)
     }
     attachJSON(this, this.fixtures)
