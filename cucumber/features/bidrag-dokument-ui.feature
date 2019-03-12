@@ -18,3 +18,44 @@ Feature: bidrag-dokument-ui
         When jeg henter journalposter for sak "0000000" med fagområde 'BID' via dokument-ui
         Then statuskoden skal være '204'
 
+    Scenario: Sjekk at journalpost kan oppdateres - Vinterfred
+        When jeg endrer journalpost 'BID-30040789' via dokument-ui til:
+        """
+        {
+            "journalpostId": 30040789,
+            "saksnummer": {
+                "erTilknyttetNySak": false,
+                "saksnummer": "0000004",
+                "saksnummerSomSkalErstattes":
+                "0000004"
+            },
+            "gjelder": "29118044353",
+            "avsenderEtternavn": "Vinterfred",
+            "avsenderFornavn": "Vinterfred",
+            "beskrivelse": "Søknad, Bidrag",
+            "journaldato": "2006-05-09"
+        }
+        """
+        Then statuskoden skal være '202'
+        And objektet skal ha 'avsenderNavn' = 'Vinterfred, Vinterfred'
+
+    Scenario: Sjekk at journalpost kan oppdateres - Sommervold
+        When jeg endrer journalpost 'BID-30040789' via dokument-ui til:
+        """
+        {
+            "journalpostId": 30040789,
+            "saksnummer": {
+                "erTilknyttetNySak": false,
+                "saksnummer": "0000004",
+                "saksnummerSomSkalErstattes":
+                "0000004"
+            },
+            "gjelder": "29118044353",
+            "avsenderEtternavn": "Sommervold",
+            "avsenderFornavn": "Sommervold",
+            "beskrivelse": "Søknad, Bidrag",
+            "journaldato": "2006-05-09"
+        }
+        """
+        Then statuskoden skal være '202'
+        And objektet skal ha 'avsenderNavn' = 'Sommervold, Sommervold'

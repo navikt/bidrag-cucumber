@@ -25,3 +25,14 @@ When('jeg henter journalposter for sak {string} med fagområde {string} via doku
             done(err)
         })
 });
+
+When('jeg endrer journalpost {string} via dokument-ui til:', function (jpid, body, done) {
+    httpPut(this, this.alias, "/api/journalpost/" + jpid, JSON.parse(body))
+        .then(response => {
+            this.response = response
+            done()
+        })
+        .catch(err => {
+            done(err)
+        })
+})
