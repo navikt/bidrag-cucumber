@@ -4,7 +4,8 @@ const {
     When
 } = require('cucumber');
 const {
-    httpGet
+    httpGet,
+    httpPut
 } = require('fasit')
 
 function journalpostSuffix(saksnummer, fagomrade) {
