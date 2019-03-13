@@ -44,11 +44,12 @@ node {
 
         println("[INFO] Attach logs to cucumber report json")
         withEnv(['HTTPS_PROXY=http://webproxy-utvikler.nav.no:8088']) {
+            sh(script: 'npm install', returnStatus:true)
             sh(script: 'node Kubelogs.js', returnStatus:true)
         }
 
         println("[INFO] Create cucumber reports")
-        cucumber buildStatus: 'UNSTABLE', fileIncludePattern:'**/cucumber-with-log.json'
+        cucumber buildStatus: 'UNSTABLE', fileIncludePattern:'**/cucumber.json'
     }
 
 }
