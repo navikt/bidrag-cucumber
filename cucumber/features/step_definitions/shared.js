@@ -5,8 +5,7 @@ const {
     Given,
     When,
     Then,
-    Before,
-    After
+    Before
 } = require('cucumber');
 const {
     httpGet,
@@ -20,10 +19,6 @@ const jwt = require('jsonwebtoken')
 /** Correlation ID og logging */
 Before(function(testCase) {
     this.correlationId = `cucumber-${uniqid()}`
-})
-
-After(function(testCase) {
-
 })
 
 /** Felles rutiner for alle tjenester */
