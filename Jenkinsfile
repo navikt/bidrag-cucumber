@@ -43,10 +43,10 @@ node {
     stage("#4 Create reports") {
 
         println("[INFO] Attach logs to cucumber report json")
-        sh(script: 'node Kubelog.js', returnStatus:true)
+        sh(script: 'node Kubelogs.js', returnStatus:true)
 
         println("[INFO] Create cucumber reports")
-        cucumber buildStatus: 'UNSTABLE', fileIncludePattern:'**/cucumber.json'
+        cucumber buildStatus: 'UNSTABLE', fileIncludePattern:'**/cucumber-with-log.json'
     }
 
 }

@@ -13,6 +13,8 @@ const microservices = [
     "bidrag-sak"
 ]
 
+const alwaysIncludeLogs = process.env.includelogs ? process.env.includelogs == "always" : true
+
 function scenarioHasFailures(scenario) {
     return scenario.steps.some(step => {
         return step.result.status != "passed"
@@ -33,17 +35,18 @@ function getCorrelationId(scenario) {
 
 function getLogsFor(svc, correlationId) {
     var log = []
-    var cmdline = `kubectl logs -lapp=${svc} --since=15m | grep '"correlationId"="${correlationId}"`
+    var cmdline = `kubectl logs -lapp=${svc} --since=15m`
     console.log(cmdline)
 
     var stdout = execSync(cmdline, {encoding:'UTF-8'});
     stdout.split("\n").forEach(line => {
         if(line.startsWith('{')) {
             var js = JSON.parse(line)
-            log.push(js['@timestamp'] + '   ' + js.message)
+	    if(correlationId == js.correlationId) {
+            	log.push(js['@timestamp'] + '   ' + js.message)
+	    }
         }
     })
-    console.error(`return: ${log.length} lines`);
     return log
 }
 
@@ -53,7 +56,7 @@ function attachKubelogs(scenario) {
     if (correlationId) {
         microservices.forEach(svc => {
             var log = getLogsFor(svc, correlationId)
-            console.log('got ' + log.length + ' lines')
+            console.log('got ' + log.length + ' lines for correlationId=' + correlationId)
             beforeStep.embeddings.push({
                 mime_type: "text/plain",
                 data: base64encode(log.join("\n"))
@@ -63,9 +66,9 @@ function attachKubelogs(scenario) {
 }
 
 function scanFeature(feature) {
-    // console.log(`Feature ${feature.name}`)
+    console.log(`Feature ${feature.name}`)
     feature.elements.forEach(scenario => {
-        if (scenarioHasFailures(scenario)) {
+        if (alwaysIncludeLogs || scenarioHasFailures(scenario)) {
             console.log(`Pull kubectl logs for ${scenario.id}`)
             attachKubelogs(scenario)
         } else {
