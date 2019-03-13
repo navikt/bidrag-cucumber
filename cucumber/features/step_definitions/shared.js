@@ -19,6 +19,7 @@ const jwt = require('jsonwebtoken')
 /** Correlation ID og logging */
 Before(function(testCase) {
     this.correlationId = `cucumber-${uniqid()}`
+    attachText(this, this.correlationId)
 })
 
 /** Felles rutiner for alle tjenester */
