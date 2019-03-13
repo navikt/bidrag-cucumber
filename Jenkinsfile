@@ -45,8 +45,6 @@ node {
         println("[INFO] Attach logs to cucumber report json")
         withEnv(['HTTPS_PROXY=http://webproxy-utvikler.nav.no:8088', 'KUBECONFIG=/var/lib/jenkins/.kube/config']) {
             sh(script: 'npm install', returnStatus:true)
-	    sh(script: 'id', returnStatus:true)
-	    sh(script: 'kubectl logs -lapp=bidrag-dokument > cucumber/bidrag-dokument.log', returnStatus:true)
             sh(script: 'node Kubelogs.js', returnStatus:true)
         }
 
