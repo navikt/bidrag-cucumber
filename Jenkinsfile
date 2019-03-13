@@ -46,6 +46,7 @@ node {
         withEnv(['HTTPS_PROXY=http://webproxy-utvikler.nav.no:8088', 'KUBECONFIG=/var/lib/jenkins/.kube/config']) {
             sh(script: 'npm install', returnStatus:true)
 	    sh(script: 'env')
+	    sh(script: 'kubectl logs -lapp=bidrag-dokument --since=15m > cucumber/bidrag-dokument.log', returnStatus:true)
             sh(script: 'node Kubelogs.js', returnStatus:true)
         }
 
