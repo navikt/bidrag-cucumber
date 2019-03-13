@@ -35,7 +35,8 @@ function getCorrelationId(scenario) {
 
 function getLogsFor(svc, correlationId) {
     var log = []
-    var cmdline = `kubectl logs -lapp=${svc} --since=15m`
+    // var cmdline = `kubectl logs -lapp=${svc} --since=15m`
+    var cmdline = `kubectl logs -lapp=${svc}`
     console.log(cmdline)
 
     var stdout = execSync(cmdline, {encoding:'UTF-8'});
