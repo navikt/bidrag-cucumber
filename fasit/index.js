@@ -14,6 +14,7 @@ const FASIT_PASS = process.env.fasit_pass
 const OIDC_ALIAS = process.env.oidc_alias || 'bidrag-dokument-ui-oidc'
 const TEST_USER = process.env.test_user
 const TEST_PASS = process.env.test_pass
+const CORRELATION_HEADER = process.env.correlation_header || "X_CORRELATION_ID"
 
 /**
  * Siste URL og token brukt
@@ -265,6 +266,9 @@ function sendRequest(world, method, alias, suffix, body) {
             if (body) {
                 options.body = body
             }
+            if(world.correlationId) {
+                options.headers[CORRELATION_HEADER] = world.correlationId
+            }
             return request(options)
         }).then(response => {
             logResponse(world, response, method, last_url + suffix, body)
@@ -320,6 +324,9 @@ function attachText(world, text) {
  */
 function logResponse(world, response, method, url, body) {
     try {
+        if(world.correlationId) {
+            attachText(world, `X-Correlation-ID: ${CORRELATION_HEADER}=${world.correlationId}`)
+        }
         logMessageAndBodyString(world, method, url, body)
         logMessageAndBodyString(world, response.statusCode, response.statusMessage, response.body)
     } catch (error) {

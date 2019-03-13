@@ -1,9 +1,12 @@
 const assert = require('assert');
 const util = require('util');
+const uniqid = require('uniqid')
 const {
     Given,
     When,
-    Then
+    Then,
+    Before,
+    After
 } = require('cucumber');
 const {
     httpGet,
@@ -13,10 +16,24 @@ const {
 } = require('fasit')
 const jwt = require('jsonwebtoken')
 
+
+/** Correlation ID og logging */
+Before(function(testCase) {
+    this.correlationId = `cucumber-${uniqid()}`
+})
+
+After(function(testCase) {
+
+})
+
 /** Felles rutiner for alle tjenester */
 
 Given('restservice {string}', function (alias) {
     this.alias = alias;
+});
+
+Given('En correlation-id med prefix {string}', function (prefix) {
+    this.correlationId = prefix + Math.random()
 });
 
 Then('skal tjenesten returnere {string}', function (body) {
