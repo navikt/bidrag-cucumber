@@ -261,7 +261,8 @@ function sendRequest(world, method, alias, suffix, body) {
                     "Content-Type": "application/json"
                 },
                 resolveWithFullResponse: true,
-                json: true
+                json: true,
+		timeout: 20 * 1000
             }
             if (body) {
                 options.body = body

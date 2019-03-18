@@ -10,6 +10,7 @@ node {
         withCredentials([usernamePassword(credentialsId: 'jenkinsPipeline', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
             withEnv(['HTTPS_PROXY=http://webproxy-utvikler.nav.no:8088']) {
                 sh(script: "git clone https://${USERNAME}:${PASSWORD}@github.com/${repo}/${sourceapp}.git .")
+                sh(script: "git checkout ${BRANCH}", returnStatus:true)
             }
         }
     }
@@ -41,13 +42,6 @@ node {
     }
 
     stage("#4 Create reports") {
-
-        println("[INFO] Attach logs to cucumber report json")
-        withEnv(['HTTPS_PROXY=http://webproxy-utvikler.nav.no:8088', 'KUBECONFIG=/var/lib/jenkins/.kube/config']) {
-            sh(script: 'npm install', returnStatus:true)
-            sh(script: 'node Kubelogs.js', returnStatus:true)
-        }
-
         println("[INFO] Create cucumber reports")
         cucumber buildStatus: 'UNSTABLE', fileIncludePattern:'**/cucumber.json'
     }
