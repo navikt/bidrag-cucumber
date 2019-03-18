@@ -20,7 +20,7 @@ const jwt = require('jsonwebtoken')
 Before(function(testCase) {
     this.correlationId = `cucumber-${uniqid()}`
     var url = `https://logs.adeo.no/app/kibana#/discover?_a=(columns:!(_source),filters:!(('$state':(store:appState),meta:(alias:!n,disabled:!f,index:'logstash-*'),query:(match:(x_correlationId:(query:'${this.correlationId}',type:phrase))))),index:'logstash-*',interval:auto,query:(query_string:(analyze_wildcard:!t,query:'*')),sort:!('@timestamp',desc))`
-    attachText(this, url)
+    attachText(this, "Link til kibana for correlation-id: ${this.correlationId}\n\n" + url + "\n")
 })
 
 /** Felles rutiner for alle tjenester */
