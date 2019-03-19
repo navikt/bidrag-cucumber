@@ -20,7 +20,8 @@ Fasit modulen benytter seg av følgende environment variabler for å fungere:
 | fasit_url	  | https://fasit.adeo.no/api/v2/resources	| URL til fasit |
 | oidc_alias	| bidrag-dokument-ui-oidc	| Fasit-ressurs for OIDC detaljer |
 
-Testressurser
+## Testressurser
+
 Alle tester ligger i bidrag-cucumber og på rot-nivå i prosjektet lages følgende filstruktur (uavhengig om tjenesten er node eller java basert):
 ```
 cucumber/
@@ -111,9 +112,17 @@ $ npm install
 $ docker build -t bidrag-cucumber .
 ```
 
-Run the image by mapping /cucumber to your cucumber directory containing features and step definitions.
+bidrag-cucumber kjøres med å definere påkrevede ENV variabler samt å linke inn /cucumber katalog hvor imaget forventer å finne features katalogen med tester.
 
 ```
+$ git clone https://github.com/navikt/bidrag-cucumber.git .
+$ docker run --rm -e environment=q0 \
+    -e fasit_user=<fasitUser> \
+    -e fasit_pass=<fasitPass> \
+    -e test_user=<testUser>
+    -e test_pass=<testPass> \
+    -e project="<mikrotjeneste>." \
+    -v $(pwd)/cucumber:/cucumber bidrag-cucumber
 $ docker run -it --rm -v `pwd`/cucumber:/cucumber bidrag-cucumber
 ```
 
