@@ -12,9 +12,12 @@ Feature: bidrag-dokument-journalpost
             | avsenderNavn      |
             | dokumentDato      |
             | dokumenter        |
+            | dokumentType      |
+            | journalStatus     |
         And journalposten sitt dokument skal ha følgende properties:
             | dokumentreferanse |
             | dokumentType      |
+            | tittel            |
 
     Scenario: Sjekk at vi får en sakjournal for sak/fagområde
         When jeg henter journalposter for sak "0000003" med fagområde "BID"
