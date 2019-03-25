@@ -13,7 +13,7 @@ Feature: bidrag-dokument-journalpost
             | dokumentDato      |
             | dokumenter        |
             | dokumentType      |
-            | journalStatus     |
+            | journalstatus     |
         And journalposten sitt dokument skal ha følgende properties:
             | dokumentreferanse |
             | dokumentType      |
