@@ -45,7 +45,7 @@ When('jeg endrer journalpost {string} via dokument-ui til:', function (jpid, bod
 When('jeg henter enhet med enhetnr {string} via dokument-ui', function (enhetnr, done) {
     console.log("henter enhet", enhetnr, "norg2.api.v1")
 
-    httpGet(this, "norg2.api.v1", enhetSuffix(enhetnr))
+    httpGet(this, this.alias, enhetSuffix(enhetnr))
         .then(response => {
             this.response = response
             assert(this.response != null, "Intet svar mottatt fra tjenesten")
