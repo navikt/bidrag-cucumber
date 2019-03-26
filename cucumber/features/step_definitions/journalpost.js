@@ -56,7 +56,7 @@ Then('journalposten sitt dokument skal ha følgende properties:', function (tabl
     var jp = this.response.body.dokumenter[0];
     var missing = []
     table.rawTable.forEach(item => {
-        if (!jp[item[0]]) {
+        if (!jp.hasOwnProperty(item[0])) {
             missing.push(item[0])
         }
     })

@@ -71,7 +71,7 @@ Then('hvert element i listen skal ha følgende properties satt:', function (tabl
     var missing = [];
     this.response.body.forEach(row => {
         table.rawTable.forEach(item => {
-            if (!row[item[0]]) {
+            if (!row.hasOwnProperty(item[0])) {
                 missing.push(item[0])
             }
         })
@@ -161,7 +161,7 @@ Then('objektet skal ha følgende properties:', function (table) {
     var missing = []
     table.rawTable.forEach(item => {
         var value = jp[item[0]]
-        if (!value) {
+        if (value == undefined) {
             missing.push(item[0])
         }
         if (item.length > 1) {
