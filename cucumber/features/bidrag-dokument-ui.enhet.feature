@@ -6,7 +6,7 @@ Feature: bidrag-dokument-ui.enhet
 
     Background: Spesifiser base-url til tjenesten her så vi slipper å gjenta for hvert scenario.
                 Fasit environment er gitt ved environment variabler ved oppstart.
-        Given restservice 'norg2.api.v1'
+        Given restservice 'bidragDokumentUi'
 
     Scenario: Sjekk at vi finner en enhet med et gitt enhetsnr
         When jeg henter enhet med enhetnr "1630" via dokument-ui
