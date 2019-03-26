@@ -15,5 +15,5 @@ Feature: bidrag-dokument-ui.enhet
         And objektet skal ha 'navn' = 'NAV Nord-Fosen'
 
     Scenario: Sjekk at ukjent enhet gir 204 med ingen data
-        When jeg henter enhet med  enhetnr "1630X" via dokument-ui
+        When jeg henter enhet med enhetnr "1630X" via dokument-ui
         Then statuskoden skal være '204'

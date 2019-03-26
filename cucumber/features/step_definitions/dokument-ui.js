@@ -43,7 +43,7 @@ When('jeg endrer journalpost {string} via dokument-ui til:', function (jpid, bod
 })
 
 When('jeg henter enhet med enhetnr {string} via dokument-ui', function (enhetnr, done) {
-    console.log("henter enhet", enhetnr, "norg2.api.v1")
+    console.log("henter enhet", enhetnr, this.alias)
 
     httpGet(this, this.alias, enhetSuffix(enhetnr))
         .then(response => {
