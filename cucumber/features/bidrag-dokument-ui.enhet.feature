@@ -16,4 +16,4 @@ Feature: bidrag-dokument-ui.enhet
 
     Scenario: Sjekk at ukjent enhet gir 204 med ingen data
         When jeg henter enhet med enhetnr "1630X" via dokument-ui
-        Then statuskoden skal være '204'
+        Then statuskoden skal være '404'
