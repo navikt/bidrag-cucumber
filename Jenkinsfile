@@ -28,11 +28,16 @@ node {
         def project = Image == "true" ? "bidrag-cucumber" : FeaturePrefix
         def naisEnv = NaisEnvironment
         if (Testuser == "true") {
+
+            dir("${env.WORKSPACE}") {
+                sh(script: "npm install")
+            }
+
             withCredentials([
                     usernamePassword(credentialsId: 'naisUploader', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD'),
                     usernamePassword(credentialsId: TestUserID, usernameVariable: 'TEST_USER', passwordVariable: 'TEST_PASS')
                 ]) {
-                sh (script: "docker run --rm -e environment=${NaisEnvironment} -e test_user=${env.TEST_USER} -e test_pass='${env.TEST_PASS}' -e fasit_user=${env.USERNAME} -e fasit_pass='${env.PASSWORD}' -e project=${project} -v '${env.WORKSPACE}/cucumber':/cucumber bidrag-cucumber", returnStatus:true)
+                sh (script: "docker run --rm -e environment=${NaisEnvironment} -e test_user=${env.TEST_USER} -e test_pass='${env.TEST_PASS}' -e fasit_user=${env.USERNAME} -e fasit_pass='${env.PASSWORD}' -e project=${project} -v '${env.WORKSPACE}':/src -w /src node:latest npm start", returnStatus:true)
             }
         } else {
             withCredentials([usernamePassword(credentialsId: 'naisUploader', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {

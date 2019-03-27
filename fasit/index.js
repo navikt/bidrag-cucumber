@@ -11,6 +11,7 @@ const ENVIRONMENT = process.env.environment || 'q0'
 const FASIT_URL = process.env.fasit || 'https://fasit.adeo.no/api/v2/resources'
 const FASIT_USER = process.env.fasit_user
 const FASIT_PASS = process.env.fasit_pass
+const FASIT_ZONE = process.env.fasit_zone || "fss"
 const OIDC_ALIAS = process.env.oidc_alias || 'bidrag-dokument-ui-oidc'
 const TEST_USER = process.env.test_user
 const TEST_PASS = process.env.test_pass
@@ -154,6 +155,7 @@ function hentFasitRessurs(ftype, alias, env) {
                 type: ftype,
                 alias: alias,
                 environment: env,
+                zone: FASIT_ZONE,
                 usage: false
             },
             json: true,
