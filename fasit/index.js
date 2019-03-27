@@ -244,7 +244,7 @@ function httpPut(world, alias, suffix, body) {
  */
 function sendRequest(world, method, alias, suffix, body) {
     var tok = ""
-    var env = ENVIRONMENT
+    var env = world.environment || ENVIRONMENT
 
     return hentToken(env)
         .then(token => {
