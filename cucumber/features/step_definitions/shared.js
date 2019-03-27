@@ -26,8 +26,15 @@ Before(function(testCase) {
 /** Felles rutiner for alle tjenester */
 
 Given('restservice {string}', function (alias) {
-    this.alias = alias;
+    this.alias = alias
 });
+
+/**
+ * Overstyrer fasit environment som benyttes i fasit modulen (-> fasit/index.js)
+ */
+Given('fasit environment {string}', function(env) {
+    this.environment = env
+})
 
 Given('En correlation-id med prefix {string}', function (prefix) {
     this.correlationId = prefix + Math.random()
