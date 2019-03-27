@@ -15,34 +15,19 @@ node {
         }
     }
 
-    stage("#2: Build docker image") {
-        if (Image == "true") {
-            println("[INFO] Build ${sourceapp} image")
-            sh "npm install"
-            sh "docker build -t ${sourceapp} ."
+    stage("#2: npm install") {
+        dir("${env.WORKSPACE}") {
+            sh(script: "npm install")
         }
     }
 
     stage("#3 Cucumber tests") {
         println("[INFO] Run cucumber tests using test user: ${TestUserID}")
-        def project = Image == "true" ? "bidrag-cucumber" : FeaturePrefix
-        def naisEnv = NaisEnvironment
-        if (Testuser == "true") {
-
-            dir("${env.WORKSPACE}") {
-                sh(script: "npm install")
-            }
-
-            withCredentials([
-                    usernamePassword(credentialsId: 'naisUploader', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD'),
-                    usernamePassword(credentialsId: TestUserID, usernameVariable: 'TEST_USER', passwordVariable: 'TEST_PASS')
-                ]) {
-                sh (script: "docker run --rm -e NODE_TLS_REJECT_UNAUTHORIZED=0 -e environment=${NaisEnvironment} -e test_user=${env.TEST_USER} -e test_pass='${env.TEST_PASS}' -e fasit_user=${env.USERNAME} -e fasit_pass='${env.PASSWORD}' -e project=${project} -v '${env.WORKSPACE}':/src -w /src node:latest npm start", returnStatus:true)
-            }
-        } else {
-            withCredentials([usernamePassword(credentialsId: 'naisUploader', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
-                sh (script: "docker run --rm -e environment=${NaisEnvironment} -e fasit_user=${env.USERNAME} -e fasit_pass='${env.PASSWORD}' -e project=${project} -v '${env.WORKSPACE}/cucumber':/cucumber bidrag-cucumber", returnStatus:true)
-            }
+        withCredentials([
+                usernamePassword(credentialsId: 'naisUploader', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD'),
+                usernamePassword(credentialsId: TestUserID, usernameVariable: 'TEST_USER', passwordVariable: 'TEST_PASS')
+            ]) {
+            sh (script: "docker run --rm -e NODE_TLS_REJECT_UNAUTHORIZED=0 -e environment=${NaisEnvironment} -e test_user=${env.TEST_USER} -e test_pass='${env.TEST_PASS}' -e fasit_user=${env.USERNAME} -e fasit_pass='${env.PASSWORD}' -e project=${FeaturePrefix} -v '${env.WORKSPACE}':/src -w /src node:latest npm start", returnStatus:true)
         }
     }
 
