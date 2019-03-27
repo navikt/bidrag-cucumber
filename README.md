@@ -1,6 +1,6 @@
 # bidrag-cucumber
 
-bidrag-dokument-cucumber (https://github.com/navikt/bidrag-cucumber) er et docker image som inneholder cucumber-js runtime samt scripts for å gjøre REST API kall via fasit REST ressurser. Dette image inneholder også alle cucumber features og step definitions (fixture code) for alle prosjektene. Dette imaget er kjører cucumber testene for mikrotjenestene som en del av Jenkins pipeline (bidrag-jenkins).
+bidrag-dokument-cucumber (https://github.com/navikt/bidrag-cucumber) er et node prosjekt som inneholder cucumber-js runtime samt scripts for å gjøre REST API kall via fasit REST ressurser. Dette prosjektet inneholder også alle cucumber features og step definitions (fixture code) for alle bidrag mikrotjenester. Dette prosjektet kjører cucumber testene for mikrotjenestene som en del av Jenkins pipeline (bidrag-jenkins).
 
 Sentralt i cucumber oppsettet er fasit modulen (bidrag-cucumber/fasit/index.js) som har kode for følgende:
 

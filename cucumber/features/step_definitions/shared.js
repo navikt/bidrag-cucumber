@@ -5,7 +5,8 @@ const {
     Given,
     When,
     Then,
-    Before
+    Before,
+    setDefaultTimeout
 } = require('cucumber');
 const {
     httpGet,
@@ -15,6 +16,10 @@ const {
 } = require('fasit')
 const jwt = require('jsonwebtoken')
 
+/**
+ * Endre default timeout for alle test caser
+ */
+setDefaultTimeout(60 * 1000)
 
 /** Correlation ID og logging */
 Before(function(testCase) {
