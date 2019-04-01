@@ -35,7 +35,7 @@ Feature: bidrag-dokument (/journalposter REST API)
         Then statuskoden skal være '204'
 
 
-    Scenario: Sjekk at journalpost kan oppdateres - Vinterfred
+    Scenario: Sjekk at journalpost kan oppdateres - James Bond
         When jeg endrer journalpost 'BID-30040789' til:
         """
         {
@@ -47,16 +47,15 @@ Feature: bidrag-dokument (/journalposter REST API)
                 "0000004"
             },
             "gjelder": "29118044353",
-            "avsenderEtternavn": "Vinterfred",
-            "avsenderFornavn": "Vinterfred",
+            "avsenderNavn": "Bond, James",
             "beskrivelse": "Søknad, Bidrag",
             "journaldato": "2006-05-09"
         }
         """
         Then statuskoden skal være '202'
-        And objektet skal ha 'avsenderNavn' = 'Vinterfred, Vinterfred'
+        And objektet skal ha 'avsenderNavn' = 'Bond, James'
 
-    Scenario: Sjekk at journalpost kan oppdateres - Sommervold
+    Scenario: Sjekk at journalpost kan oppdateres - Trygdekontoret
         When jeg endrer journalpost 'BID-30040789' til:
         """
         {
@@ -68,11 +67,10 @@ Feature: bidrag-dokument (/journalposter REST API)
                 "0000004"
             },
             "gjelder": "29118044353",
-            "avsenderEtternavn": "Sommervold",
-            "avsenderFornavn": "Sommervold",
+            "avsenderNavn": "Trygdekontoret",
             "beskrivelse": "Søknad, Bidrag",
             "journaldato": "2006-05-09"
         }
         """
         Then statuskoden skal være '202'
-        And objektet skal ha 'avsenderNavn' = 'Sommervold, Sommervold'
+        And objektet skal ha 'avsenderNavn' = 'Trygdekontoret'
