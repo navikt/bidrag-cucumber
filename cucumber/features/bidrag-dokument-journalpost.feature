@@ -34,7 +34,7 @@ Feature: bidrag-dokument-journalpost
         When jeg henter journalpost for id "abcd"
         Then statuskoden skal være '400'
 
-    Scenario: Sjekk at journalpost kan oppdateres - Vinterfred
+    Scenario: Sjekk at journalpost kan oppdateres - Sylfest Strutle
         When jeg endrer journalpost '30040789' til:
         """
         {
@@ -46,16 +46,15 @@ Feature: bidrag-dokument-journalpost
                 "0000004"
             },
             "gjelder": "29118044353",
-            "avsenderEtternavn": "Vinterfred",
-            "avsenderFornavn": "Vinterfred",
+            "avsenderNavn": "Strutle, Sylfest",
             "beskrivelse": "Søknad, Bidrag",
             "journaldato": "2006-05-09"
         }
         """
         Then statuskoden skal være '202'
-        And objektet skal ha 'avsenderNavn' = 'Vinterfred, Vinterfred'
+        And objektet skal ha 'avsenderNavn' = 'Strutle, Sylfest'
 
-    Scenario: Sjekk at journalpost kan oppdateres - Sommervold
+    Scenario: Sjekk at journalpost kan oppdateres - Bjarne Bær
         When jeg endrer journalpost '30040789' til:
         """
         {
@@ -67,11 +66,10 @@ Feature: bidrag-dokument-journalpost
                 "0000004"
             },
             "gjelder": "29118044353",
-            "avsenderEtternavn": "Sommervold",
-            "avsenderFornavn": "Sommervold",
+            "avsenderNavn": "Bær, Bjarne",
             "beskrivelse": "Søknad, Bidrag",
             "journaldato": "2006-05-09"
         }
         """
         Then statuskoden skal være '202'
-        And objektet skal ha 'avsenderNavn' = 'Sommervold, Sommervold'
+        And objektet skal ha 'avsenderNavn' = 'Bær, Bjarne'

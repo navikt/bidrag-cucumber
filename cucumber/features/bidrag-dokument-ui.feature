@@ -18,7 +18,7 @@ Feature: bidrag-dokument-ui
         When jeg henter journalposter for sak "0000000" med fagområde 'BID' via dokument-ui
         Then statuskoden skal være '204'
 
-    Scenario: Sjekk at journalpost kan oppdateres - Vinterfred
+    Scenario: Sjekk at journalpost kan oppdateres - Dolfern Lundgren
         When jeg endrer journalpost 'BID-30040789' via dokument-ui til:
         """
         {
@@ -30,16 +30,15 @@ Feature: bidrag-dokument-ui
                 "0000004"
             },
             "gjelder": "29118044353",
-            "avsenderEtternavn": "Vinterfred",
-            "avsenderFornavn": "Vinterfred",
+            "avsenderNavn": "Lundgren, Dolfern",
             "beskrivelse": "Søknad, Bidrag",
             "journaldato": "2006-05-09"
         }
         """
         Then statuskoden skal være '202'
-        And objektet skal ha 'avsenderNavn' = 'Vinterfred, Vinterfred'
+        And objektet skal ha 'avsenderNavn' = 'Lundgren, Dolfern'
 
-    Scenario: Sjekk at journalpost kan oppdateres - Sommervold
+    Scenario: Sjekk at journalpost kan oppdateres - Jon Blund
         When jeg endrer journalpost 'BID-30040789' via dokument-ui til:
         """
         {
@@ -51,11 +50,10 @@ Feature: bidrag-dokument-ui
                 "0000004"
             },
             "gjelder": "29118044353",
-            "avsenderEtternavn": "Sommervold",
-            "avsenderFornavn": "Sommervold",
+            "avsenderNavn": "Blund, Jon",
             "beskrivelse": "Søknad, Bidrag",
             "journaldato": "2006-05-09"
         }
         """
         Then statuskoden skal være '202'
-        And objektet skal ha 'avsenderNavn' = 'Sommervold, Sommervold'
+        And objektet skal ha 'avsenderNavn' = 'Blund, Jon'
