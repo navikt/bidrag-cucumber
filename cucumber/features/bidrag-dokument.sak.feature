@@ -6,7 +6,7 @@ Feature: bidrag-dokument (/sakjournal REST API)
 
     Background: Spesifiser base-url til tjenesten her så vi slipper å gjenta for hvert scenario.
                 Fasit environment er gitt ved environment variabler ved oppstart.
-        Given restservice 'bidragDokumentJournalpost'
+        Given restservice 'bidragDokument'
 
     Scenario: Sjekk at vi får en liste med journalposter for en gitt sak
         When jeg henter journalposter for sak "0000003" med fagområde "BID"
