@@ -30,9 +30,9 @@ Feature: bidrag-dokument (/journalposter REST API)
             | dokumenter  |
             | saksnummer  |
 
-    Scenario: Sjekk at ukjent sak gir 204 med ingen data
+    Scenario: Sjekk at sak uten tall gir HttpStatus 400 - Bad Request
         When jeg henter journalposter for sak "XYZ" med fagområde "BID"
-        Then statuskoden skal være '204'
+        Then statuskoden skal være '400'
 
 
     Scenario: Sjekk at journalpost kan oppdateres - James Bond
