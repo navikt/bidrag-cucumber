@@ -1,0 +1,554 @@
+[
+  {
+    "description": "    Tester REST API til bidrag dokument ui for uthenting av enhetsinfo fra Norg2.\n    URLer til tjenester hentes via fasit.adeo.no og gjøres ved å spesifisere\n    alias til en RestService record i fasit for et gitt miljø.",
+    "keyword": "Feature",
+    "name": "bidrag-dokument-ui.enhet",
+    "line": 1,
+    "id": "bidrag-dokument-ui.enhet",
+    "tags": [],
+    "uri": "cucumber/features/bidrag-dokument-ui.enhet.feature",
+    "elements": [
+      {
+        "id": "bidrag-dokument-ui.enhet;sjekk-at-vi-finner-en-enhet-med-et-gitt-enhetsnr",
+        "keyword": "Scenario",
+        "line": 11,
+        "name": "Sjekk at vi finner en enhet med et gitt enhetsnr",
+        "tags": [],
+        "type": "scenario",
+        "steps": [
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "match": {
+              "location": "cucumber/features/step_definitions/shared.js:25"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 1000000
+            },
+            "embeddings": [
+              {
+                "data": "TGluayB0aWwga2liYW5hIGZvciBjb3JyZWxhdGlvbi1pZDogY3VjdW1iZXItNDA1OTl1aWp1ODM2ajcxCgpodHRwczovL2xvZ3MuYWRlby5uby9hcHAva2liYW5hIy9kaXNjb3Zlcj9fYT0oY29sdW1uczohKF9zb3VyY2UpLGZpbHRlcnM6ISgoJyRzdGF0ZSc6KHN0b3JlOmFwcFN0YXRlKSxtZXRhOihhbGlhczohbixkaXNhYmxlZDohZixpbmRleDonbG9nc3Rhc2gtKicpLHF1ZXJ5OihtYXRjaDooeF9jb3JyZWxhdGlvbklkOihxdWVyeTonY3VjdW1iZXItNDA1OTl1aWp1ODM2ajcxJyx0eXBlOnBocmFzZSkpKSkpLGluZGV4Oidsb2dzdGFzaC0qJyxpbnRlcnZhbDphdXRvLHF1ZXJ5OihxdWVyeV9zdHJpbmc6KGFuYWx5emVfd2lsZGNhcmQ6IXQscXVlcnk6JyonKSksc29ydDohKCdAdGltZXN0YW1wJyxkZXNjKSkK",
+                "mime_type": "text/plain"
+              }
+            ]
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 9,
+            "name": "restservice 'bidragDokumentUi'",
+            "match": {
+              "location": "cucumber/features/step_definitions/shared.js:33"
+            },
+            "result": {
+              "status": "passed"
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 12,
+            "name": "jeg henter enhet med enhetnr \"1630\" via dokument-ui",
+            "match": {
+              "location": "cucumber/features/step_definitions/dokument-ui.js:45"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 480000000
+            },
+            "embeddings": [
+              {
+                "data": "R0VUIGh0dHBzOi8vYmlkcmFnLWRva3VtZW50LXVpLm5haXMucHJlcHJvZC5sb2NhbC9hcGkvZW5oZXQvMTYzMA==",
+                "mime_type": "text/plain"
+              },
+              {
+                "data": "bG9nRXJyb3IgZmVpbGV0OiBUeXBlRXJyb3I6IENhbm5vdCByZWFkIHByb3BlcnR5ICdib2R5JyBvZiB1bmRlZmluZWQ7IFJlcXVlc3RFcnJvcjogRXJyb3I6IHNlbGYgc2lnbmVkIGNlcnRpZmljYXRlIGluIGNlcnRpZmljYXRlIGNoYWlu",
+                "mime_type": "text/plain"
+              }
+            ]
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 13,
+            "name": "statuskoden skal være '200'",
+            "match": {
+              "location": "cucumber/features/step_definitions/shared.js:54"
+            },
+            "result": {
+              "status": "failed",
+              "duration": 1000000,
+              "error_message": "AssertionError [ERR_ASSERTION]: undefined undefined\n    + expected - actual\n\n    -false\n    +true\n\n    at World.<anonymous> (/src/cucumber/features/step_definitions/shared.js:66:12)"
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 14,
+            "name": "resultatet skal være et objekt",
+            "match": {
+              "location": "cucumber/features/step_definitions/shared.js:159"
+            },
+            "result": {
+              "status": "skipped"
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 15,
+            "name": "objektet skal ha 'navn' = 'NAV Nord-Fosen'",
+            "match": {
+              "location": "cucumber/features/step_definitions/shared.js:128"
+            },
+            "result": {
+              "status": "skipped"
+            }
+          }
+        ]
+      },
+      {
+        "id": "bidrag-dokument-ui.enhet;sjekk-at-ukjent-enhet-gir-204-med-ingen-data",
+        "keyword": "Scenario",
+        "line": 17,
+        "name": "Sjekk at ukjent enhet gir 204 med ingen data",
+        "tags": [],
+        "type": "scenario",
+        "steps": [
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "match": {
+              "location": "cucumber/features/step_definitions/shared.js:25"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 1000000
+            },
+            "embeddings": [
+              {
+                "data": "TGluayB0aWwga2liYW5hIGZvciBjb3JyZWxhdGlvbi1pZDogY3VjdW1iZXItNDA1OTl1aWp1ODM2amtxCgpodHRwczovL2xvZ3MuYWRlby5uby9hcHAva2liYW5hIy9kaXNjb3Zlcj9fYT0oY29sdW1uczohKF9zb3VyY2UpLGZpbHRlcnM6ISgoJyRzdGF0ZSc6KHN0b3JlOmFwcFN0YXRlKSxtZXRhOihhbGlhczohbixkaXNhYmxlZDohZixpbmRleDonbG9nc3Rhc2gtKicpLHF1ZXJ5OihtYXRjaDooeF9jb3JyZWxhdGlvbklkOihxdWVyeTonY3VjdW1iZXItNDA1OTl1aWp1ODM2amtxJyx0eXBlOnBocmFzZSkpKSkpLGluZGV4Oidsb2dzdGFzaC0qJyxpbnRlcnZhbDphdXRvLHF1ZXJ5OihxdWVyeV9zdHJpbmc6KGFuYWx5emVfd2lsZGNhcmQ6IXQscXVlcnk6JyonKSksc29ydDohKCdAdGltZXN0YW1wJyxkZXNjKSkK",
+                "mime_type": "text/plain"
+              }
+            ]
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 9,
+            "name": "restservice 'bidragDokumentUi'",
+            "match": {
+              "location": "cucumber/features/step_definitions/shared.js:33"
+            },
+            "result": {
+              "status": "passed"
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 18,
+            "name": "jeg henter enhet med enhetnr \"1630X\" via dokument-ui",
+            "match": {
+              "location": "cucumber/features/step_definitions/dokument-ui.js:45"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 330000000
+            },
+            "embeddings": [
+              {
+                "data": "R0VUIGh0dHBzOi8vYmlkcmFnLWRva3VtZW50LXVpLm5haXMucHJlcHJvZC5sb2NhbC9hcGkvZW5oZXQvMTYzMFg=",
+                "mime_type": "text/plain"
+              },
+              {
+                "data": "bG9nRXJyb3IgZmVpbGV0OiBUeXBlRXJyb3I6IENhbm5vdCByZWFkIHByb3BlcnR5ICdib2R5JyBvZiB1bmRlZmluZWQ7IFJlcXVlc3RFcnJvcjogRXJyb3I6IHNlbGYgc2lnbmVkIGNlcnRpZmljYXRlIGluIGNlcnRpZmljYXRlIGNoYWlu",
+                "mime_type": "text/plain"
+              }
+            ]
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 19,
+            "name": "statuskoden skal være '404'",
+            "match": {
+              "location": "cucumber/features/step_definitions/shared.js:54"
+            },
+            "result": {
+              "status": "failed",
+              "error_message": "AssertionError [ERR_ASSERTION]: undefined undefined\n    + expected - actual\n\n    -false\n    +true\n\n    at World.<anonymous> (/src/cucumber/features/step_definitions/shared.js:66:12)"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "description": "    Tester REST API til bidrag dokument ui.\n    URLer til tjenester hentes via fasit.adeo.no og gjøres ved å spesifisere\n    alias til en RestService record i fasit for et gitt miljø.",
+    "keyword": "Feature",
+    "name": "bidrag-dokument-ui",
+    "line": 1,
+    "id": "bidrag-dokument-ui",
+    "tags": [],
+    "uri": "cucumber/features/bidrag-dokument-ui.feature",
+    "elements": [
+      {
+        "id": "bidrag-dokument-ui;sjekk-at-vi-får-en-liste-med-journalposter-for-en-gitt-sak",
+        "keyword": "Scenario",
+        "line": 11,
+        "name": "Sjekk at vi får en liste med journalposter for en gitt sak",
+        "tags": [],
+        "type": "scenario",
+        "steps": [
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "match": {
+              "location": "cucumber/features/step_definitions/shared.js:25"
+            },
+            "result": {
+              "status": "passed"
+            },
+            "embeddings": [
+              {
+                "data": "TGluayB0aWwga2liYW5hIGZvciBjb3JyZWxhdGlvbi1pZDogY3VjdW1iZXItNDA1OTl1aWp1ODM2anUxCgpodHRwczovL2xvZ3MuYWRlby5uby9hcHAva2liYW5hIy9kaXNjb3Zlcj9fYT0oY29sdW1uczohKF9zb3VyY2UpLGZpbHRlcnM6ISgoJyRzdGF0ZSc6KHN0b3JlOmFwcFN0YXRlKSxtZXRhOihhbGlhczohbixkaXNhYmxlZDohZixpbmRleDonbG9nc3Rhc2gtKicpLHF1ZXJ5OihtYXRjaDooeF9jb3JyZWxhdGlvbklkOihxdWVyeTonY3VjdW1iZXItNDA1OTl1aWp1ODM2anUxJyx0eXBlOnBocmFzZSkpKSkpLGluZGV4Oidsb2dzdGFzaC0qJyxpbnRlcnZhbDphdXRvLHF1ZXJ5OihxdWVyeV9zdHJpbmc6KGFuYWx5emVfd2lsZGNhcmQ6IXQscXVlcnk6JyonKSksc29ydDohKCdAdGltZXN0YW1wJyxkZXNjKSkK",
+                "mime_type": "text/plain"
+              }
+            ]
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 9,
+            "name": "restservice 'bidragDokumentUi'",
+            "match": {
+              "location": "cucumber/features/step_definitions/shared.js:33"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 1000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 12,
+            "name": "jeg henter journalposter for sak \"0000003\" med fagområde 'BID' via dokument-ui",
+            "match": {
+              "location": "cucumber/features/step_definitions/dokument-ui.js:19"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 816000000
+            },
+            "embeddings": [
+              {
+                "data": "R0VUIGh0dHBzOi8vYmlkcmFnLWRva3VtZW50LXVpLm5haXMucHJlcHJvZC5sb2NhbC9hcGkvam91cm5hbHBvc3Rlci8wMDAwMDAzP2ZhZ29tcmFkZT1CSUQ=",
+                "mime_type": "text/plain"
+              },
+              {
+                "data": "bG9nRXJyb3IgZmVpbGV0OiBUeXBlRXJyb3I6IENhbm5vdCByZWFkIHByb3BlcnR5ICdib2R5JyBvZiB1bmRlZmluZWQ7IFJlcXVlc3RFcnJvcjogRXJyb3I6IHNlbGYgc2lnbmVkIGNlcnRpZmljYXRlIGluIGNlcnRpZmljYXRlIGNoYWlu",
+                "mime_type": "text/plain"
+              }
+            ]
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 13,
+            "name": "statuskoden skal være '200'",
+            "match": {
+              "location": "cucumber/features/step_definitions/shared.js:54"
+            },
+            "result": {
+              "status": "failed",
+              "error_message": "AssertionError [ERR_ASSERTION]: undefined undefined\n    + expected - actual\n\n    -false\n    +true\n\n    at World.<anonymous> (/src/cucumber/features/step_definitions/shared.js:66:12)"
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 14,
+            "name": "skal resultatet være en liste",
+            "match": {
+              "location": "cucumber/features/step_definitions/shared.js:138"
+            },
+            "result": {
+              "status": "skipped"
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 15,
+            "name": "hvert element i listen skal ha 'saksnummer' = '0000003'",
+            "match": {
+              "location": "cucumber/features/step_definitions/shared.js:146"
+            },
+            "result": {
+              "status": "skipped"
+            }
+          }
+        ]
+      },
+      {
+        "id": "bidrag-dokument-ui;sjekk-at-ukjent-sak-gir-204-med-ingen-data",
+        "keyword": "Scenario",
+        "line": 17,
+        "name": "Sjekk at ukjent sak gir 204 med ingen data",
+        "tags": [],
+        "type": "scenario",
+        "steps": [
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "match": {
+              "location": "cucumber/features/step_definitions/shared.js:25"
+            },
+            "result": {
+              "status": "passed"
+            },
+            "embeddings": [
+              {
+                "data": "TGluayB0aWwga2liYW5hIGZvciBjb3JyZWxhdGlvbi1pZDogY3VjdW1iZXItNDA1OTl1aWp1ODM2a2d4CgpodHRwczovL2xvZ3MuYWRlby5uby9hcHAva2liYW5hIy9kaXNjb3Zlcj9fYT0oY29sdW1uczohKF9zb3VyY2UpLGZpbHRlcnM6ISgoJyRzdGF0ZSc6KHN0b3JlOmFwcFN0YXRlKSxtZXRhOihhbGlhczohbixkaXNhYmxlZDohZixpbmRleDonbG9nc3Rhc2gtKicpLHF1ZXJ5OihtYXRjaDooeF9jb3JyZWxhdGlvbklkOihxdWVyeTonY3VjdW1iZXItNDA1OTl1aWp1ODM2a2d4Jyx0eXBlOnBocmFzZSkpKSkpLGluZGV4Oidsb2dzdGFzaC0qJyxpbnRlcnZhbDphdXRvLHF1ZXJ5OihxdWVyeV9zdHJpbmc6KGFuYWx5emVfd2lsZGNhcmQ6IXQscXVlcnk6JyonKSksc29ydDohKCdAdGltZXN0YW1wJyxkZXNjKSkK",
+                "mime_type": "text/plain"
+              }
+            ]
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 9,
+            "name": "restservice 'bidragDokumentUi'",
+            "match": {
+              "location": "cucumber/features/step_definitions/shared.js:33"
+            },
+            "result": {
+              "status": "passed"
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 18,
+            "name": "jeg henter journalposter for sak \"0000000\" med fagområde 'BID' via dokument-ui",
+            "match": {
+              "location": "cucumber/features/step_definitions/dokument-ui.js:19"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 565000000
+            },
+            "embeddings": [
+              {
+                "data": "R0VUIGh0dHBzOi8vYmlkcmFnLWRva3VtZW50LXVpLm5haXMucHJlcHJvZC5sb2NhbC9hcGkvam91cm5hbHBvc3Rlci8wMDAwMDAwP2ZhZ29tcmFkZT1CSUQ=",
+                "mime_type": "text/plain"
+              },
+              {
+                "data": "bG9nRXJyb3IgZmVpbGV0OiBUeXBlRXJyb3I6IENhbm5vdCByZWFkIHByb3BlcnR5ICdib2R5JyBvZiB1bmRlZmluZWQ7IFJlcXVlc3RFcnJvcjogRXJyb3I6IHNlbGYgc2lnbmVkIGNlcnRpZmljYXRlIGluIGNlcnRpZmljYXRlIGNoYWlu",
+                "mime_type": "text/plain"
+              }
+            ]
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 19,
+            "name": "statuskoden skal være '204'",
+            "match": {
+              "location": "cucumber/features/step_definitions/shared.js:54"
+            },
+            "result": {
+              "status": "failed",
+              "error_message": "AssertionError [ERR_ASSERTION]: undefined undefined\n    + expected - actual\n\n    -false\n    +true\n\n    at World.<anonymous> (/src/cucumber/features/step_definitions/shared.js:66:12)"
+            }
+          }
+        ]
+      },
+      {
+        "id": "bidrag-dokument-ui;sjekk-at-journalpost-kan-oppdateres---dolfern-lundgren",
+        "keyword": "Scenario",
+        "line": 21,
+        "name": "Sjekk at journalpost kan oppdateres - Dolfern Lundgren",
+        "tags": [],
+        "type": "scenario",
+        "steps": [
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "match": {
+              "location": "cucumber/features/step_definitions/shared.js:25"
+            },
+            "result": {
+              "status": "passed"
+            },
+            "embeddings": [
+              {
+                "data": "TGluayB0aWwga2liYW5hIGZvciBjb3JyZWxhdGlvbi1pZDogY3VjdW1iZXItNDA1OTl1aWp1ODM2a3dzCgpodHRwczovL2xvZ3MuYWRlby5uby9hcHAva2liYW5hIy9kaXNjb3Zlcj9fYT0oY29sdW1uczohKF9zb3VyY2UpLGZpbHRlcnM6ISgoJyRzdGF0ZSc6KHN0b3JlOmFwcFN0YXRlKSxtZXRhOihhbGlhczohbixkaXNhYmxlZDohZixpbmRleDonbG9nc3Rhc2gtKicpLHF1ZXJ5OihtYXRjaDooeF9jb3JyZWxhdGlvbklkOihxdWVyeTonY3VjdW1iZXItNDA1OTl1aWp1ODM2a3dzJyx0eXBlOnBocmFzZSkpKSkpLGluZGV4Oidsb2dzdGFzaC0qJyxpbnRlcnZhbDphdXRvLHF1ZXJ5OihxdWVyeV9zdHJpbmc6KGFuYWx5emVfd2lsZGNhcmQ6IXQscXVlcnk6JyonKSksc29ydDohKCdAdGltZXN0YW1wJyxkZXNjKSkK",
+                "mime_type": "text/plain"
+              }
+            ]
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 9,
+            "name": "restservice 'bidragDokumentUi'",
+            "match": {
+              "location": "cucumber/features/step_definitions/shared.js:33"
+            },
+            "result": {
+              "status": "passed"
+            }
+          },
+          {
+            "arguments": [
+              {
+                "content": "{\n    \"journalpostId\": 30040789,\n    \"saksnummer\": {\n        \"erTilknyttetNySak\": false,\n        \"saksnummer\": \"0000004\",\n        \"saksnummerSomSkalErstattes\":\n        \"0000004\"\n    },\n    \"gjelder\": \"29118044353\",\n    \"avsenderNavn\": \"Lundgren, Dolfern\",\n    \"beskrivelse\": \"Søknad, Bidrag\",\n    \"journaldato\": \"2006-05-09\"\n}",
+                "line": 23
+              }
+            ],
+            "keyword": "When ",
+            "line": 22,
+            "name": "jeg endrer journalpost 'BID-30040789' via dokument-ui til:",
+            "match": {
+              "location": "cucumber/features/step_definitions/dokument-ui.js:34"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 684000000
+            },
+            "embeddings": [
+              {
+                "data": "UFVUIGh0dHBzOi8vYmlkcmFnLWRva3VtZW50LXVpLm5haXMucHJlcHJvZC5sb2NhbC9hcGkvam91cm5hbHBvc3QvQklELTMwMDQwNzg5CnsKICAgICJqb3VybmFscG9zdElkIjogMzAwNDA3ODksCiAgICAic2Frc251bW1lciI6IHsKICAgICAgICAiZXJUaWxrbnl0dGV0TnlTYWsiOiBmYWxzZSwKICAgICAgICAic2Frc251bW1lciI6ICIwMDAwMDA0IiwKICAgICAgICAic2Frc251bW1lclNvbVNrYWxFcnN0YXR0ZXMiOiAiMDAwMDAwNCIKICAgIH0sCiAgICAiZ2plbGRlciI6ICIyOTExODA0NDM1MyIsCiAgICAiYXZzZW5kZXJOYXZuIjogIkx1bmRncmVuLCBEb2xmZXJuIiwKICAgICJiZXNrcml2ZWxzZSI6ICJTw7hrbmFkLCBCaWRyYWciLAogICAgImpvdXJuYWxkYXRvIjogIjIwMDYtMDUtMDkiCn0=",
+                "mime_type": "text/plain"
+              },
+              {
+                "data": "bG9nRXJyb3IgZmVpbGV0OiBUeXBlRXJyb3I6IENhbm5vdCByZWFkIHByb3BlcnR5ICdib2R5JyBvZiB1bmRlZmluZWQ7IFJlcXVlc3RFcnJvcjogRXJyb3I6IHNlbGYgc2lnbmVkIGNlcnRpZmljYXRlIGluIGNlcnRpZmljYXRlIGNoYWlu",
+                "mime_type": "text/plain"
+              }
+            ]
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 38,
+            "name": "statuskoden skal være '202'",
+            "match": {
+              "location": "cucumber/features/step_definitions/shared.js:54"
+            },
+            "result": {
+              "status": "failed",
+              "error_message": "AssertionError [ERR_ASSERTION]: undefined undefined\n    + expected - actual\n\n    -false\n    +true\n\n    at World.<anonymous> (/src/cucumber/features/step_definitions/shared.js:66:12)"
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 39,
+            "name": "objektet skal ha 'avsenderNavn' = 'Lundgren, Dolfern'",
+            "match": {
+              "location": "cucumber/features/step_definitions/shared.js:128"
+            },
+            "result": {
+              "status": "skipped"
+            }
+          }
+        ]
+      },
+      {
+        "id": "bidrag-dokument-ui;sjekk-at-journalpost-kan-oppdateres---jon-blund",
+        "keyword": "Scenario",
+        "line": 41,
+        "name": "Sjekk at journalpost kan oppdateres - Jon Blund",
+        "tags": [],
+        "type": "scenario",
+        "steps": [
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "match": {
+              "location": "cucumber/features/step_definitions/shared.js:25"
+            },
+            "result": {
+              "status": "passed"
+            },
+            "embeddings": [
+              {
+                "data": "TGluayB0aWwga2liYW5hIGZvciBjb3JyZWxhdGlvbi1pZDogY3VjdW1iZXItNDA1OTl1aWp1ODM2bGZ6CgpodHRwczovL2xvZ3MuYWRlby5uby9hcHAva2liYW5hIy9kaXNjb3Zlcj9fYT0oY29sdW1uczohKF9zb3VyY2UpLGZpbHRlcnM6ISgoJyRzdGF0ZSc6KHN0b3JlOmFwcFN0YXRlKSxtZXRhOihhbGlhczohbixkaXNhYmxlZDohZixpbmRleDonbG9nc3Rhc2gtKicpLHF1ZXJ5OihtYXRjaDooeF9jb3JyZWxhdGlvbklkOihxdWVyeTonY3VjdW1iZXItNDA1OTl1aWp1ODM2bGZ6Jyx0eXBlOnBocmFzZSkpKSkpLGluZGV4Oidsb2dzdGFzaC0qJyxpbnRlcnZhbDphdXRvLHF1ZXJ5OihxdWVyeV9zdHJpbmc6KGFuYWx5emVfd2lsZGNhcmQ6IXQscXVlcnk6JyonKSksc29ydDohKCdAdGltZXN0YW1wJyxkZXNjKSkK",
+                "mime_type": "text/plain"
+              }
+            ]
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 9,
+            "name": "restservice 'bidragDokumentUi'",
+            "match": {
+              "location": "cucumber/features/step_definitions/shared.js:33"
+            },
+            "result": {
+              "status": "passed"
+            }
+          },
+          {
+            "arguments": [
+              {
+                "content": "{\n    \"journalpostId\": 30040789,\n    \"saksnummer\": {\n        \"erTilknyttetNySak\": false,\n        \"saksnummer\": \"0000004\",\n        \"saksnummerSomSkalErstattes\":\n        \"0000004\"\n    },\n    \"gjelder\": \"29118044353\",\n    \"avsenderNavn\": \"Blund, Jon\",\n    \"beskrivelse\": \"Søknad, Bidrag\",\n    \"journaldato\": \"2006-05-09\"\n}",
+                "line": 43
+              }
+            ],
+            "keyword": "When ",
+            "line": 42,
+            "name": "jeg endrer journalpost 'BID-30040789' via dokument-ui til:",
+            "match": {
+              "location": "cucumber/features/step_definitions/dokument-ui.js:34"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 521000000
+            },
+            "embeddings": [
+              {
+                "data": "UFVUIGh0dHBzOi8vYmlkcmFnLWRva3VtZW50LXVpLm5haXMucHJlcHJvZC5sb2NhbC9hcGkvam91cm5hbHBvc3QvQklELTMwMDQwNzg5CnsKICAgICJqb3VybmFscG9zdElkIjogMzAwNDA3ODksCiAgICAic2Frc251bW1lciI6IHsKICAgICAgICAiZXJUaWxrbnl0dGV0TnlTYWsiOiBmYWxzZSwKICAgICAgICAic2Frc251bW1lciI6ICIwMDAwMDA0IiwKICAgICAgICAic2Frc251bW1lclNvbVNrYWxFcnN0YXR0ZXMiOiAiMDAwMDAwNCIKICAgIH0sCiAgICAiZ2plbGRlciI6ICIyOTExODA0NDM1MyIsCiAgICAiYXZzZW5kZXJOYXZuIjogIkJsdW5kLCBKb24iLAogICAgImJlc2tyaXZlbHNlIjogIlPDuGtuYWQsIEJpZHJhZyIsCiAgICAiam91cm5hbGRhdG8iOiAiMjAwNi0wNS0wOSIKfQ==",
+                "mime_type": "text/plain"
+              },
+              {
+                "data": "bG9nRXJyb3IgZmVpbGV0OiBUeXBlRXJyb3I6IENhbm5vdCByZWFkIHByb3BlcnR5ICdib2R5JyBvZiB1bmRlZmluZWQ7IFJlcXVlc3RFcnJvcjogRXJyb3I6IHNlbGYgc2lnbmVkIGNlcnRpZmljYXRlIGluIGNlcnRpZmljYXRlIGNoYWlu",
+                "mime_type": "text/plain"
+              }
+            ]
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 58,
+            "name": "statuskoden skal være '202'",
+            "match": {
+              "location": "cucumber/features/step_definitions/shared.js:54"
+            },
+            "result": {
+              "status": "failed",
+              "error_message": "AssertionError [ERR_ASSERTION]: undefined undefined\n    + expected - actual\n\n    -false\n    +true\n\n    at World.<anonymous> (/src/cucumber/features/step_definitions/shared.js:66:12)"
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 59,
+            "name": "objektet skal ha 'avsenderNavn' = 'Blund, Jon'",
+            "match": {
+              "location": "cucumber/features/step_definitions/shared.js:128"
+            },
+            "result": {
+              "status": "skipped"
+            }
+          }
+        ]
+      }
+    ]
+  }
+]

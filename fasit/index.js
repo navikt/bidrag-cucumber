@@ -16,6 +16,7 @@ const OIDC_ALIAS = process.env.oidc_alias || 'bidrag-dokument-ui-oidc'
 const TEST_USER = process.env.test_user
 const TEST_PASS = process.env.test_pass
 const CORRELATION_HEADER = process.env.correlation_header || "X-Correlation-ID"
+const REDIRECT_URI = process.env.redirect_uri || "https://bidrag-dokument-ui.nais.preprod.local/isso"
 
 /**
  * Siste URL og token brukt
@@ -75,7 +76,7 @@ function hentTokenFor(env, oidcAlias, fasitUser, fasitPass, username, password) 
         .then(response => {
             client_secret = response.body;
             if (username && password) {
-                return getUserIDToken(issuerUrl, client_id, client_secret, 'https://bidrag-dokument-ui.nais.preprod.local/', username, password)
+                return getUserIDToken(issuerUrl, client_id, client_secret, REDIRECT_URI, username, password)
             } else {
                 return request({
                     method: 'POST',
