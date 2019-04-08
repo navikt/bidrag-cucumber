@@ -21,7 +21,7 @@ Feature: bidrag-dokument (/sakjournal REST API)
         And hvert element i listen skal ha 'saksnummer' = '0603479'
         And hvert element i listen skal ha 'fagomrade' = 'FAR'
 
-    Scenario: Sjekk at ukjent sak gir 204 med ingen data
+    Scenario: Sjekk at saksnummer som ikke er heltall gir HttpStatus 400 (Bad Request)
         When jeg henter journalposter for sak "XYZ" med fagområde "FAR"
-        Then statuskoden skal være '204'
+        Then statuskoden skal være '400'
 
