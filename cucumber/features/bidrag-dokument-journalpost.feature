@@ -4,7 +4,7 @@ Feature: bidrag-dokument-journalpost
         Fasit url og environment er gitt ved ENV variabler ved oppstart.
         Given restservice 'bidragDokumentJournalpost'
 
-    Scenario: Sjekk at vi får korrekt journalpost for en gitt journalpostId
+    Scenario: Sjekk at vi får korrekt basisinnhold journalpost for en gitt journalpostId
         When jeg henter journalpost for id "19650256"
         Then statuskoden skal være '200'
         And resultatet skal være et objekt
@@ -13,7 +13,6 @@ Feature: bidrag-dokument-journalpost
             | dokumentDato  |
             | dokumentType  |
             | journalstatus |
-            | gjelderAktor  |
             | journalfortAv |
             | innhold       |
 
@@ -23,7 +22,7 @@ Feature: bidrag-dokument-journalpost
         And resultatet skal være et objekt
         And objektet skal ha følgende properties:
             | dokumenter |
-        And journalposten sitt dokument skal ha følgende properties:
+        And 'dokumenter' skal ha følgende properties:
             | dokumentreferanse |
             | dokumentType      |
             | tittel            |

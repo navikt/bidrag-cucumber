@@ -183,8 +183,10 @@ Then('{string} skal ha følgende properties:', function (prop, table) {
 
 function verifyContents(world, table, jp) {
     var missing = []
-    console.log('checking array of length', jp)
     if(Array.isArray(jp)) {
+        if(jp.length == 0) {
+            missing.push('Input array er tom')
+        }
         jp.forEach(item => {
             missing.push( _verifyContent(world, table, item) )
         })
