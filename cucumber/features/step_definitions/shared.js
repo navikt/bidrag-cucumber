@@ -34,6 +34,11 @@ Given('restservice {string}', function (alias) {
     this.alias = alias
 });
 
+Given('response er', function(body) {
+    this.response = {}
+    this.response.body = JSON.parse(body)
+})
+
 /**
  * Overstyrer fasit environment som benyttes i fasit modulen (-> fasit/index.js)
  */
@@ -169,7 +174,27 @@ Then('resultatet skal være et objekt', function () {
  * 
  */
 Then('objektet skal ha følgende properties:', function (table) {
-    var jp = this.response.body;
+    verifyContents(this, table, this.response.body)
+})
+
+Then('{string} skal ha følgende properties:', function (prop, table) {
+    verifyContents(this, table, this.response.body[prop])
+})
+
+function verifyContents(world, table, jp) {
+    var missing = []
+    console.log('checking array of length', jp)
+    if(Array.isArray(jp)) {
+        jp.forEach(item => {
+            missing.push( _verifyContent(world, table, item) )
+        })
+    } else {
+        missing = _verifyContent(world, table, jp)
+    }
+    assert.equal(missing.length, 0, "Mangler properties: " + missing.join(","));
+}
+
+function _verifyContent(world, table, jp) {
     var missing = []
     table.rawTable.forEach(item => {
         var value = jp[item[0]]
@@ -179,9 +204,9 @@ Then('objektet skal ha følgende properties:', function (table) {
         if (item.length > 1) {
             if (value != item[1]) {
                 missing.push(item[0])
-                attachText(this, `property ${item[0]} har feil verdi: ${value}`)
+                world.attachText(this, `property ${item[0]} har feil verdi: ${value}`)
             }
         }
     })
-    assert.equal(missing.length, 0, "Mangler properties: " + missing.join(","));
-})
+    return missing
+}

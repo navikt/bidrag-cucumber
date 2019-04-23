@@ -4,22 +4,53 @@ Feature: bidrag-dokument-journalpost
         Fasit url og environment er gitt ved ENV variabler ved oppstart.
         Given restservice 'bidragDokumentJournalpost'
 
-    Scenario: Sjekk at vi får en journalpost for en gitt journalpostId
+    Scenario: Sjekk at vi får korrekt journalpost for en gitt journalpostId
         When jeg henter journalpost for id "19650256"
         Then statuskoden skal være '200'
         And resultatet skal være et objekt
         And objektet skal ha følgende properties:
             | avsenderNavn  |
             | dokumentDato  |
-            | dokumenter    |
             | dokumentType  |
             | journalstatus |
             | gjelderAktor  |
             | journalfortAv |
+            | innhold       |
+
+    Scenario: Sjekk at vi får korrekt data i 'dokumenter' for en gitt journalpostId
+        When jeg henter journalpost for id "19650256"
+        Then statuskoden skal være '200'
+        And resultatet skal være et objekt
+        And objektet skal ha følgende properties:
+            | dokumenter |
         And journalposten sitt dokument skal ha følgende properties:
             | dokumentreferanse |
             | dokumentType      |
             | tittel            |
+
+    Scenario: Sjekk at vi får korrekt gjelderAktor for en gitt journalpostId
+        When jeg henter journalpost for id "19650256"
+        Then statuskoden skal være '200'
+        And resultatet skal være et objekt
+        And objektet skal ha følgende properties:
+            | gjelderAktor |
+        And 'gjelderAktor' skal ha følgende properties:
+            | ident     |
+            | identType |
+            | aktorType |
+
+    Scenario: Sjekk bidragsaker i journalpost
+        When jeg henter journalpost for id "19650256"
+        Then statuskoden skal være '200'
+        And resultatet skal være et objekt
+        And objektet skal ha følgende properties:
+            | bidragssaker |
+        And 'bidragssaker' skal ha følgende properties:
+            | eierfogd     |
+            | saksnummer   |
+            | saksstatus   |
+            | erParagraf19 |
+            | roller       |
 
     Scenario: Sjekk at vi får en sakjournal for sak/fagområde
         When jeg henter journalposter for sak "0000003" med fagområde "BID"

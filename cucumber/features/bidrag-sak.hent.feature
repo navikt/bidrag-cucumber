@@ -5,7 +5,7 @@ Feature: bidrag-sak
     alias til en RestService record i fasit for et gitt miljø.
 
     Background: Spesifiser base-url til tjenesten her så vi slipper å gjenta for hvert scenario.
-                Fasit environment er gitt ved environment variabler ved oppstart.
+        Fasit environment er gitt ved environment variabler ved oppstart.
         Given restservice 'bidragSak'
 
     Scenario: Sjekk at health endpoint er operativt
@@ -23,3 +23,4 @@ Feature: bidrag-sak
             | eierfogd   |
             | saksnummer |
             | saksstatus |
+            | kategori   |

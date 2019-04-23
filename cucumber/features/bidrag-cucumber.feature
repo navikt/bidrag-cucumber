@@ -2,6 +2,22 @@ Feature: bidrag-cucumber
 
     Tester REST API til fasit og sjekker at vi får gyldig token
 
+    Scenario: Test shared funksjoner
+        When response er
+        """
+        {
+            "header": {
+                "a": "aval",
+                "b": "bval"
+            }
+        }
+        """
+        Then objektet skal ha følgende properties:
+            | header |
+        And 'header' skal ha følgende properties:
+            | a | aval |
+            | b | bval |
+
     Scenario: Sjekk at vi får et gyldig id_token i 'q0'
         When jeg ber om et token fra 'q0'
         Then skal token være gyldig
