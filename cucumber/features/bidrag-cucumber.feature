@@ -6,17 +6,52 @@ Feature: bidrag-cucumber
         When response er
         """
         {
-            "header": {
-                "a": "aval",
-                "b": "bval"
-            }
+            "avsenderNavn": "NN, NN",
+            "dokumenter": [
+                {
+                    "dokumentreferanse": "121603000163",
+                    "dokumentType": "U",
+                    "tittel": "tittel"
+                }
+            ],
+            "dokumentDato": "2003-01-31",
+            "fagomrade": "BID",
+            "gjelderAktor": null,
+            "innhold": "OMREGNING BIDRAG / INFORMASJONSBREV",
+            "journalforendeEnhet": "1216",
+            "journalfortAv": "Konvertert fra BOST",
+            "journalfortDato": "2003-01-31",
+            "journalpostId": "BID-19650256",
+            "mottattDato": "2003-01-31",
+            "saksnummer": "0000003",
+            "bidragssaker": [
+                {
+                    "eierfogd": "4809",
+                    "saksnummer": "0000004",
+                    "saksstatus": "status",
+                    "erParagraf19": false,
+                    "roller": [
+                        "BA"
+                    ]
+                }
+            ],
+            "dokumentType": "U",
+            "journalstatus": "A"
         }
         """
         Then objektet skal ha følgende properties:
-            | header |
-        And 'header' skal ha følgende properties:
-            | a | aval |
-            | b | bval |
+            | avsenderNavn |
+            | dokumenter   |
+        And 'dokumenter' skal ha følgende properties:
+            | dokumentreferanse | 121603000163 |
+            | dokumentType | U |
+            | tittel | tittel |
+        And 'bidragssaker' skal ha følgende properties:
+            | eierfogd |
+            | saksnummer |
+            | saksstatus |
+            | erParagraf19 |
+            | roller |
 
     Scenario: Sjekk at vi får et gyldig id_token i 'q0'
         When jeg ber om et token fra 'q0'

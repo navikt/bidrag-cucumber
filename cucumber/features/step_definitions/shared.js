@@ -188,7 +188,7 @@ function verifyContents(world, table, jp) {
             missing.push('Input array er tom')
         }
         jp.forEach(item => {
-            missing.push( _verifyContent(world, table, item) )
+            missing = missing.concat( _verifyContent(world, table, item) )
         })
     } else {
         missing = _verifyContent(world, table, jp)
