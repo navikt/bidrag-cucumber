@@ -213,7 +213,7 @@ function _verifyContent(world, table, jp) {
             missing.push(item[0])
         }
         if (item.length > 1) {
-            if (value != item[1]) {
+            if (item[1] && value != item[1]) {
                 missing.push(item[0])
                 world.attachText(this, `property ${item[0]} har feil verdi: ${value}`)
             }

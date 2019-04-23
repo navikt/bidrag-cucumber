@@ -4,15 +4,15 @@ Feature: bidrag-cucumber
 
     Scenario: Test shared funksjoner
         When response er
-        """
-        {
+            """
+            {
             "avsenderNavn": "NN, NN",
             "dokumenter": [
-                {
-                    "dokumentreferanse": "121603000163",
-                    "dokumentType": "U",
-                    "tittel": "tittel"
-                }
+            {
+            "dokumentreferanse": "121603000163",
+            "dokumentType": "U",
+            "tittel": "tittel"
+            }
             ],
             "dokumentDato": "2003-01-31",
             "fagomrade": "BID",
@@ -26,53 +26,54 @@ Feature: bidrag-cucumber
             "saksnummer": "0000003",
             "dokumentType": "U",
             "journalstatus": "A"
-        }
-        """
+            }
+            """
         Then objektet skal ha følgende properties:
-            | avsenderNavn |
-            | dokumenter   |
+            | avsenderNavn |  |
+            | dokumenter   |  |
         And 'dokumenter' skal ha følgende properties:
             | dokumentreferanse | 121603000163 |
-            | dokumentType | U |
-            | tittel | tittel |
+            | dokumentType      | U            |
+            | tittel            | tittel       |
 
     Scenario: Test shared funksjoner
         When response er
-        """
-[
-    {
-        "avsenderNavn": "Nordlandssykehuset",
-        "dokumenter": [
+            """
+            [
             {
-                "dokumentreferanse": "3000795204",
-                "dokumentType": "I",
-                "tittel": ""
+            "avsenderNavn": "Nordlandssykehuset",
+            "dokumenter": [
+            {
+            "dokumentreferanse": "3000795204",
+            "dokumentType": "I",
+            "tittel": ""
             }
-        ],
-        "dokumentDato": "2006-03-27",
-        "fagomrade": "FAR",
-        "gjelderAktor": {
+            ],
+            "dokumentDato": "2006-03-27",
+            "fagomrade": "FAR",
+            "gjelderAktor": {
             "ident": "10106948203",
             "identType": "",
             "aktorType": "person"
-        },
-        "innhold": "Fødselsmelding, Farskap",
-        "journalforendeEnhet": "1840",
-        "journalfortAv": "Bjørn Skog",
-        "journalfortDato": "2006-03-29",
-        "journalpostId": "BID-30007952",
-        "mottattDato": "2006-03-29",
-        "saksnummer": "0603479",
-        "bidragssaker": [],
-        "dokumentType": "I",
-        "journalstatus": "J"
-    }
-]
-        """
+            },
+            "innhold": "Fødselsmelding, Farskap",
+            "journalforendeEnhet": "1840",
+            "journalfortAv": "Bjørn Skog",
+            "journalfortDato": "2006-03-29",
+            "journalpostId": "BID-30007952",
+            "mottattDato": "2006-03-29",
+            "saksnummer": "0603479",
+            "bidragssaker": [],
+            "dokumentType": "I",
+            "journalstatus": "J"
+            }
+            ]
+            """
         Then 'gjelderAktor' i hvert element skal ha følgende properties:
             | ident     |
             | identType |
             | aktorType |
+
 
     Scenario: Sjekk at vi får et gyldig id_token i 'q0'
         When jeg ber om et token fra 'q0'
