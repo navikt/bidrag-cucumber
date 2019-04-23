@@ -19,8 +19,9 @@ Feature: bidrag-sak
         When jeg henter bidragssaker for person med fnr "10099447805"
         Then statuskoden skal være '200'
         And hvert element i listen skal ha følgende properties satt:
-            | roller     |
-            | eierfogd   |
-            | saksnummer |
-            | saksstatus |
-            | kategori   |
+            | roller       |
+            | eierfogd     |
+            | saksnummer   |
+            | saksstatus   |
+            | kategori     |
+            | erParagraf19 |
