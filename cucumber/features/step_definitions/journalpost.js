@@ -9,8 +9,8 @@ const {
     httpPut
 } = require('fasit')
 
-function journalpostSuffix(saksnummer) {
-    return util.format("/journalpost/%s", saksnummer)
+function journalpostSuffix(journalId) {
+    return util.format("/journalpost/%s", journalId)
 }
 
 /**
@@ -41,6 +41,9 @@ When('jeg henter journalposter for sak {string} med fagområde {string}', functi
         })
 });
 
+/**
+ * Henter spesifikk journalpost
+ */
 When('jeg henter journalpost for id {string}', function (journalpostId, done) {
     httpGet(this, this.alias, journalpostSuffix(journalpostId))
         .then(response => {

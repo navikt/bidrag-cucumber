@@ -9,11 +9,13 @@ Feature: bidrag-dokument-journalpost
         Then statuskoden skal være '200'
         And resultatet skal være et objekt
         And objektet skal ha følgende properties:
-            | avsenderNavn      |
-            | dokumentDato      |
-            | dokumenter        |
-            | dokumentType      |
-            | journalstatus     |
+            | avsenderNavn  |
+            | dokumentDato  |
+            | dokumenter    |
+            | dokumentType  |
+            | journalstatus |
+            | gjelderAktor  |
+            | journalfortAv |
         And journalposten sitt dokument skal ha følgende properties:
             | dokumentreferanse |
             | dokumentType      |
@@ -36,40 +38,40 @@ Feature: bidrag-dokument-journalpost
 
     Scenario: Sjekk at journalpost kan oppdateres - Sylfest Strutle
         When jeg endrer journalpost '30040789' til:
-        """
-        {
+            """
+            {
             "journalpostId": 30040789,
             "saksnummer": {
-                "erTilknyttetNySak": false,
-                "saksnummer": "0000004",
-                "saksnummerSomSkalErstattes":
-                "0000004"
+            "erTilknyttetNySak": false,
+            "saksnummer": "0000004",
+            "saksnummerSomSkalErstattes":
+            "0000004"
             },
             "gjelder": "29118044353",
             "avsenderNavn": "Strutle, Sylfest",
             "beskrivelse": "Søknad, Bidrag",
             "journaldato": "2006-05-09"
-        }
-        """
+            }
+            """
         Then statuskoden skal være '202'
         And objektet skal ha 'avsenderNavn' = 'Strutle, Sylfest'
 
     Scenario: Sjekk at journalpost kan oppdateres - Bjarne Bær
         When jeg endrer journalpost '30040789' til:
-        """
-        {
+            """
+            {
             "journalpostId": 30040789,
             "saksnummer": {
-                "erTilknyttetNySak": false,
-                "saksnummer": "0000004",
-                "saksnummerSomSkalErstattes":
-                "0000004"
+            "erTilknyttetNySak": false,
+            "saksnummer": "0000004",
+            "saksnummerSomSkalErstattes":
+            "0000004"
             },
             "gjelder": "29118044353",
             "avsenderNavn": "Bær, Bjarne",
             "beskrivelse": "Søknad, Bidrag",
             "journaldato": "2006-05-09"
-        }
-        """
+            }
+            """
         Then statuskoden skal være '202'
         And objektet skal ha 'avsenderNavn' = 'Bær, Bjarne'

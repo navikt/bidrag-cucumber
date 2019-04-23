@@ -20,6 +20,8 @@ Feature: bidrag-dokument (/journalposter REST API)
         And skal resultatet være en liste
         And hvert element i listen skal ha 'saksnummer' = '0000003'
         And hvert element i listen skal ha 'fagomrade' = 'BID'
+        And hvert element i listen skal ha 'dokumentDato'
+        And hvert element i listen skal ha 'gjelderAktor'
 
     Scenario: Sjekk innholdet av en enkelt journalpost i bidrag
         When jeg henter journalposter for sak "0000003" med fagområde "BID"
@@ -29,6 +31,7 @@ Feature: bidrag-dokument (/journalposter REST API)
             | fagomrade   |
             | dokumenter  |
             | saksnummer  |
+            | dokumentDato |
 
     Scenario: Sjekk at sak uten tall gir HttpStatus 400 - Bad Request
         When jeg henter journalposter for sak "XYZ" med fagområde "BID"
