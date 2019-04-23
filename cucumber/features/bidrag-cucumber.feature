@@ -24,17 +24,6 @@ Feature: bidrag-cucumber
             "journalpostId": "BID-19650256",
             "mottattDato": "2003-01-31",
             "saksnummer": "0000003",
-            "bidragssaker": [
-                {
-                    "eierfogd": "4809",
-                    "saksnummer": "0000004",
-                    "saksstatus": "status",
-                    "erParagraf19": false,
-                    "roller": [
-                        "BA"
-                    ]
-                }
-            ],
             "dokumentType": "U",
             "journalstatus": "A"
         }
@@ -46,12 +35,44 @@ Feature: bidrag-cucumber
             | dokumentreferanse | 121603000163 |
             | dokumentType | U |
             | tittel | tittel |
-        And 'bidragssaker' skal ha følgende properties:
-            | eierfogd |
-            | saksnummer |
-            | saksstatus |
-            | erParagraf19 |
-            | roller |
+
+    Scenario: Test shared funksjoner
+        When response er
+        """
+[
+    {
+        "avsenderNavn": "Nordlandssykehuset",
+        "dokumenter": [
+            {
+                "dokumentreferanse": "3000795204",
+                "dokumentType": "I",
+                "tittel": ""
+            }
+        ],
+        "dokumentDato": "2006-03-27",
+        "fagomrade": "FAR",
+        "gjelderAktor": {
+            "ident": "10106948203",
+            "identType": "",
+            "aktorType": "person"
+        },
+        "innhold": "Fødselsmelding, Farskap",
+        "journalforendeEnhet": "1840",
+        "journalfortAv": "Bjørn Skog",
+        "journalfortDato": "2006-03-29",
+        "journalpostId": "BID-30007952",
+        "mottattDato": "2006-03-29",
+        "saksnummer": "0603479",
+        "bidragssaker": [],
+        "dokumentType": "I",
+        "journalstatus": "J"
+    }
+]
+        """
+        Then 'gjelderAktor' i hvert element skal ha følgende properties:
+            | ident     |
+            | identType |
+            | aktorType |
 
     Scenario: Sjekk at vi får et gyldig id_token i 'q0'
         When jeg ber om et token fra 'q0'

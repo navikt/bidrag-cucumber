@@ -174,22 +174,31 @@ Then('resultatet skal være et objekt', function () {
  * 
  */
 Then('objektet skal ha følgende properties:', function (table) {
-    verifyContents(this, table, this.response.body)
+    verifyContents(this, table, this.response.body, 'response')
 })
 
 Then('{string} skal ha følgende properties:', function (prop, table) {
-    verifyContents(this, table, this.response.body[prop])
+    verifyContents(this, table, this.response.body[prop], prop)
 })
 
-function verifyContents(world, table, jp) {
+Then('{string} i hvert element skal ha følgende properties:', function (prop, table) {
+    var world = this
+    this.response.body.forEach(item => {
+        verifyContents(world, table, item[prop], prop)
+    })
+})
+
+function verifyContents(world, table, jp, source) {
     var missing = []
     if(Array.isArray(jp)) {
         if(jp.length == 0) {
-            missing.push('Input array er tom')
+            missing.push(`Input array er tom: ${source}`)
         }
         jp.forEach(item => {
             missing = missing.concat( _verifyContent(world, table, item) )
         })
+    } else if (jp == null || jp == undefined) {
+        missing.push(`Input objekt er null: ${source}`)
     } else {
         missing = _verifyContent(world, table, jp)
     }
