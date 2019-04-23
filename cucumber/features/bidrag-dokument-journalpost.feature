@@ -38,19 +38,6 @@ Feature: bidrag-dokument-journalpost
             | identType |
             | aktorType |
 
-    Scenario: Sjekk bidragsaker i journalpost
-        When jeg henter journalpost for id "19650256"
-        Then statuskoden skal være '200'
-        And resultatet skal være et objekt
-        And objektet skal ha følgende properties:
-            | bidragssaker |
-        And 'bidragssaker' skal ha følgende properties:
-            | eierfogd     |
-            | saksnummer   |
-            | saksstatus   |
-            | erParagraf19 |
-            | roller       |
-
     Scenario: Sjekk at vi får en sakjournal for sak/fagområde
         When jeg henter journalposter for sak "0000003" med fagområde "BID"
         Then statuskoden skal være '200'
