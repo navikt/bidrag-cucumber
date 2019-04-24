@@ -14,14 +14,6 @@ Feature: bidrag-dokument (/journalposter REST API)
         And objektet skal ha 'status' = 'UP'
         And statuskoden skal være '200'
 
-    Scenario: Sjekk at vi får en sakjournal på sak/fagområdet
-        When jeg henter journalposter for sak "0000003" med fagområde "BID"
-        Then statuskoden skal være '200'
-        And skal resultatet være en liste
-        And hvert element i listen skal ha følgende properties:
-            | saksnummer   | 0000003 |
-            | fagomrade    | BID     |
-
     Scenario: Sjekk innholdet av en enkelt journalpost i bidrag
         When jeg henter journalposter for sak "0000003" med fagområde "BID"
         Then statuskoden skal være '200'
