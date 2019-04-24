@@ -22,7 +22,6 @@ Feature: bidrag-dokument (/journalposter REST API)
             | saksnummer   | 0000003 |
             | fagomrade    | BID     |
             | dokumentDato |         |
-            | gjelderAktor |         |
 
     Scenario: Sjekk innholdet av en enkelt journalpost i bidrag
         When jeg henter journalposter for sak "0000003" med fagområde "BID"
