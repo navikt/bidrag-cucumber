@@ -21,7 +21,6 @@ Feature: bidrag-dokument (/journalposter REST API)
         And hvert element i listen skal ha følgende properties:
             | saksnummer   | 0000003 |
             | fagomrade    | BID     |
-            | dokumentDato |         |
 
     Scenario: Sjekk innholdet av en enkelt journalpost i bidrag
         When jeg henter journalposter for sak "0000003" med fagområde "BID"
