@@ -28,7 +28,7 @@ Feature: bidrag-dokument-journalpost
             | tittel            |
 
     Scenario: Sjekk at vi får korrekt gjelderAktor for en gitt journalpostId
-        When jeg henter journalpost for id "19650256"
+        When jeg henter journalpost for id "32352090"
         Then statuskoden skal være '200'
         And resultatet skal være et objekt
         And objektet skal ha følgende properties:
