@@ -92,3 +92,45 @@ Feature: bidrag-dokument-journalpost
             """
         Then statuskoden skal være '202'
         And objektet skal ha 'avsenderNavn' = 'Bær, Bjarne'
+
+    Scenario: Sjekk at dokumentDator kan oppdateres til 2001-01-01
+        When jeg endrer journalpost '30040789' til:
+            """
+            {
+            "journalpostId": 30040789,
+            "saksnummer": {
+            "erTilknyttetNySak": false,
+            "saksnummer": "0000004",
+            "saksnummerSomSkalErstattes":
+            "0000004"
+            },
+            "gjelder": "29118044353",
+            "avsenderNavn": "Bær, Bjarne",
+            "beskrivelse": "Søknad, Bidrag",
+            "journaldato": "2006-05-09",
+            "dokumentDato": "2001-01-01"
+            }
+            """
+        Then statuskoden skal være '202'
+        And objektet skal ha 'dokumentDato' = '2001-01-01'
+
+    Scenario: Sjekk at dokumentDator kan oppdateres til 2001-02-01
+        When jeg endrer journalpost '30040789' til:
+            """
+            {
+            "journalpostId": 30040789,
+            "saksnummer": {
+            "erTilknyttetNySak": false,
+            "saksnummer": "0000004",
+            "saksnummerSomSkalErstattes":
+            "0000004"
+            },
+            "gjelder": "29118044353",
+            "avsenderNavn": "Bær, Bjarne",
+            "beskrivelse": "Søknad, Bidrag",
+            "journaldato": "2006-05-09",
+            "dokumentDato": "2001-02-01"
+            }
+            """
+        Then statuskoden skal være '202'
+        And objektet skal ha 'dokumentDato' = '2001-02-01'
