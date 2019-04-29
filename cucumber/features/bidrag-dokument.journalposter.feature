@@ -70,7 +70,7 @@ Feature: bidrag-dokument (/journalposter REST API)
         And objektet skal ha 'avsenderNavn' = 'Trygdekontoret'
 
     Scenario: Sjekk at dokumentDato kan oppdateres til 2001-01-01
-        When jeg endrer journalpost '30040789' til:
+        When jeg endrer journalpost 'BID-30040789' til:
             """
             {
             "journalpostId": 30040789,
@@ -91,7 +91,7 @@ Feature: bidrag-dokument (/journalposter REST API)
         And objektet skal ha 'dokumentDato' = '2001-01-01'
 
     Scenario: Sjekk at dokumentDator kan oppdateres til 2001-02-01
-        When jeg endrer journalpost '30040789' til:
+        When jeg endrer journalpost 'BID-30040789' til:
             """
             {
             "journalpostId": 30040789,
