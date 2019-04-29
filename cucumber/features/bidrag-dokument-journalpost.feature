@@ -93,7 +93,7 @@ Feature: bidrag-dokument-journalpost
         Then statuskoden skal være '202'
         And objektet skal ha 'avsenderNavn' = 'Bær, Bjarne'
 
-    Scenario: Sjekk at dokumentDator kan oppdateres til 2001-01-01
+    Scenario: Sjekk at dokumentDato kan oppdateres til 2001-01-01
         When jeg endrer journalpost '30040789' til:
             """
             {
