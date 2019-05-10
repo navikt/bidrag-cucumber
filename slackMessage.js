@@ -7,22 +7,26 @@ const js = JSON.parse(String(fs.readFileSync('cucumber/cucumber.json')))
 var msg = [
 ]
 
-msg.push(`Cucumber Testresultater (${process.env.BUILD_NUMBER}) - http://a34apvl00118.devillo.no:8080/job/bidrag-cucumber/${process.env.BUILD_NUMBER}/cucumber-html-reports/overview-features.html`)
+failed = []
+ok = 0
+
+msg.push(`Cucumber Testresultater (${process.env.BUILD_NUMBER})`)
 js.forEach(feature => {
-    msg.push('  Feature: ' + feature.name)
-    failed = 0
-    ok = 0
     feature.elements.forEach(element => {
         if (!element.steps.every(step => {
             return step.result.status == "passed"
         })) {
-            msg.push(`    [FAILED] ${element.id}`)
-            failed++
+            failed.push(`    [FAILED] ${element.id}`)
         } else {
             ok++
         }
     })
-    msg.push(`    ${ok} tester ok, ${failed} tester med feil`)
 })
 
-console.log(msg.join('\n'))
+msg.push(`#OK = ${ok}, #Failed=${failed.length}`)
+failed.push('')
+failed.push(`http://a34apvl00118.devillo.no:8080/job/bidrag-cucumber/${process.env.BUILD_NUMBER}/cucumber-html-reports/overview-features.html`)
+
+if(failed.length > 0) {
+    console.log(msg.concat(failed).join('\n'))
+}
