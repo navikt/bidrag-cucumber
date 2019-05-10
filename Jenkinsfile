@@ -34,7 +34,9 @@ node {
     stage("#4 Create reports") {
         println("[INFO] Create cucumber reports")
         cucumber buildStatus: 'UNSTABLE', fileIncludePattern:'**/cucumber.json'
+        slackSend color: 'good', message: 'Cucumber tests completed.'
     }
+
 
 }
 
