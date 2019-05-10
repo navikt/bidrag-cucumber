@@ -7,17 +7,22 @@ const js = JSON.parse(String(fs.readFileSync('cucumber/cucumber.json')))
 var msg = [
 ]
 
+msg.push(`Cucumber Testresultater - build ${BUILD_DISPLAY_NAME}`)
 js.forEach(feature => {
-    msg.push(feature.name)
+    msg.push('  Feature: ' + feature.name)
+    failed = 0
+    ok = 0
     feature.elements.forEach(element => {
         if (!element.steps.every(step => {
             return step.result.status == "passed"
         })) {
-            msg.push(`  [FAILED] ${element.id}`)
-        // } else {
-        //     msg.push(`  [  OK  ] ${element.id}`)
+            msg.push(`    [FAILED] ${element.id}`)
+            failed++
+        } else {
+            ok++
         }
     })
+    msg.push(`    ${ok} tester ok, ${failed} tester med feil`)
 })
 
 console.log(msg.join('\n'))
