@@ -34,7 +34,8 @@ node {
     stage("#4 Create reports") {
         println("[INFO] Create cucumber reports")
         cucumber buildStatus: 'UNSTABLE', fileIncludePattern:'**/cucumber.json'
-        slackSend color: 'good', message: 'Cucumber tests completed.'
+        def msg = sh(script: "node slackMEssage.js", returnStdout: true).trim()
+        slackSend color: 'good', message: msg
     }
 
 
