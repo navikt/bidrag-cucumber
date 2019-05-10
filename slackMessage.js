@@ -7,7 +7,7 @@ const js = JSON.parse(String(fs.readFileSync('cucumber/cucumber.json')))
 var msg = [
 ]
 
-msg.push(`Cucumber Testresultater - build ${BUILD_DISPLAY_NAME}`)
+msg.push(`Cucumber Testresultater - build ${process.env.BUILD_DISPLAY_NAME}`)
 js.forEach(feature => {
     msg.push('  Feature: ' + feature.name)
     failed = 0
