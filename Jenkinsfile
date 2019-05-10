@@ -35,8 +35,10 @@ node {
         println("[INFO] Create cucumber reports")
         cucumber buildStatus: 'UNSTABLE', fileIncludePattern:'**/cucumber.json'
         def msg = sh(script: "node slackMessage.js", returnStdout: true).trim()
-        def color = msg.indexOf('FAILED') == -1 ? 'good' : '#FF0000'
-        slackSend color: color, message: msg
+        if (msg.length() > 0) {
+            def color = msg.indexOf('FAILED') == -1 ? 'good' : '#FF0000'
+            slackSend color: color, message: msg
+        }
     }
 
 
