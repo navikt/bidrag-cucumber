@@ -27,6 +27,6 @@ msg.push(`#OK = ${ok}, #Failed=${failed.length}`)
 failed.push('')
 failed.push(`http://a34apvl00118.devillo.no:8080/job/bidrag-cucumber/${process.env.BUILD_NUMBER}/cucumber-html-reports/overview-features.html`)
 
-if(failed.length > 0) {
+if(failed.length > 2) {
     console.log(msg.concat(failed).join('\n'))
 }
