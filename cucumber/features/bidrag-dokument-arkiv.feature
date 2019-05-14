@@ -7,6 +7,6 @@ Feature: bidrag-dokument-arkiv
     Scenario: Sjekk at health endpoint er operativt
         When jeg kaller status endpoint
         Then statuskoden skal være '200'
-        And header 'content-type' skal være 'application/json;charset=utf-8'
+        And header 'content-type' skal være 'application/json;charset=UTF-8'
         And resultatet skal være et objekt
         And objektet skal ha 'status' = 'UP'
