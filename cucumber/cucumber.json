@@ -507,19 +507,6 @@
           {
             "arguments": [],
             "keyword": "And ",
-            "line": 45,
-            "name": "hvert element i listen skal ha 'saksnummer' = '0000003'",
-            "match": {
-              "location": "cucumber/features/step_definitions/shared.js:151"
-            },
-            "result": {
-              "status": "passed",
-              "duration": 1000000
-            }
-          },
-          {
-            "arguments": [],
-            "keyword": "And ",
             "line": 46,
             "name": "hvert element i listen skal ha 'fagomrade' = 'BID'",
             "match": {

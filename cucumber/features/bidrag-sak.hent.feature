@@ -21,7 +21,6 @@ Feature: bidrag-sak
         And hvert element i listen skal ha følgende properties satt:
             | roller       |
             | eierfogd     |
-            | saksnummer   |
             | saksstatus   |
             | kategori     |
             | erParagraf19 |

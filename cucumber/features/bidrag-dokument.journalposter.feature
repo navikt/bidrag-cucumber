@@ -21,7 +21,6 @@ Feature: bidrag-dokument (/journalposter REST API)
         And hvert element i listen skal ha følgende properties satt:
             | fagomrade    |
             | dokumenter   |
-            | saksnummer   |
             | dokumentDato |
 
     Scenario: Sjekk at sak uten tall gir HttpStatus 400 - Bad Request
