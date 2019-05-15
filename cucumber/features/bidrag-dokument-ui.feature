@@ -12,7 +12,6 @@ Feature: bidrag-dokument-ui
         When jeg henter journalposter for sak "0000003" med fagområde 'BID' via dokument-ui
         Then statuskoden skal være '200'
         And skal resultatet være en liste
-        And hvert element i listen skal ha 'saksnummer' = '0000003'
 
     Scenario: Sjekk at ukjent sak gir 204 med ingen data
         When jeg henter journalposter for sak "0000000" med fagområde 'BID' via dokument-ui

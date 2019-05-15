@@ -23,7 +23,6 @@ Feature: bidrag-cucumber
             "journalfortDato": "2003-01-31",
             "journalpostId": "BID-19650256",
             "mottattDato": "2003-01-31",
-            "saksnummer": "0000003",
             "dokumentType": "U",
             "journalstatus": "A"
             }
@@ -62,7 +61,6 @@ Feature: bidrag-cucumber
             "journalfortDato": "2006-03-29",
             "journalpostId": "BID-30007952",
             "mottattDato": "2006-03-29",
-            "saksnummer": "0603479",
             "bidragssaker": [],
             "dokumentType": "I",
             "journalstatus": "J"
