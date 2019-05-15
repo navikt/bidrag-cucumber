@@ -2,7 +2,15 @@
 
 const fs = require('fs')
 
-const js = JSON.parse(String(fs.readFileSync('cucumber/cucumber.json')))
+var reportJson = null
+try {
+    reportJson = String(fs.readFileSync('cucumber/cucumber.json'))
+} catch (err) {
+    console.log(`Kan ikke åpne cucumber rapport - ${err.message}`)
+    return
+}
+
+const js = JSON.parse(reportJson)
 
 var msg = [
 ]
