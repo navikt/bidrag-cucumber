@@ -42,7 +42,6 @@ Feature: bidrag-dokument-journalpost
         When jeg henter journalposter for sak "0000003" med fagområde "BID"
         Then statuskoden skal være '200'
         And skal resultatet være en liste
-        And hvert element i listen skal ha 'saksnummer' = '0000003'
         And hvert element i listen skal ha 'fagomrade' = 'BID'
 
     Scenario: Sjekk at ukjent id gir 204

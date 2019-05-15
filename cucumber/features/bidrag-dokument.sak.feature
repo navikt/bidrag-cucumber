@@ -18,7 +18,6 @@ Feature: bidrag-dokument (/sakjournal REST API)
         When jeg henter journalposter for sak "0603479" med fagområde "FAR"
         Then statuskoden skal være '200'
         And skal resultatet være en liste
-        And hvert element i listen skal ha 'saksnummer' = '0603479'
         And hvert element i listen skal ha 'fagomrade' = 'FAR'
 
     Scenario: Sjekk at vi får gjelderAktor i journalpost for et farskap på gitt sak
