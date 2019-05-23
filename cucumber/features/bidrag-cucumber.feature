@@ -69,8 +69,6 @@ Feature: bidrag-cucumber
             """
         Then 'gjelderAktor' i hvert element skal ha følgende properties:
             | ident     |
-            | identType |
-            | aktorType |
 
 
     Scenario: Sjekk at vi får et gyldig id_token i 'q0'

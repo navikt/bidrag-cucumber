@@ -25,9 +25,6 @@ Feature: bidrag-dokument (/sakjournal REST API)
         And skal resultatet være en liste
         And 'gjelderAktor' i hvert element skal ha følgende properties:
             | ident     |
-            | identType |
-            | aktorType |
-
 
     Scenario: Sjekk at saksnummer som ikke er heltall gir HttpStatus 400 (Bad Request)
         When jeg henter journalposter for sak "XYZ" med fagområde "FAR"
