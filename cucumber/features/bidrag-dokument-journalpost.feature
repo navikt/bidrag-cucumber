@@ -133,3 +133,7 @@ Feature: bidrag-dokument-journalpost
             """
         Then statuskoden skal være '202'
         And objektet skal ha 'dokumentDato' = '2001-02-01'
+
+    Scenario: Sjekk dokument referanse URL
+        When jeg ber om tilgang til dokument '30040789' for saksbehandler 'BURK'
+        Then statuskoden skal være '200'
