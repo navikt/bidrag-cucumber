@@ -6,7 +6,8 @@ const {
 } = require('cucumber');
 const {
     httpGet,
-    httpPut
+    httpPut,
+    httpPost
 } = require('fasit')
 
 function journalpostSuffix(journalId) {
