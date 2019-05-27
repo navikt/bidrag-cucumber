@@ -35,8 +35,6 @@ Feature: bidrag-dokument-journalpost
             | gjelderAktor |
         And 'gjelderAktor' skal ha følgende properties:
             | ident     |
-            | identType |
-            | aktorType |
 
     Scenario: Sjekk at vi får en sakjournal for sak/fagområde
         When jeg henter journalposter for sak "0000003" med fagområde "BID"
