@@ -195,8 +195,8 @@ function hentFasitRestUrl(alias, env) {
 /**
  * Finner en URL via oppslag i Fasit og gjør deretter GET kall til tjenesten med et bearer token.
  * 
- * @param {String} alias 
- * @param {String} env 
+ * @param {Object} world
+ * @param {String} alias  
  * @param {String} suffix 
  */
 function httpGet(world, alias, suffix) {
@@ -206,8 +206,8 @@ function httpGet(world, alias, suffix) {
 /**
  * Finner en URL via oppslag i Fasit og gjør deretter DELETE kall til tjenesten med et bearer token.
  * 
+ * @param {Object} world
  * @param {String} alias 
- * @param {String} env 
  * @param {String} suffix 
  */
 function httpDelete(world, alias, suffix) {
@@ -217,6 +217,7 @@ function httpDelete(world, alias, suffix) {
 /**
  * Finner en URL via oppslag i Fasit og gjør deretter POST kall til tjenesten med et bearer token.
  * 
+ * @param {Object} world
  * @param {String} alias 
  * @param {String} suffix 
  * @param {String} body 
@@ -228,6 +229,7 @@ function httpPost(world, alias, suffix, body) {
 /**
  * Finner en URL via oppslag i Fasit og gjør deretter PUT kall til tjenesten med et bearer token.
  * 
+ * @param {Object} world
  * @param {String} alias 
  * @param {String} suffix 
  * @param {String} body 
@@ -239,6 +241,8 @@ function httpPut(world, alias, suffix, body) {
 /**
  * Finner en URL via oppslag i Fasit og gjør deretter kall til tjenesten med et bearer token.
  * 
+ * @param {Object} world
+ * @param {String} method 
  * @param {String} alias 
  * @param {String} suffix 
  * @param {String} body 
