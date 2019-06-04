@@ -14,7 +14,7 @@ Feature: bidrag-dokument (/journalposter REST API)
         And objektet skal ha 'status' = 'UP'
         And statuskoden skal være '200'
 
-    Scenario: Sjekk innholdet av en enkelt journalpost i bidrag
+    Scenario: Sjekk at vi får en sakjournal for en sak
         When jeg henter journalposter for sak "0000003" med fagområde "BID"
         Then statuskoden skal være '200'
         And skal resultatet være en liste
@@ -22,6 +22,18 @@ Feature: bidrag-dokument (/journalposter REST API)
             | fagomrade    |
             | dokumenter   |
             | dokumentDato |
+
+    Scenario: Sjekk at vi får korrekt basisinnhold journalpost for en gitt journalpostId
+        When jeg henter journalpost for id "19650256"
+        Then statuskoden skal være '200'
+        And resultatet skal være et objekt
+        And objektet skal ha følgende properties:
+            | avsenderNavn  |
+            | dokumentDato  |
+            | dokumentType  |
+            | journalstatus |
+            | journalfortAv |
+            | innhold       |
 
     Scenario: Sjekk at sak uten tall gir HttpStatus 400 - Bad Request
         When jeg henter journalposter for sak "XYZ" med fagområde "BID"
@@ -109,3 +121,6 @@ Feature: bidrag-dokument (/journalposter REST API)
             """
         Then statuskoden skal være '202'
         And objektet skal ha 'dokumentDato' = '2001-02-01'
+
+    Scenario: Sjekk at vi kan lese en journalpost
+        When 
