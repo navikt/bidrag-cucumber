@@ -122,5 +122,3 @@ Feature: bidrag-dokument (/journalposter REST API)
         Then statuskoden skal være '202'
         And objektet skal ha 'dokumentDato' = '2001-02-01'
 
-    Scenario: Sjekk at vi kan lese en journalpost
-        When 
