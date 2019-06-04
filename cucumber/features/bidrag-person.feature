@@ -10,3 +10,7 @@ Feature: bidrag-person
         And header 'content-type' skal være 'application/json;charset=UTF-8'
         And resultatet skal være et objekt
         And objektet skal ha 'status' = 'UP'
+
+    Scenario: Sjekk at sylfest strutle fortsatt lever
+        When jeg henter informasjon for ident 'strutle'
+        Then statuskoden skal være '200'
