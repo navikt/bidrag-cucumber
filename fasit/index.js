@@ -24,6 +24,7 @@ const REDIRECT_URI = process.env.redirect_uri || "https://bidrag-dokument-ui.nai
  */
 last_oidc_token = ""
 last_url = ""
+token_cache = {}
 
 function lastOidcToken() {
     return last_oidc_token
@@ -97,6 +98,12 @@ function hentTokenFor(env, oidcAlias, fasitUser, fasitPass, username, password) 
         .then(response => {
             // client_credentials gir response.data mens user/pwd ikke gjør det
             last_oidc_token = response.body ? response.body.id_token : response.id_token
+            if (username && password) {
+                if (!token_cache[username]) {
+                    console.log(`${username} token: ${last_oidc_token}`)
+                }
+                token_cache[username] = last_oidc_token
+            }
             return last_oidc_token
         })
         .catch(err => {
