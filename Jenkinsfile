@@ -1,6 +1,7 @@
 node {
    def repo = "navikt"
    def sourceapp = "bidrag-cucumber"
+   def startedBy = currentBuild.rawBuild.getCause(Cause.UserIdCause).getUserId()
 
     stage("#1: Checkout code") {
         println("[INFO] Clean workspace")
@@ -35,10 +36,14 @@ node {
         println("[INFO] Create cucumber reports")
         cucumber buildStatus: 'UNSTABLE', fileIncludePattern:'**/cucumber.json'
         def msg = sh(script: "node slackMessage.js", returnStdout: true).trim()
-        // if (msg.length() > 0) {
-        //     def color = msg.indexOf('FAILED') == -1 ? 'good' : '#FF0000'
-        //     slackSend color: color, message: msg
-        // }
+        if(startedBy == "jenkins") {
+            if (msg.length() > 0) {
+                def color = msg.indexOf('FAILED') == -1 ? 'good' : '#FF0000'
+                slackSend color: color, message: msg
+            }
+        } else {
+            println("StartedBy: ${startedBy} - ${msg}")
+        }
     }
 
 
