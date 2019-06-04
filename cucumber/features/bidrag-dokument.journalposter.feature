@@ -24,7 +24,7 @@ Feature: bidrag-dokument (/journalposter REST API)
             | dokumentDato |
 
     Scenario: Sjekk at vi får korrekt basisinnhold journalpost for en gitt journalpostId
-        When jeg henter journalpost for id "19650256"
+        When jeg henter journalpost for id "BID-19650256"
         Then statuskoden skal være '200'
         And resultatet skal være et objekt
         And objektet skal ha følgende properties:
