@@ -28,8 +28,18 @@ Then('dokument url skal være gyldig', function() {
     var url = this.response.body.dokumentUrl;
     var decodedUrl = decodeURIComponent(url)
     var parsed = new URL(decodedUrl)
-    attachJSON(this, parsed)
+    logDecodedURI(this, parsed)
     assert(parsed.protocol == "mbdok:", 'Forventet protocol=mbdok:')
     assert(parsed.username == 'BI12', 'Forventent username=BI12')
 
 })
+
+function logDecodedURI(world, parsed) {
+    var value = {}
+    for(var f in parsed) {
+        if(f != 'toString' && f != 'toJSON') {
+            value[f] = parsed[f]
+        }
+    }
+    attachJSON(world, value)
+}
