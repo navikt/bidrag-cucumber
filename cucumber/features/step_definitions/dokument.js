@@ -26,8 +26,6 @@ When('jeg ber om tilgang til dokument {string} for saksbehandler {string}', func
 Then('dokument url skal være gyldig', function() {
     assert(this.response.body != null, 'Null response fra dokument-tilgang')
     var url = this.response.body.dokumentUrl;
-    assert(url instanceof String, 'Forventent string for dokumentUrl')
-
     var decodedUrl = decodeURIComponent(url)
     var parsed = new URL(decodedUrl)
     attachJSON(this, parsed)
