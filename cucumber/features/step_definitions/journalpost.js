@@ -68,17 +68,3 @@ When('jeg endrer journalpost {string} til:', function (jpid, body, done) {
         })
 })
 
-When('jeg ber om tilgang til dokument {string} for saksbehandler {string}', function(dokref, saksbehandler, done) {
-    httpPost(this, this.alias, '/tilgang/url', {
-        dokumentReferanse: dokref,
-        saksbehandler: saksbehandler
-    })
-        .then(response => {
-            this.response = response
-            done()
-        })
-        .catch(err => {
-            done(err)
-        })
-
-})
