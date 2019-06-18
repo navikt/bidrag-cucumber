@@ -21,6 +21,18 @@ When('jeg ber om tilgang til dokument {string} for en journalpost med id {string
 
 })
 
+When('jeg ber om tilgang til dokument {string}', function(dokref, done) {
+    httpGet(this, this.alias, util.format("/dokument/tilgang/%s", dokref))
+        .then(response => {
+            this.response = response
+            done()
+        })
+        .catch(err => {
+            done(err)
+        })
+
+})
+
 Then('dokument url skal være gyldig', function() {
     assert(this.response.body != null, 'Null response fra dokument-tilgang')
     var url = this.response.body.dokumentUrl;
