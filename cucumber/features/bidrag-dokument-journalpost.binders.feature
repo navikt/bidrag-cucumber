@@ -7,5 +7,5 @@ Feature: bidrag-dokument-journalpost (/tilgang REST API)
         Given restservice 'bidragDokumentJournalpost'
 
     Scenario: Sjekk at vi får en gyldig URL for dokument tilgang for saksbehandler 
-        When jeg ber om tilgang til dokument '30040789' for saksbehandler 'Z992346'
+        When jeg ber om tilgang til dokument '30040789' for en journalpost med id 'Z992346'
         Then statuskoden skal være '200'
