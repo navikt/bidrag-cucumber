@@ -40,8 +40,8 @@ Then('dokument url skal være gyldig', function(done) {
     var parsed = new URL(url)
     logDecodedURI(this, parsed)
 
-    assert(parsed.protocol == "mbdok:", 'Forventet protocol=mbdok:')
-    assert(parsed.username == 'BI12', 'Forventent username=BI12')
+    assert(parsed.protocol == "mbdok:", `Forventet protocol 'mbdok:' fikk '${parsed.protocol}' `)
+    assert(parsed.username == 'BI12', `Forventet username 'BI12' fikk ${parsed.username}'`)
 
     var retServerUrl = parsed.searchParams.get('server')
     hentFasitBaseUrl('brevklientUrl')
