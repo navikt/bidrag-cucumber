@@ -10,7 +10,7 @@ const {
 } = require('fasit')
 
 When('jeg ber om tilgang til dokument {string} for en journalpost med id {string}', function(dokref, journalpostId, done) {
-    httpGet(this, this.alias, util.format("/dokument/tilgang/%s/%s", journalpostId, dokref))
+    httpGet(this, this.alias, util.format("/tilgang/%s/%s", journalpostId, dokref))
         .then(response => {
             this.response = response
             done()
@@ -22,7 +22,7 @@ When('jeg ber om tilgang til dokument {string} for en journalpost med id {string
 })
 
 When('jeg ber om tilgang til dokument {string}', function(dokref, done) {
-    httpGet(this, this.alias, util.format("/dokument/tilgang/%s", dokref))
+    httpGet(this, this.alias, util.format("/tilgang/%s", dokref))
         .then(response => {
             this.response = response
             done()
