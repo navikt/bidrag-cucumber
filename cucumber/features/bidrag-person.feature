@@ -12,5 +12,5 @@ Feature: bidrag-person
         And objektet skal ha 'status' = 'UP'
 
     Scenario: Sjekk at sylfest strutle fortsatt lever
-        When jeg henter informasjon for ident '06127412345'
+        When jeg henter informasjon for ident '27067246654'
         Then statuskoden skal være '200'
