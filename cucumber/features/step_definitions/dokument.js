@@ -6,7 +6,8 @@ const {
 } = require('cucumber');
 const {
     httpGet,
-    attachJSON
+    attachJSON,
+    hentFasitBaseUrl
 } = require('fasit')
 
 When('jeg ber om tilgang til dokument {string} for en journalpost med id {string}', function(dokref, journalpostId, done) {
@@ -33,15 +34,24 @@ When('jeg ber om tilgang til dokument {string}', function(dokref, done) {
 
 })
 
-Then('dokument url skal være gyldig', function() {
+Then('dokument url skal være gyldig', function(done) {
     assert(this.response.body != null, 'Null response fra dokument-tilgang')
     var url = this.response.body.dokumentUrl;
-    var decodedUrl = decodeURIComponent(url)
-    var parsed = new URL(decodedUrl)
+    var parsed = new URL(url)
     logDecodedURI(this, parsed)
+
     assert(parsed.protocol == "mbdok:", 'Forventet protocol=mbdok:')
     assert(parsed.username == 'BI12', 'Forventent username=BI12')
 
+    var retServerUrl = parsed.searchParams.get('server')
+    hentFasitBaseUrl('brevklientUrl')
+        .then(url => {
+            assert(retServerUrl == url, `Forventet '${url}' fikk '${retServerUrl}' som brevklient url`)
+            done()
+        })
+        .catch(err => {
+            done(err)
+        })
 })
 
 function logDecodedURI(world, parsed) {

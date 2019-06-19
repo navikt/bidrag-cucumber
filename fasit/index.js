@@ -200,6 +200,17 @@ function hentFasitRestUrl(alias, env) {
 }
 
 /**
+ * Kaller hentFasitRessurs og _hentUrl for å finne URL til en baseurl alias
+ */
+function hentFasitBaseUrl(alias, env) {
+    return hentFasitRessurs('BaseUrl', alias, env || ENVIRONMENT)
+        .then(response => {
+            return _hentUrl(response);
+        })
+        .catch(err => err)
+}
+
+/**
  * Finner en URL via oppslag i Fasit og gjør deretter GET kall til tjenesten med et bearer token.
  * 
  * @param {Object} world
@@ -389,6 +400,7 @@ module.exports = {
     httpGet,
     httpPost,
     httpPut,
+    hentFasitBaseUrl,
     hentFasitRessurs,
     hentFasitRestUrl,
     toB64,
