@@ -1,18 +1,28 @@
 const assert = require('assert');
+const util = require('util');
 const {
     When,
     Then
 } = require('cucumber');
 const {
-    httpPost,
+    httpGet,
     attachJSON
 } = require('fasit')
 
-When('jeg ber om tilgang til dokument {string} for saksbehandler {string}', function(dokref, saksbehandler, done) {
-    httpPost(this, this.alias, '/tilgang/url', {
-        dokumentReferanse: dokref,
-        saksbehandler: saksbehandler
-    })
+When('jeg ber om tilgang til dokument {string} for en journalpost med id {string}', function(dokref, journalpostId, done) {
+    httpGet(this, this.alias, util.format("/tilgang/%s/%s", journalpostId, dokref))
+        .then(response => {
+            this.response = response
+            done()
+        })
+        .catch(err => {
+            done(err)
+        })
+
+})
+
+When('jeg ber om tilgang til dokument {string}', function(dokref, done) {
+    httpGet(this, this.alias, util.format("/tilgang/%s", dokref))
         .then(response => {
             this.response = response
             done()
