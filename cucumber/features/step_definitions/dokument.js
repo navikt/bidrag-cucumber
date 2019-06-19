@@ -44,7 +44,7 @@ Then('dokument url skal være gyldig', function(done) {
     assert(parsed.username == 'BI12', `Forventet username 'BI12' fikk ${parsed.username}'`)
 
     var retServerUrl = parsed.searchParams.get('server')
-    hentFasitBaseUrl('brevklientUrl')
+    hentFasitBaseUrl('brevserverUrl')
         .then(url => {
             assert(retServerUrl == url, `Forventet '${url}' fikk '${retServerUrl}' som brevklient url`)
             done()
