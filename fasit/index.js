@@ -205,7 +205,7 @@ function hentFasitRestUrl(alias, env) {
 function hentFasitBaseUrl(alias, env) {
     return hentFasitRessurs('BaseUrl', alias, env || ENVIRONMENT)
         .then(response => {
-            return _hentUrl(response);
+            return response.properties.url
         })
         .catch(err => err)
 }
