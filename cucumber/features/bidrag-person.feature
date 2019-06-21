@@ -11,6 +11,10 @@ Feature: bidrag-person
         And resultatet skal være et objekt
         And objektet skal ha 'status' = 'UP'
 
-    Scenario: Sjekk at sylfest strutle fortsatt lever
+    Scenario: Sjekk at gyldig person-id returnerer OK respons
         When jeg henter informasjon for ident '27067246654'
+        Then statuskoden skal være '200'
+
+    Scenario: Sjekk at gyldig aktør-id returnerer OK respons
+        When jeg henter informasjon for ident '1000065629588'
         Then statuskoden skal være '200'
