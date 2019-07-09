@@ -15,21 +15,21 @@ Feature: bidrag-dokument-testdata
         And resultatet skal være et objekt
         And objektet skal ha 'status' = 'UP'
 
-    Scenario: Lag ny journalpost
-        When jeg lager ny journalpost
-            """
-            {
-                "avsenderNavn": "Cucumber, Test",
-                "beskrivelse": "Søknad, Bidrag",
-                "dokumentdato": "2019-01-01",
-                "dokumentreferanse": "121603000163",
-                "dokumentType": "I",
-                "journalforendeEnhet": "1216",
-                "journalfortAv": "Laget av bidrag-dokument-testdata cucumber test",
-                "journaldato": "2019-01-01",
-                "mottattdato": "2019-01-01",
-                "saksnummer": "0000003",
-                "fagomrade": "BID"
-            }
-            """
-        Then statuskoden skal være '201'
+    # Scenario: Lag ny journalpost
+    #     When jeg lager ny journalpost
+    #         """
+    #         {
+    #             "avsenderNavn": "Cucumber, Test",
+    #             "beskrivelse": "Søknad, Bidrag",
+    #             "dokumentdato": "2019-01-01",
+    #             "dokumentreferanse": "121603000163",
+    #             "dokumentType": "I",
+    #             "journalforendeEnhet": "1216",
+    #             "journalfortAv": "Laget av bidrag-dokument-testdata cucumber test",
+    #             "journaldato": "2019-01-01",
+    #             "mottattdato": "2019-01-01",
+    #             "saksnummer": "0000003",
+    #             "fagomrade": "BID"
+    #         }
+    #         """
+    #     Then statuskoden skal være '201'
