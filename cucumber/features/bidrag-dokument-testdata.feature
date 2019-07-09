@@ -32,4 +32,4 @@ Feature: bidrag-dokument-testdata
                 "fagomrade": "BID"
             }
             """
-        Then statuskoden skal være '202'
+        Then statuskoden skal være '201'
