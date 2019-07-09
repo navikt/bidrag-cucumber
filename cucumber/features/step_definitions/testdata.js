@@ -9,7 +9,7 @@ const {
 
 
 When('jeg lager ny journalpost', function (body, done) {
-    httpPost(this, this.alias, "/journalpost", body)
+    httpPost(this, this.alias, "/journalpost", JSON.parse(body))
         .then(response => {
             this.response = response
             assert(this.response != null, "Intet svar mottatt fra tjenesten");
