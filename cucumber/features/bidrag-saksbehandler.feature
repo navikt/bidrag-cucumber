@@ -12,9 +12,9 @@ Feature: bidrag-saksbehandler
         And objektet skal ha 'status' = 'UP'
 
     Scenario: Sjekk at gyldig saksbehandler-id returnerer OK (200) respons
-        When jeg henter informasjon for ident 'H153959'
+        When jeg henter informasjon for ldap ident 'H153959'
         Then statuskoden skal være '200'
 
     Scenario: Sjekk at ugyldig saksbehandler-id returnerer NO CONTENT (204) respons
-        When jeg henter informasjon for ident 'X999999'
+        When jeg henter informasjon for ldap ident 'X999999'
         Then statuskoden skal være '204'

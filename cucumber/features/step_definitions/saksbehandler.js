@@ -6,7 +6,7 @@ const {
     httpGet
 } = require('fasit');
 
-When('jeg henter informasjon for ident {string}', function (ident, done) {
+When('jeg henter informasjon for ldap ident {string}', function (ident, done) {
     httpGet(this, this.alias, `/beskriv/${ident}`)
         .then(response => {
             this.response = response
