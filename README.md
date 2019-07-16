@@ -75,7 +75,7 @@ Feature: bidrag-sak
        
 ```
 ## Fat-arrow functions
-Cucumber-js lager et javascript-objekt som de kaller World objektet. Dette objektet blir "this" i alle Given/When/Then funksjoner slik at kode/funksjoner kan dele data i et scenario. Hvert scenario for sitt eget World objekt. Hvis man bruker fat-arrow i Given/When/Then funksjonene så mister man tilgangen til World objektet (google it). Derfor bør alle funksjoner bruke "gammel" måte som:
+Cucumber-js lager et javascript-objekt som de kaller World objektet. Dette objektet blir "this" i alle Given/When/Then funksjoner slik at kode/funksjoner kan dele data i et scenario. Hvert scenario får sitt eget World objekt. Hvis man bruker fat-arrow i Given/When/Then funksjonene så mister man tilgangen til World objektet (google it). Derfor bør alle funksjoner bruke "gammel" måte som:
 
 ```
 When('jeg ringer hjem', function() {
@@ -92,7 +92,7 @@ Inne i selve funksjonen kan (og bør) man bruke fat-arrow slik at "this" alltid 
 When('jeg ringer hjem', function(done) {
      httpGet(this.alias, this.env, '/suffix').then ( response => {
           this.response = response         // <--- this peker til world
-          done()                                      // <--- forteller cucumber vi er klare til neste steg i scenario
+          done()                           // <--- forteller cucumber vi er klare til neste steg i scenario
      })
 })
 
@@ -105,24 +105,5 @@ Om begge funksjonene kalles innefor samme scenario vil this.response være tilgj
 
 ## bidrag-cucumber image
 
-Bygg image med følgende
-```
-$ npm install
-$ docker build -t bidrag-cucumber .
-```
-
-bidrag-cucumber kjøres med å definere påkrevede ENV variabler samt å linke inn /cucumber katalog hvor imaget forventer å finne features katalogen med tester.
-
-```
-$ git clone https://github.com/navikt/bidrag-cucumber.git .
-$ docker run --rm -e environment=q0 \
-    -e fasit_user=<fasitUser> \
-    -e fasit_pass=<fasitPass> \
-    -e test_user=<testUser>
-    -e test_pass=<testPass> \
-    -e project="<mikrotjeneste>." \
-    -v $(pwd)/cucumber:/cucumber bidrag-cucumber
-$ docker run -it --rm -v `pwd`/cucumber:/cucumber bidrag-cucumber
-```
-
+Deprecated - Vi bruker node:latest image fra docker hub og gjør 'npm install' før hver kjøring istedet for å bruke et eget image.
 
