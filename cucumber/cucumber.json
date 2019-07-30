@@ -23,11 +23,12 @@
               "location": "cucumber/features/step_definitions/shared.js:25"
             },
             "result": {
-              "status": "passed"
+              "status": "passed",
+              "duration": 1000000
             },
             "embeddings": [
               {
-                "data": "TGluayB0aWwga2liYW5hIGZvciBjb3JyZWxhdGlvbi1pZDogY3VjdW1iZXItNDA1OTl1aGp5NDZibzV1CgpodHRwczovL2xvZ3MuYWRlby5uby9hcHAva2liYW5hIy9kaXNjb3Zlcj9fYT0oY29sdW1uczohKF9zb3VyY2UpLGZpbHRlcnM6ISgoJyRzdGF0ZSc6KHN0b3JlOmFwcFN0YXRlKSxtZXRhOihhbGlhczohbixkaXNhYmxlZDohZixpbmRleDonbG9nc3Rhc2gtKicpLHF1ZXJ5OihtYXRjaDooeF9jb3JyZWxhdGlvbklkOihxdWVyeTonY3VjdW1iZXItNDA1OTl1aGp5NDZibzV1Jyx0eXBlOnBocmFzZSkpKSkpLGluZGV4Oidsb2dzdGFzaC0qJyxpbnRlcnZhbDphdXRvLHF1ZXJ5OihxdWVyeV9zdHJpbmc6KGFuYWx5emVfd2lsZGNhcmQ6IXQscXVlcnk6JyonKSksc29ydDohKCdAdGltZXN0YW1wJyxkZXNjKSkK",
+                "data": "TGluayB0aWwga2liYW5hIGZvciBjb3JyZWxhdGlvbi1pZDogY3VjdW1iZXItNDA1OTl1aGp5Z3cyMHc3CgpodHRwczovL2xvZ3MuYWRlby5uby9hcHAva2liYW5hIy9kaXNjb3Zlcj9fYT0oY29sdW1uczohKF9zb3VyY2UpLGZpbHRlcnM6ISgoJyRzdGF0ZSc6KHN0b3JlOmFwcFN0YXRlKSxtZXRhOihhbGlhczohbixkaXNhYmxlZDohZixpbmRleDonbG9nc3Rhc2gtKicpLHF1ZXJ5OihtYXRjaDooeF9jb3JyZWxhdGlvbklkOihxdWVyeTonY3VjdW1iZXItNDA1OTl1aGp5Z3cyMHc3Jyx0eXBlOnBocmFzZSkpKSkpLGluZGV4Oidsb2dzdGFzaC0qJyxpbnRlcnZhbDphdXRvLHF1ZXJ5OihxdWVyeV9zdHJpbmc6KGFuYWx5emVfd2lsZGNhcmQ6IXQscXVlcnk6JyonKSksc29ydDohKCdAdGltZXN0YW1wJyxkZXNjKSkK",
                 "mime_type": "text/plain"
               }
             ]
@@ -50,22 +51,12 @@
             "line": 10,
             "name": "jeg kaller bestill original endpoint med journalpostID '34111047'",
             "match": {
-              "location": "cucumber/features/step_definitions/avvik.js:12"
+              "location": "cucumber/features/step_definitions/avvik.js:19"
             },
             "result": {
               "status": "passed",
-              "duration": 371000000
-            },
-            "embeddings": [
-              {
-                "data": "UE9TVCBodHRwczovL2JpZHJhZy1kb2t1bWVudC1qb3VybmFscG9zdC5uYWlzLnByZXByb2QubG9jYWwvYmlkcmFnLWRva3VtZW50LWpvdXJuYWxwb3N0L2pvdXJuYWxwb3N0L2F2dmlrLzM0MTExMDQ3CnsiYXZ2aWtUeXBlIjoiQkVTVElMTF9PUklHSU5BTCIsImVuaGV0c251bW1lciI6IjQ4MDYifQ==",
-                "mime_type": "text/plain"
-              },
-              {
-                "data": "NDAwIEJhZCBSZXF1ZXN0CnsKICAgICJ0aW1lc3RhbXAiOiAiMjAxOS0wNy0xNVQwOToxNzoxNS4xNjgrMDAwMCIsCiAgICAic3RhdHVzIjogNDAwLAogICAgImVycm9yIjogIkJhZCBSZXF1ZXN0IiwKICAgICJtZXNzYWdlIjogIkpTT04gcGFyc2UgZXJyb3I6IENhbm5vdCBjb25zdHJ1Y3QgaW5zdGFuY2Ugb2YgYG5vLm5hdi5iaWRyYWcuZG9rdW1lbnQuZHRvLkF2dmlrc2hlbmRlbHNlYCAoYWx0aG91Z2ggYXQgbGVhc3Qgb25lIENyZWF0b3IgZXhpc3RzKTogbm8gU3RyaW5nLWFyZ3VtZW50IGNvbnN0cnVjdG9yL2ZhY3RvcnkgbWV0aG9kIHRvIGRlc2VyaWFsaXplIGZyb20gU3RyaW5nIHZhbHVlICgne1wiYXZ2aWtUeXBlXCI6XCJCRVNUSUxMX09SSUdJTkFMXCIsXCJlbmhldHNudW1tZXJcIjpcIjQ4MDZcIn0nKTsgbmVzdGVkIGV4Y2VwdGlvbiBpcyBjb20uZmFzdGVyeG1sLmphY2tzb24uZGF0YWJpbmQuZXhjLk1pc21hdGNoZWRJbnB1dEV4Y2VwdGlvbjogQ2Fubm90IGNvbnN0cnVjdCBpbnN0YW5jZSBvZiBgbm8ubmF2LmJpZHJhZy5kb2t1bWVudC5kdG8uQXZ2aWtzaGVuZGVsc2VgIChhbHRob3VnaCBhdCBsZWFzdCBvbmUgQ3JlYXRvciBleGlzdHMpOiBubyBTdHJpbmctYXJndW1lbnQgY29uc3RydWN0b3IvZmFjdG9yeSBtZXRob2QgdG8gZGVzZXJpYWxpemUgZnJvbSBTdHJpbmcgdmFsdWUgKCd7XCJhdnZpa1R5cGVcIjpcIkJFU1RJTExfT1JJR0lOQUxcIixcImVuaGV0c251bW1lclwiOlwiNDgwNlwifScpXG4gYXQgW1NvdXJjZTogKFB1c2hiYWNrSW5wdXRTdHJlYW0pOyBsaW5lOiAxLCBjb2x1bW46IDFdIiwKICAgICJwYXRoIjogIi9iaWRyYWctZG9rdW1lbnQtam91cm5hbHBvc3Qvam91cm5hbHBvc3QvYXZ2aWsvMzQxMTEwNDciCn0=",
-                "mime_type": "text/plain"
-              }
-            ]
+              "duration": 20000000
+            }
           },
           {
             "arguments": [],

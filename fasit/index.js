@@ -244,6 +244,10 @@ function httpPost(world, alias, suffix, body) {
     return sendRequest(world, 'POST', alias, suffix, body)
 }
 
+function httpPostLocal(localUrl,token,body){
+    return sendRequestLocal(localUrl,token,"POST",body);
+}
+
 /**
  * Finner en URL via oppslag i Fasit og gjør deretter PUT kall til tjenesten med et bearer token.
  * 
@@ -282,6 +286,7 @@ function sendRequest(world, method, alias, suffix, body) {
                 method: method,
                 proxy: false,
                 headers: {
+                    "X-Enhetsnummer": "4806",
                     "Authorization": `Bearer ${tok}`,
                     "Content-Type": "application/json"
                 },
@@ -309,6 +314,26 @@ function sendRequest(world, method, alias, suffix, body) {
         })
 }
 
+function sendRequestLocal(localUrl, token, method, body) {
+    var localHeaders= {
+            "X-Enhetsnummer": "4806",
+            "Authorization": `Bearer ${token}`,
+            "Content-Type": "application/json"
+        };
+    return request({
+        method: 'POST',
+        url: localUrl,
+        body:{"avvikType":"BESTILL_ORIGINAL","enhetsnummer":"4806"},
+        headers: localHeaders,
+        json: true
+    }).then(response => {
+        logResponse(world, response, method, last_url + suffix, body)
+        return response
+    }).catch(err => {
+        console.log(err);
+            return err
+        })
+}
 /**
  * Cucumber report forventer base64 encoded data i attachments/embeddings
  * 
@@ -399,6 +424,7 @@ module.exports = {
     httpDelete,
     httpGet,
     httpPost,
+    httpPostLocal,
     httpPut,
     hentFasitBaseUrl,
     hentFasitRessurs,
