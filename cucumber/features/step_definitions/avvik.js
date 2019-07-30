@@ -4,7 +4,6 @@ const {
     When
 } = require('cucumber');
 const {
-    httpGet,
     httpPost,
 } = require('fasit');
 
