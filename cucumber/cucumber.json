@@ -1,0 +1,102 @@
+[
+  {
+    "description": "    Tester REST API til journalpost endepunktet for avvik i bidrag-dokument.",
+    "keyword": "Feature",
+    "name": "avvik bidrag-dokument-journalpost (/journalpost REST API)",
+    "line": 1,
+    "id": "avvik-bidrag-dokument-journalpost-(/journalpost-rest-api)",
+    "tags": [],
+    "uri": "cucumber/features/bidrag-dokument-journalpost.avvik.feature",
+    "elements": [
+      {
+        "id": "avvik-bidrag-dokument-journalpost-(/journalpost-rest-api);sjekk-at-kan-bestille-original",
+        "keyword": "Scenario",
+        "line": 9,
+        "name": "Sjekk at kan bestille original",
+        "tags": [],
+        "type": "scenario",
+        "steps": [
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "match": {
+              "location": "cucumber/features/step_definitions/shared.js:25"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 1000000
+            },
+            "embeddings": [
+              {
+                "data": "TGluayB0aWwga2liYW5hIGZvciBjb3JyZWxhdGlvbi1pZDogY3VjdW1iZXItNDA1OTl1aGp5cjB2bGIyCgpodHRwczovL2xvZ3MuYWRlby5uby9hcHAva2liYW5hIy9kaXNjb3Zlcj9fYT0oY29sdW1uczohKF9zb3VyY2UpLGZpbHRlcnM6ISgoJyRzdGF0ZSc6KHN0b3JlOmFwcFN0YXRlKSxtZXRhOihhbGlhczohbixkaXNhYmxlZDohZixpbmRleDonbG9nc3Rhc2gtKicpLHF1ZXJ5OihtYXRjaDooeF9jb3JyZWxhdGlvbklkOihxdWVyeTonY3VjdW1iZXItNDA1OTl1aGp5cjB2bGIyJyx0eXBlOnBocmFzZSkpKSkpLGluZGV4Oidsb2dzdGFzaC0qJyxpbnRlcnZhbDphdXRvLHF1ZXJ5OihxdWVyeV9zdHJpbmc6KGFuYWx5emVfd2lsZGNhcmQ6IXQscXVlcnk6JyonKSksc29ydDohKCdAdGltZXN0YW1wJyxkZXNjKSkK",
+                "mime_type": "text/plain"
+              }
+            ]
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 7,
+            "name": "restservice 'bidragDokumentJournalpost'",
+            "match": {
+              "location": "cucumber/features/step_definitions/shared.js:33"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 1000000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 10,
+            "name": "jeg kaller bestill original endpoint med journalpostID '34111047'",
+            "match": {
+              "location": "cucumber/features/step_definitions/avvik.js:10"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 696000000
+            },
+            "embeddings": [
+              {
+                "data": "UE9TVCBodHRwczovL2JpZHJhZy1kb2t1bWVudC1qb3VybmFscG9zdC5uYWlzLnByZXByb2QubG9jYWwvYmlkcmFnLWRva3VtZW50LWpvdXJuYWxwb3N0L2pvdXJuYWxwb3N0L2F2dmlrLzM0MTExMDQ3CnsKICAgICJhdnZpa1R5cGUiOiAiQkVTVElMTF9PUklHSU5BTCIsCiAgICAiZW5oZXRzbnVtbWVyIjogIjQ4MDYiCn0=",
+                "mime_type": "text/plain"
+              },
+              {
+                "data": "NTAwIEludGVybmFsIFNlcnZlciBFcnJvcgp7CiAgICAidGltZXN0YW1wIjogIjIwMTktMDctMzFUMDk6MDM6NDkuNTg2KzAwMDAiLAogICAgInN0YXR1cyI6IDUwMCwKICAgICJlcnJvciI6ICJJbnRlcm5hbCBTZXJ2ZXIgRXJyb3IiLAogICAgIm1lc3NhZ2UiOiAiNDAwIEJhZCBSZXF1ZXN0IiwKICAgICJwYXRoIjogIi9iaWRyYWctZG9rdW1lbnQtam91cm5hbHBvc3Qvam91cm5hbHBvc3QvYXZ2aWsvMzQxMTEwNDciCn0=",
+                "mime_type": "text/plain"
+              }
+            ]
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 11,
+            "name": "resultatet skal være et objekt",
+            "match": {
+              "location": "cucumber/features/step_definitions/shared.js:164"
+            },
+            "result": {
+              "status": "failed",
+              "duration": 1000000,
+              "error_message": "AssertionError [ERR_ASSERTION]: Response mangler data\n    + expected - actual\n\n    -false\n    +true\n\n    at World.<anonymous> (/src/cucumber/features/step_definitions/shared.js:166:5)"
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 12,
+            "name": "statuskoden skal være '200'",
+            "match": {
+              "location": "cucumber/features/step_definitions/shared.js:59"
+            },
+            "result": {
+              "status": "skipped"
+            }
+          }
+        ]
+      }
+    ]
+  }
+]

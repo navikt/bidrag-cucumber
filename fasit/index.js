@@ -289,9 +289,9 @@ function sendRequest(world, method, alias, suffix, body) {
                 resolveWithFullResponse: true,
                 json: true,
 		timeout: 20 * 1000
-            }
-            if (body) {
-                options.body = body
+            };
+            if (body !== null) {
+                options.body = body;
             }
             if(world.correlationId) {
                 options.headers[CORRELATION_HEADER] = world.correlationId
