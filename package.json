@@ -11,6 +11,9 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@types/jsonwebtoken": "^8.3.2",
+    "@types/request": "^2.48.2",
+    "@types/request-promise": "^4.1.44",
     "cucumber": "^5.0.2"
   },
   "dependencies": {

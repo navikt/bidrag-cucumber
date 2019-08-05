@@ -11,3 +11,8 @@ Feature: avvik bidrag-dokument (/journalpost REST API)
         Then resultatet skal være et objekt
         And statuskoden skal være '200'
 
+    Scenario: Sjekk at kan bestille reskannning
+        When jeg kaller bestill reskanning endpoint med journalpostID 'BID-34111047'
+        Then resultatet skal være et objekt
+        And statuskoden skal være '200'
+
