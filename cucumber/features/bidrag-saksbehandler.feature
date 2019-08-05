@@ -15,6 +15,3 @@ Feature: bidrag-saksbehandler
         When jeg henter informasjon for ldap ident 'H153959'
         Then statuskoden skal være '200'
 
-    Scenario: Sjekk at ugyldig saksbehandler-id returnerer NO CONTENT (204) respons
-        When jeg henter informasjon for ldap ident 'X909192'
-        Then statuskoden skal være '204'
