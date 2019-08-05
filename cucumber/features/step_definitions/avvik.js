@@ -33,7 +33,7 @@ When('jeg kaller bestill reskanning endpoint med journalpostID {string}', functi
         })
 });
 
-When('jeg kaller bestill endpoint med avvik {string} og journalpostID {string}', function(avvikType,journalostid,done){
+When('jeg kaller bestill endpoint med avvik {string} og journalpostID {string}', function(avvikType,journalpostid,done){
     httpPost(this, this.alias, `/journalpost/avvik/${journalpostid}`,{"avvikType":avvikType, "enhetsnummer":"4806" })
         .then(response => {
             this.response = response;
