@@ -9,9 +9,9 @@ Feature: avvik bidrag-dokument-journalpost (/journalpost REST API)
     Scenario: Sjekk at kan bestille original
         When jeg kaller bestill original endpoint med journalpostID '34111047'
         Then resultatet skal være et objekt
-        And statuskoden skal være '200'
+        And statuskoden skal være '201'
 
     Scenario: Sjekk at kan bestille reskannning
-        When jeg kaller bestill reskanning endpoint med journalpostID 'BID-34111047'
+        When jeg kaller bestill reskanning endpoint med journalpostID '34111047'
         Then resultatet skal være et objekt
-        And statuskoden skal være '200'
+        And statuskoden skal være '201'
