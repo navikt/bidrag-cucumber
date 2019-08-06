@@ -26,3 +26,4 @@ Feature: avvik bidrag-dokument-journalpost (/journalpost REST API)
 		And listen med valg skal kun inneholde:
 		| BESTILL_ORIGINAL |
 		| BESTILL_RESKANNING |
+		| BESTILL_SPLITTING |
