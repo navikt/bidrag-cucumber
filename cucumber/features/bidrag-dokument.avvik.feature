@@ -20,3 +20,10 @@ Feature: avvik bidrag-dokument (/journalpost REST API)
         When jeg kaller bestill endpoint med avvik 'BLAH_BLAH_LAH_123' og journalpostID 'BID-34111047'
         Then statuskoden skal være '400'
 
+    Scenario: Sjekk avviksvalg for gitt journalpost
+        When jeg ber om avviksvalg for journalpostID 'BID-34111047'
+        Then statuskoden skal være '200'
+        And listen med valg skal kun inneholde:
+        | BESTILL_ORIGINAL |
+        | BESTILL_RESKANNING |
+
