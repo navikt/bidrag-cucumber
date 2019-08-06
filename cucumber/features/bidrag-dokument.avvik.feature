@@ -18,6 +18,5 @@ Feature: avvik bidrag-dokument (/journalpost REST API)
 
     Scenario: Sjekk at kan ikke bestille ukjent avvik
         When jeg kaller bestill endpoint med avvik 'BLAH_BLAH_LAH_123' og journalpostID 'BID-34111047'
-        Then resultatet skal være et objekt
-        And statuskoden skal være '400'
+        Then statuskoden skal være '400'
 
