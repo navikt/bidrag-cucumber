@@ -27,3 +27,5 @@ Feature: avvik bidrag-dokument (/journalpost REST API)
         | BESTILL_ORIGINAL |
         | BESTILL_RESKANNING |
         | BESTILL_SPLITTING |
+	| ENDRE_FAGOMRADE |
+
