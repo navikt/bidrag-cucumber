@@ -1,6 +1,7 @@
 const assert = require('assert');
 const util = require('util');
 const {
+	Given,
     When,
 	Then
 } = require('cucumber');
@@ -9,34 +10,30 @@ const {
     httpGet
 } = require('fasit');
 
-When('jeg kaller bestill original endpoint med journalpostID {string}', function (journalpostid, done) {
-    httpPost(this, this.alias, `/journalpost/avvik/${journalpostid}`,{"avvikType":"BESTILL_ORIGINAL", "enhetsnummer":"4806" })
-        .then(response => {
-            this.response = response;
-            assert(this.response != null, "Intet svar mottatt fra tjenesten");
-            assert(undefined === this.response.errno, "Feilmelding: " + this.response.errno);
-            done()
-        })
-        .catch(err => {
-            done(err)
-        })
-});
+Given('avvikstype {string}', function(avvikType) {
+    this.avvikType = avvikType
+})
 
-When('jeg kaller bestill reskanning endpoint med journalpostID {string}', function (journalpostid, done) {
-    httpPost(this, this.alias, `/journalpost/avvik/${journalpostid}`,{"avvikType":"BESTILL_RESKANNING", "enhetsnummer":"4806" })
-        .then(response => {
-            this.response = response;
-            assert(this.response != null, "Intet svar mottatt fra tjenesten");
-            assert(undefined === this.response.errno, "Feilmelding: " + this.response.errno);
-            done()
-        })
-        .catch(err => {
-            done(err)
-        })
-});
+Given('journalpostID {string}', function(journalpostid) {
+    this.journalpostid = journalpostid
+})
 
-When('jeg kaller bestill endpoint med avvik {string} og journalpostID {string}', function(avvikType,journalpostid,done){
-    httpPost(this, this.alias, `/journalpost/avvik/${journalpostid}`,{"avvikType":avvikType, "enhetsnummer":"4806" })
+Given('enhetsnummer {string}', function(enhetsnummer) {
+    this.enhetsnummer = enhetsnummer
+})
+
+Given('beskrivelse {string}', function(beskrivelse) {
+    this.beskrivelse = beskrivelse
+})
+
+When('jeg kaller avvik endpoint', function (done) {
+    httpPost(this, this.alias, `/journalpost/avvik/${this.journalpostid}`,
+			{
+				"avvikType": this.avvikType,
+				"enhetsnummer": (this.enhetsnummer || "4806"),
+				"beskrivelse": this.beskrivelse
+			}
+		)
         .then(response => {
             this.response = response;
             assert(this.response != null, "Intet svar mottatt fra tjenesten");
@@ -46,7 +43,7 @@ When('jeg kaller bestill endpoint med avvik {string} og journalpostID {string}',
         .catch(err => {
             done(err)
         })
-});
+})
 
 When('jeg ber om avviksvalg for journalpostID {string}', function (journalpostid, done) {
     httpGet(this, this.alias, `/journalpost/avvik/${journalpostid}`)
