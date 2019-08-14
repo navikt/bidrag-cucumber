@@ -19,7 +19,7 @@ Feature: avvik bidrag-dokument-journalpost (/journalpost REST API)
         Then statuskoden skal være '202'
 
     Scenario: Sjekk avviksvalg for gitt journalpost
-        When jeg ber om avviksvalg for journalpostID '34111047'
+        When jeg ber om gyldige avviksvalg for journalpost
         Then statuskoden skal være '200'
 		And listen med valg skal kun inneholde:
 		| BESTILL_ORIGINAL |
@@ -34,7 +34,7 @@ Feature: avvik bidrag-dokument-journalpost (/journalpost REST API)
         Then statuskoden skal være '201'
 
     Scenario: Sjekk at avviksvalg for gitt journalpost ikke inneholder BESTILL_ORIGINAL
-        When jeg ber om avviksvalg for journalpostID '34111047'
+        When jeg ber om gyldige avviksvalg for journalpost
         Then statuskoden skal være '200'
 		And listen med valg skal kun inneholde:
 		| BESTILL_RESKANNING |

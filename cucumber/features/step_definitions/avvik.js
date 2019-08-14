@@ -61,8 +61,8 @@ When('jeg kaller avvik endpoint', function (done) {
         })
 })
 
-When('jeg ber om avviksvalg for journalpostID {string}', function (journalpostid, done) {
-    httpGet(this, this.alias, `/journalpost/avvik/${journalpostid}`)
+When('jeg ber om gyldige avviksvalg for journalpost', function (done) {
+    httpGet(this, this.alias, `/journalpost/avvik/${this.journalpostid}`)
         .then(response => {
             this.response = response;
             assert(this.response != null, "Intet svar mottatt fra tjenesten");
