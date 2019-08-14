@@ -8,6 +8,16 @@ Feature: avvik bidrag-dokument-journalpost (/journalpost REST API)
         And journalpostID '34111047'
         And enhetsnummer '4806'
 
+    Scenario: Reset journalpost data
+        When jeg endrer journalpost til
+            """
+            {
+                "fagomrade": "BID",
+                "originalBestilt": "false"
+            }
+            """
+        Then statuskoden skal være '202'
+
     Scenario: Sjekk avviksvalg for gitt journalpost
         When jeg ber om avviksvalg for journalpostID '34111047'
         Then statuskoden skal være '200'
@@ -22,6 +32,15 @@ Feature: avvik bidrag-dokument-journalpost (/journalpost REST API)
         Given avvikstype 'BESTILL_ORIGINAL'
         When jeg kaller avvik endpoint
         Then statuskoden skal være '201'
+
+    Scenario: Sjekk at avviksvalg for gitt journalpost ikke inneholder BESTILL_ORIGINAL
+        When jeg ber om avviksvalg for journalpostID '34111047'
+        Then statuskoden skal være '200'
+		And listen med valg skal kun inneholde:
+		| BESTILL_RESKANNING |
+		| BESTILL_SPLITTING |
+		| ENDRE_FAGOMRADE |
+		| INNG_TIL_UTG_DOKUMENT |
 
     Scenario: Sjekk at kan bestille reskannning
         Given avvikstype 'BESTILL_RESKANNING'

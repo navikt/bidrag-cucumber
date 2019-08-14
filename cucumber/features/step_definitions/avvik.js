@@ -7,8 +7,24 @@ const {
 } = require('cucumber');
 const {
     httpPost,
+    httpPut,
     httpGet
 } = require('fasit');
+
+const TESTDATA_ALIAS='bidragDokumentTestdata'
+
+When('jeg endrer journalpost til', function (body, done) {
+    httpPut(this, TESTDATA_ALIAS, `/journalpost/${this.journalpostid}`, JSON.parse(body))
+        .then(response => {
+            this.response = response
+            assert(this.response != null, "Intet svar mottatt fra tjenesten");
+            assert(undefined === this.response.errno, "Feilmelding: " + this.response.errno);
+            done()
+        })
+        .catch(err => {
+            done(err)
+        })
+});
 
 Given('avvikstype {string}', function(avvikType) {
     this.avvikType = avvikType
