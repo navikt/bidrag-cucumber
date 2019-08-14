@@ -58,11 +58,6 @@ Feature: avvik bidrag-dokument (/journalpost REST API)
         When jeg kaller avvik endpoint
         Then statuskoden skal være '201'
 
-    Scenario: Sørg for at fagområde er BID
-        Given avvikstype 'ENDRE_FAGOMRADE'
-        And beskrivelse 'BID'
-        When jeg kaller avvik endpoint
-
     Scenario: Sjekk at jeg kan endre fagområde til FAR
         Given avvikstype 'ENDRE_FAGOMRADE'
         And beskrivelse 'FAR'
