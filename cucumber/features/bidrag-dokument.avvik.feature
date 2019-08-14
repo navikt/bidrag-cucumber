@@ -9,6 +9,7 @@ Feature: avvik bidrag-dokument (/journalpost REST API)
         And enhetsnummer '4806'
 
     Scenario: Reset journalpost data
+        Given journalpostID '34111047'
         When jeg endrer journalpost til
             """
             {
