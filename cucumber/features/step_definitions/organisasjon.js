@@ -7,7 +7,7 @@ const {
 } = require('fasit');
 
 When('jeg henter informasjon for ldap ident {string}', function (ident, done) {
-    httpGet(this, this.alias, `/beskriv/${ident}`)
+    httpGet(this, this.alias, `/saksbehandler/info/${ident}`)
         .then(response => {
             this.response = response
             assert(this.response != null, "Intet svar mottatt fra tjenesten");
