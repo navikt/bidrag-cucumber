@@ -42,6 +42,16 @@ Given('beskrivelse {string}', function(beskrivelse) {
     this.beskrivelse = beskrivelse
 })
 
+When('jeg søker etter oppgaver for journalpost', function (done) {
+    httpGet(this, 'oppgave', `/v1/oppgaver?journalpostId=${this.journalpostid}&limit=3`)
+        .then(response => {
+            done()
+        })
+        .catch(err => {
+            done(err)
+        })
+})
+
 When('jeg kaller avvik endpoint', function (done) {
     httpPost(this, this.alias, `/journalpost/avvik/${this.journalpostid}`,
 			{

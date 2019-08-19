@@ -47,6 +47,10 @@ Feature: avvik bidrag-dokument-journalpost (/journalpost REST API)
         When jeg kaller avvik endpoint
         And statuskoden skal være '201'
 
+    Scenario: Sjekk at oppgave blir laget for reskanning
+        When jeg søker etter oppgaver for journalpost
+        Then statuskoden skal være '200'
+
     Scenario: Sjekk at kan ikke bestille ukjent avvik
         Given avvikstype 'BLAH_BLAH_LAH_123'
         When jeg kaller avvik endpoint
