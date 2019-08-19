@@ -43,7 +43,7 @@ Given('beskrivelse {string}', function(beskrivelse) {
 })
 
 When('jeg søker etter oppgaver for journalpost', function (done) {
-    httpGet(this, 'oppgave', `/v1/oppgaver?journalpostId=${this.journalpostid}&limit=3`)
+    httpGet(this, 'oppgaver.oppgaver', `/v1/oppgaver?journalpostId=${this.journalpostid}&limit=3`)
         .then(response => {
             done()
         })
