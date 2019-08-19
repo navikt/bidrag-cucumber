@@ -45,6 +45,7 @@ Given('beskrivelse {string}', function(beskrivelse) {
 When('jeg søker etter oppgaver for journalpost', function (done) {
     httpGet(this, 'oppgave.oppgaver', `?journalpostId=${this.journalpostid}&statuskategori=AAPEN`)
         .then(response => {
+            this.response = response
             done()
         })
         .catch(err => {
