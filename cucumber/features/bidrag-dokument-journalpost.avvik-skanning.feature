@@ -20,6 +20,7 @@ Feature: avvik bidrag-dokument-journalpost: reskanning
         "journalfortAv": "Behandler, Zakarias",
         "journalstatus": "J",
         "mottattDato": "2019-01-01",
+        "skannetDato": "2019-01-01",
         "saksnummer": "0000003"
         }
         """

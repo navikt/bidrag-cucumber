@@ -20,8 +20,8 @@ Feature: avvik bidrag-dokument-journalpost: bestill original
         "journalfortAv": "Behandler, Zakarias",
         "journalstatus": "J",
         "mottattDato": "2019-01-01",
-        "saksnummer": "0000003",
-        "skannetDato": "2019-01-01"
+        "skannetDato": "2019-01-01",
+        "saksnummer": "0000003"
         }
         """
         Then statuskoden skal være '201'

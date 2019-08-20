@@ -7,7 +7,7 @@ Feature: avvik bidrag-dokument-journalpost: endre fagomrade
         """
         {
         "avsenderNavn": "Cucumber Test",
-        "beskrivelse": "Test bestill original",
+        "beskrivelse": "Test endre fagområde",
         "dokumentType": "I",
         "dokumentdato": "2019-01-01",
         "dokumentreferanse": "1234567890",
@@ -18,6 +18,7 @@ Feature: avvik bidrag-dokument-journalpost: endre fagomrade
         "journalfortAv": "Behandler, Zakarias",
         "journalstatus": "J",
         "mottattDato": "2019-01-01",
+        "skannetDato": "2019-01-01",
         "saksnummer": "0000003"
         }
         """
