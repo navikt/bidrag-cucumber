@@ -1,4 +1,4 @@
-Feature: avvik bidrag-dokument-journalpost (/journalpost REST API)
+Feature: avvik bidrag-dokument-journalpost: bestill splitting
 
     Background: Lag/les journapost og sett felles params så vi slipper å gjenta for hvert scenario.
         Given restservice 'bidragDokumentJournalpost'

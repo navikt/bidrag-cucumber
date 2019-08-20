@@ -1,4 +1,4 @@
-Feature: avvik: bestill reskanning
+Feature: avvik bidrag-dokument-journalpost: reskanning
 
     Tester REST API til journalpost endepunktet for avvik i bidrag-dokument.
 
