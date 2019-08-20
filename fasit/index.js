@@ -122,12 +122,19 @@ function hentTokenFor(env, oidcAlias, fasitUser, fasitPass, username, password) 
 function _finnAlias(data, alias, env) {
     if (data) {
         var res = data.filter(item => {
-            return item.alias == alias && item.scope && item.scope.environment == env;
+            return item.alias == alias && item.scope && item.scope.environment == env
         })
+		// Hvis flere så finn den som ikke har scope.application satt
+		if (res && res.length > 1) {
+        	res = res.filter(item => {
+            	return item.scope && !item.scope.application
+        	})
+		}
         if (res && res.length == 1) {
             return res[0]
         }
     }
+	console.log(`_finnAlias: fant ikke ${alias} i`, data)
     return null;
 }
 
