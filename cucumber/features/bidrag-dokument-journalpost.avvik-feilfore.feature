@@ -1,4 +1,4 @@
-Feature: avvik bidrag-dokument-journalpost: bestill original
+Feature: avvik bidrag-dokument-journalpost: feilfore sak
 
     Tester REST API til journalpost endepunktet for avvik i bidrag-dokument.
 
