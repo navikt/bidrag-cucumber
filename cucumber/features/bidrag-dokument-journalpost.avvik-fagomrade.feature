@@ -28,8 +28,7 @@ Feature: avvik bidrag-dokument-journalpost: endre fagomrade
     Scenario: Sjekk avviksvalg for gitt journalpost
         When jeg ber om gyldige avviksvalg for journalpost
         Then statuskoden skal være '200'
-		And listen med valg skal inneholde:
-		| ENDRE_FAGOMRADE |
+		And listen med valg skal inneholde 'ENDRE_FAGOMRADE'
 
     Scenario: Sjekk at jeg kan endre fagområde til FAR
         Given avvikstype 'ENDRE_FAGOMRADE'

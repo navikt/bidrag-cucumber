@@ -31,8 +31,7 @@ Feature: avvik bidrag-dokument-journalpost: bestill original
     Scenario: Sjekk avviksvalg for gitt journalpost
         When jeg ber om gyldige avviksvalg for journalpost
         Then statuskoden skal være '200'
-		And listen med valg skal inneholde:
-		| BESTILL_ORIGINAL |
+		And listen med valg skal inneholde 'BESTILL_ORIGINAL'
 
     Scenario: Sjekk at kan bestille original
         Given avvikstype 'BESTILL_ORIGINAL'
@@ -42,8 +41,7 @@ Feature: avvik bidrag-dokument-journalpost: bestill original
     Scenario: Sjekk at avviksvalg for gitt journalpost ikke inneholder BESTILL_ORIGINAL
         When jeg ber om gyldige avviksvalg for journalpost
         Then statuskoden skal være '200'
-		And listen med valg skal ikke inneholde:
-          | BESTILL_ORIGINAL |
+		And listen med valg skal ikke inneholde 'BESTILL_ORIGINAL'
 
     Scenario: Sjekk at oppgave blir laget for bestill original
         When jeg søker etter oppgaver for journalpost

@@ -86,22 +86,24 @@ When('jeg ber om gyldige avviksvalg for journalpost', function (done) {
         })
 });
 
-Then('listen med valg skal inneholde:', function(table) {
-  var missing = []
-  table.rawTable.forEach(item => {
-    if (!this.response.body.find(elem => elem == item[0])) {
-      missing.push(item)
+Then('listen med valg skal inneholde {avvikstype}', function(avvikstype) {
+  var fantAvvik = false
+  this.response.body.forEach(item => {
+    if(avvikstype === item) {
+      fantAvvik = true
     }
   })
-  assert(missing.length == 0, `Mangler: ${missing}`)
+
+  assert(fantAvvik, `Mangler: ${avvikstype}`)
 })
 
-Then('listen med valg skal ikke inneholde:', function(table) {
-  var unexpected = []
+Then('listen med valg skal ikke inneholde {avvikstype}', function(avvikstype) {
+  var fantAvvik = false
   this.response.body.forEach(item => {
-    if(!table.rawTable.find(elem => elem[0] == item)) {
-      unexpected.push(item)
+    if(avvikstype == item) {
+      fantAvvik = true
     }
   })
-  assert(unexpected.length == 0, `Uventet: ${unexpected}`)
+
+  assert(!fantAvvik, `Avvik ikke forventet: ${unexpected}`)
 })

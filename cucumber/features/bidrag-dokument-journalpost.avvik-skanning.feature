@@ -31,8 +31,7 @@ Feature: avvik bidrag-dokument-journalpost: reskanning
     Scenario: Sjekk avviksvalg for gitt journalpost
         When jeg ber om gyldige avviksvalg for journalpost
         Then statuskoden skal være '200'
-		And listen med valg skal inneholde:
-		| BESTILL_RESKANNING |
+		And listen med valg skal inneholde 'BESTILL_RESKANNING'
 
     Scenario: Sjekk at reskanning kan bestilles
         Given avvikstype 'BESTILL_RESKANNING'
@@ -42,8 +41,7 @@ Feature: avvik bidrag-dokument-journalpost: reskanning
     Scenario: Sjekk at avviksvalg for gitt journalpost ikke inneholder BESTILL_RESKANNING
         When jeg ber om gyldige avviksvalg for journalpost
         Then statuskoden skal være '200'
-        And listen med valg skal ikke inneholde:
-            | BESTILL_RESKANNING |
+        And listen med valg skal ikke inneholde 'BESTILL_RESKANNING'
 
     Scenario: Sjekk at oppgave blir laget for reskanning
         When jeg søker etter oppgaver for journalpost
