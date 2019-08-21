@@ -15,3 +15,7 @@ Feature: bidrag-organisasjon
         When jeg henter informasjon for ldap ident 'H153959'
         Then statuskoden skal være '200'
 
+    Scenario: Sjekk at hent av enheter for saksbehandler-id returnerer OK (200) respons
+        When jeg henter enheter for ident 'Z992022'
+        Then statuskoden skal være '200'
+

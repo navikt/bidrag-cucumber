@@ -18,3 +18,16 @@ When('jeg henter informasjon for ldap ident {string}', function (ident, done) {
             done(err)
         })
 });
+
+When('jeg henter enheter for ident {string}', function (ident, done) {
+    httpGet(this, this.alias, `/saksbehandler/enhetsliste/${ident}`)
+        .then(response => {
+            this.response = response
+            assert(this.response != null, "Intet svar mottatt fra tjenesten");
+            assert(undefined === this.response.errno, "Feilmelding: " + this.response.errno);
+            done()
+        })
+        .catch(err => {
+            done(err)
+        })
+});
