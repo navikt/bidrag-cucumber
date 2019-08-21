@@ -31,7 +31,7 @@ Feature: avvik bidrag-dokument-journalpost: feilfore sak
         Then statuskoden skal være '200'
 		And listen med valg skal inneholde 'FEILFORE_SAK'
 
-    Scenario: Sjekk at kan bestille original
+    Scenario: Sjekk at man kan feilfore sak
         Given avvikstype 'FEILFORE_SAK'
         When jeg kaller avvik endpoint
         Then statuskoden skal være '200'

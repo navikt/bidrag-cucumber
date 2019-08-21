@@ -105,5 +105,5 @@ Then('listen med valg skal ikke inneholde {string}', function(avvikstype) {
     }
   })
 
-  assert(!fantAvvik, `Avvik ikke forventet: ${unexpected}`)
+  assert(!fantAvvik, `Avvik ikke forventet: ${avvikstype}`)
 })
