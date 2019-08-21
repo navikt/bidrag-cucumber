@@ -86,7 +86,7 @@ When('jeg ber om gyldige avviksvalg for journalpost', function (done) {
         })
 });
 
-Then('listen med valg skal inneholde {avvikstype}', function(avvikstype) {
+Then('listen med valg skal inneholde {string}', function(avvikstype) {
   var fantAvvik = false
   this.response.body.forEach(item => {
     if(avvikstype === item) {
@@ -97,7 +97,7 @@ Then('listen med valg skal inneholde {avvikstype}', function(avvikstype) {
   assert(fantAvvik, `Mangler: ${avvikstype}`)
 })
 
-Then('listen med valg skal ikke inneholde {avvikstype}', function(avvikstype) {
+Then('listen med valg skal ikke inneholde {string}', function(avvikstype) {
   var fantAvvik = false
   this.response.body.forEach(item => {
     if(avvikstype == item) {
