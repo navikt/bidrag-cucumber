@@ -18,8 +18,8 @@ Feature: avvik bidrag-dokument-journalpost: bestill original
         "journaldato": "2019-01-01",
         "journalforendeEnhet": "1289",
         "journalfortAv": "Behandler, Zakarias",
-        "journalstatus": "J",
         "mottattDato": "2019-01-01",
+        "originalBestilt": "false",
         "skannetDato": "2019-01-01",
         "saksnummer": "0000003"
         }
@@ -31,12 +31,8 @@ Feature: avvik bidrag-dokument-journalpost: bestill original
     Scenario: Sjekk avviksvalg for gitt journalpost
         When jeg ber om gyldige avviksvalg for journalpost
         Then statuskoden skal være '200'
-		And listen med valg skal kun inneholde:
+		And listen med valg skal inneholde:
 		| BESTILL_ORIGINAL |
-		| BESTILL_RESKANNING |
-		| BESTILL_SPLITTING |
-		| ENDRE_FAGOMRADE |
-		| INNG_TIL_UTG_DOKUMENT |
 
     Scenario: Sjekk at kan bestille original
         Given avvikstype 'BESTILL_ORIGINAL'
@@ -46,11 +42,8 @@ Feature: avvik bidrag-dokument-journalpost: bestill original
     Scenario: Sjekk at avviksvalg for gitt journalpost ikke inneholder BESTILL_ORIGINAL
         When jeg ber om gyldige avviksvalg for journalpost
         Then statuskoden skal være '200'
-		And listen med valg skal kun inneholde:
-		| BESTILL_RESKANNING |
-		| BESTILL_SPLITTING |
-		| ENDRE_FAGOMRADE |
-		| INNG_TIL_UTG_DOKUMENT |
+		And listen med valg skal ikke inneholde:
+          | BESTILL_ORIGINAL |
 
     Scenario: Sjekk at oppgave blir laget for bestill original
         When jeg søker etter oppgaver for journalpost

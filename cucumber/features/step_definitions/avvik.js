@@ -86,18 +86,22 @@ When('jeg ber om gyldige avviksvalg for journalpost', function (done) {
         })
 });
 
-Then('listen med valg skal kun inneholde:', function(table) {
-    var missing = []
-    var unexpected = []
-    table.rawTable.forEach(item => {
-		if (!this.response.body.find(elem => elem == item[0])) {
-			missing.push(item)
-		}
-    })
-	this.response.body.forEach(item => {
-		if(!table.rawTable.find(elem => elem[0] == item)) {
-			unexpected.push(item)
-		}
-	})
-	assert(missing.length == 0 && unexpected.length == 0, `Mangler: ${missing}, Uventet: ${unexpected}`)
+Then('listen med valg skal inneholde:', function(table) {
+  var missing = []
+  table.rawTable.forEach(item => {
+    if (!this.response.body.find(elem => elem == item[0])) {
+      missing.push(item)
+    }
+  })
+  assert(missing.length == 0, `Mangler: ${missing}`)
+})
+
+Then('listen med valg skal ikke inneholde:', function(table) {
+  var unexpected = []
+  this.response.body.forEach(item => {
+    if(!table.rawTable.find(elem => elem[0] == item)) {
+      unexpected.push(item)
+    }
+  })
+  assert(unexpected.length == 0, `Uventet: ${unexpected}`)
 })
