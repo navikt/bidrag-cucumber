@@ -14,7 +14,10 @@ Feature: avvik bidrag-dokument (/journalpost REST API)
             """
             {
                 "fagomrade": "BID",
-                "originalBestilt": "false"
+                "feilfortSak": "false",
+                "dokumentType": "I",
+                "originalBestilt": "false",
+                "skannetDato": "2019-08-21"
             }
             """
         Then statuskoden skal være '202'
@@ -22,12 +25,7 @@ Feature: avvik bidrag-dokument (/journalpost REST API)
     Scenario: Sjekk avviksvalg for gitt journalpost
         When jeg ber om gyldige avviksvalg for journalpost
         Then statuskoden skal være '200'
-		And listen med valg skal kun inneholde:
-		| BESTILL_ORIGINAL |
-		| BESTILL_RESKANNING |
-		| BESTILL_SPLITTING |
-		| ENDRE_FAGOMRADE |
-		| INNG_TIL_UTG_DOKUMENT |
+		And listen med valg skal inneholde 'BESTILL_ORIGINAL'
 
     Scenario: Sjekk at kan bestille original
         Given avvikstype 'BESTILL_ORIGINAL'
@@ -37,11 +35,7 @@ Feature: avvik bidrag-dokument (/journalpost REST API)
     Scenario: Sjekk at avviksvalg for gitt journalpost ikke inneholder BESTILL_ORIGINAL
         When jeg ber om gyldige avviksvalg for journalpost
         Then statuskoden skal være '200'
-		And listen med valg skal kun inneholde:
-		| BESTILL_RESKANNING |
-		| BESTILL_SPLITTING |
-		| ENDRE_FAGOMRADE |
-		| INNG_TIL_UTG_DOKUMENT |
+		And listen med valg skal ikke inneholde 'BESTILL_ORIGINAL'
 
     Scenario: Sjekk at kan bestille reskannning
         Given avvikstype 'BESTILL_RESKANNING'
@@ -77,3 +71,7 @@ Feature: avvik bidrag-dokument (/journalpost REST API)
         When jeg kaller avvik endpoint
         Then statuskoden skal være '200'
 
+    Scenario: Sjekk at kan feilføre sak
+        Given avvikstype 'FEILFOR_SAK'
+        When jeg kaller avvik endpoint
+        And statuskoden skal være '200'

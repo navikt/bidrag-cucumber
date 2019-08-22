@@ -16,10 +16,10 @@ Feature: avvik bidrag-dokument-journalpost: bestill splitting
         "journaldato": "2019-01-01",
         "journalforendeEnhet": "1289",
         "journalfortAv": "Behandler, Zakarias",
-        "journalstatus": "J",
         "mottattDato": "2019-01-01",
+        "saksnummer": "0000003",
         "skannetDato": "2019-01-01",
-        "saksnummer": "0000003"
+        "filnavn": "svada.pdf"
         }
         """
         Then statuskoden skal være '201'
@@ -29,12 +29,7 @@ Feature: avvik bidrag-dokument-journalpost: bestill splitting
     Scenario: Sjekk avviksvalg for gitt journalpost
         When jeg ber om gyldige avviksvalg for journalpost
         Then statuskoden skal være '200'
-		And listen med valg skal kun inneholde:
-		| BESTILL_ORIGINAL |
-		| BESTILL_RESKANNING |
-		| BESTILL_SPLITTING |
-		| ENDRE_FAGOMRADE |
-		| INNG_TIL_UTG_DOKUMENT |
+		And listen med valg skal inneholde 'BESTILL_SPLITTING'
 
     Scenario: Sjekk at jeg kan bestille splitting
         Given avvikstype 'BESTILL_SPLITTING'
@@ -42,7 +37,12 @@ Feature: avvik bidrag-dokument-journalpost: bestill splitting
         When jeg kaller avvik endpoint
         Then statuskoden skal være '201'
 
-    Scenario: Sjekk at oppgave blir laget for splitting
+    Scenario: Sjekk at avviksvalg for gitt journalpost ikke inneholder BESTILL_SPLITTING
+        When jeg ber om gyldige avviksvalg for journalpost
+        Then statuskoden skal være '200'
+        And listen med valg skal ikke inneholde 'BESTILL_SPLITTING'
+
+  Scenario: Sjekk at oppgave blir laget for splitting
         When jeg søker etter oppgaver for journalpost
         Then statuskoden skal være '200'
 
