@@ -27,7 +27,6 @@ Feature: avvik bidrag-dokument-journalpost: reskanning
 		And sett 'journalpostid' til journalpost.'journalpostId'
         And enhetsnummer '4806'
 
-
     Scenario: Sjekk avviksvalg for gitt journalpost
         When jeg ber om gyldige avviksvalg for journalpost
         Then statuskoden skal være '200'
@@ -37,11 +36,6 @@ Feature: avvik bidrag-dokument-journalpost: reskanning
         Given avvikstype 'BESTILL_RESKANNING'
         When jeg kaller avvik endpoint
         And statuskoden skal være '201'
-
-    Scenario: Sjekk at avviksvalg for gitt journalpost ikke inneholder BESTILL_RESKANNING
-        When jeg ber om gyldige avviksvalg for journalpost
-        Then statuskoden skal være '200'
-        And listen med valg skal ikke inneholde 'BESTILL_RESKANNING'
 
     Scenario: Sjekk at oppgave blir laget for reskanning
         When jeg søker etter oppgaver for journalpost
