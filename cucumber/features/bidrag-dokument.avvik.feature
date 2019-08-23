@@ -72,6 +72,6 @@ Feature: avvik bidrag-dokument (/journalpost REST API)
         Then statuskoden skal være '200'
 
     Scenario: Sjekk at kan feilføre sak
-        Given avvikstype 'FEILFOR_SAK'
+        Given avvikstype 'FEILFORE_SAK'
         When jeg kaller avvik endpoint
         And statuskoden skal være '200'
