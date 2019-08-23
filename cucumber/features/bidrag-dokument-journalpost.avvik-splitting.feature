@@ -7,6 +7,7 @@ Feature: avvik bidrag-dokument-journalpost: bestill splitting
         """
         {
         "avsenderNavn": "Cucumber Test",
+        "batchNavn": "En batch",
         "beskrivelse": "Test bestill splitting",
         "dokumentType": "I",
         "dokumentdato": "2019-01-01",
