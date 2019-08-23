@@ -39,11 +39,6 @@ Feature: avvik bidrag-dokument-journalpost: bestill splitting
         When jeg kaller avvik endpoint
         Then statuskoden skal være '201'
 
-    Scenario: Sjekk at avviksvalg for gitt journalpost ikke inneholder BESTILL_SPLITTING
-        When jeg ber om gyldige avviksvalg for journalpost
-        Then statuskoden skal være '200'
-        And listen med valg skal ikke inneholde 'BESTILL_SPLITTING'
-
   Scenario: Sjekk at oppgave blir laget for splitting
         When jeg søker etter oppgaver for journalpost
         Then statuskoden skal være '200'
