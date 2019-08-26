@@ -25,7 +25,13 @@ Feature: avvik bidrag-dokument (/journalpost REST API)
     Scenario: Sjekk avviksvalg for gitt journalpost
         When jeg ber om gyldige avviksvalg for journalpost
         Then statuskoden skal være '200'
-		And listen med valg skal inneholde 'BESTILL_ORIGINAL'
+        And listen med valg skal kun inneholde:
+            | BESTILL_ORIGINAL |
+            | BESTILL_RESKANNING |
+            | BESTILL_SPLITTING |
+            | ENDRE_FAGOMRADE |
+            | INNG_TIL_UTG_DOKUMENT |
+            | FEILFORE_SAK |
 
     Scenario: Sjekk at kan bestille original
         Given avvikstype 'BESTILL_ORIGINAL'
