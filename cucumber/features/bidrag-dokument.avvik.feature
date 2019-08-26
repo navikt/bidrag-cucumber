@@ -14,7 +14,7 @@ Feature: avvik bidrag-dokument (/journalpost REST API)
             """
             {
                 "fagomrade": "BID",
-                "feilfortSak": "false",
+                "feilfort": "false",
                 "dokumentType": "I",
                 "originalBestilt": "false",
                 "skannetDato": "2019-08-21"
