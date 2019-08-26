@@ -77,6 +77,16 @@ Feature: avvik bidrag-dokument (/journalpost REST API)
         When jeg kaller avvik endpoint
         Then statuskoden skal være '200'
 
+    Scenario: Reset journalpost data
+        Given journalpostID '34111047'
+        When jeg endrer journalpost til
+            """
+            {
+                "feilfort": "false"
+            }
+            """
+        Then statuskoden skal være '202'
+
     Scenario: Sjekk at kan feilføre sak
         Given avvikstype 'FEILFORE_SAK'
         When jeg kaller avvik endpoint
