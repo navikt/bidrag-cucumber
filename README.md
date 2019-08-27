@@ -145,9 +145,9 @@ $ npm install
 Deretter kan man starte cucumber-js for å kjøre tester i feature-filene:
 ```
 $ export fasit_user=<fasit username>
-$ export PASSWORD=<fasit password>
-$ export TEST_USER=<test username>
-$ export TEST_PASS=<test password>
+$ export fasit_pass=<fasit password>
+$ export test_user=<test username>
+$ export test_pass=<test password>
 $ node_modules/cucumber/bin/cucumber-js --format json:cucumber_report.json cucumber/features/bidrag-cucumber.feature
 ```
 Dette vil gi output til skjerm men også til filen 'cucumber_report.json' som man kan bruke til å generere en mer leselig HTML rapport. 
