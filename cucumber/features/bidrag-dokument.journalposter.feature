@@ -1,4 +1,4 @@
-Feature: bidrag-dokument (/journalposter REST API)
+Feature: bidrag-dokument (/sak/*/journal REST API)
 
     Tester REST API til journalpost endepunktet i bidrag-dokument.
     URLer til tjenester hentes via fasit.adeo.no og gjøres ved å spesifisere

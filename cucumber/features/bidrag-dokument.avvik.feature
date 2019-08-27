@@ -1,4 +1,4 @@
-Feature: avvik bidrag-dokument (/journalpost REST API)
+Feature: avvik bidrag-dokument (/sak/*/journal/*/avvik REST API)
 
     Tester REST API til journalpost endepunktet for avvik i bidrag-dokument.
 
