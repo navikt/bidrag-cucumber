@@ -58,7 +58,7 @@ When('jeg søker etter oppgaver for journalpost', function (done) {
 })
 
 When('jeg kaller avvik endpoint', function (done) {
-    httpPost(this, this.alias, `sak/${this.saksnummer}/journal/${this.journalpostid}/avvik`,
+    httpPost(this, this.alias, `/sak/${this.saksnummer}/journal/${this.journalpostid}/avvik`,
 			{
 				"avvikType": this.avvikType,
 				"enhetsnummer": (this.enhetsnummer || "4806"),
