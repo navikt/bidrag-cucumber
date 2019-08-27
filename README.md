@@ -90,9 +90,9 @@ Feature: bidrag-sak
 
 ## Arrow functions
 
-Cucumber-js lager et javascript-objekt som de kaller World objektet. Dette objektet blir "this" variabelen i alle Given/When/Then funksjoner slik at kode/funksjoner kan dele data i et scenario gjennom World objektet.
+Cucumber-js lager et javascript-objekt som de kaller World objektet. Dette objektet blir "this" variabelen i alle Given/When/Then funksjoner slik at kode/funksjoner kan dele data i et scenario. World objektet blir nullstilt i hvert scenario så det er i utgangspunktet ikke mulig å dele data mellom to scenarier.
 
-Hvert scenario får sitt eget World objekt hvilket også betyr at data <i>ikke</i> kan deles mellom scenarier. Hvis man bruker arrow functions i Given/When/Then deklarasjonen så mister man tilgangen til World objektet (google it). Derfor må alle funksjoner bruke "gammel" måte som:
+Hvis man bruker arrow functions i Given/When/Then deklarasjonen så mister man tilgangen til World objektet (google it). Derfor må alle funksjoner bruke "gammel" måte som:
 
 ```
 When('jeg ringer hjem', function() {
@@ -121,7 +121,11 @@ When('jeg sjekker resultat', function() {
 })
 ```
 
-Om begge funksjonene kalles innefor samme scenario vil this.response være tilgjengelig for 'jeg sjekker resultat'.
+Om begge funksjonene kalles innefor samme scenario vil this.response være tilgjengelig for 'jeg sjekker resultat' funksjonen.
+
+<i>
+     PS Det spiller ingen rolle om man definerer funksjoner med Given, When eller Then. Resultat er nøyaktig det samme.
+</i>
 
 ## Kjøre fra utviklerimage
 Den enkleste måten å kjøre testene i cucumber på er via Jenkins. For å teste lokalt før man eventuelt sjekker inn kode i prosjektet kan man kjøre tester fra utviklerimage ved å sette opp noen environment variabler før kjøring.
@@ -141,7 +145,6 @@ $ export TEST_PASS=<test password>
 $ node_modules/cucumber/bin/cucumber-js --format json:cucumber_report.json cucumber/features/bidrag-cucumber.feature
 ```
 Dette vil gi output til skjerm men også til filen 'cucumber_report.json' som man kan bruke til å generere en mer leselig HTML rapport. 
-
 
 ## HTML rapport
 
