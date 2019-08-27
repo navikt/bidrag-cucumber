@@ -42,7 +42,7 @@ When('jeg henter journalposter for sak {string} med fagområde {string}', functi
  * Henter spesifikk journalpost
  */
 When('jeg henter journalpost for sak {string} med id {string}', function (saksnr, journalpostId, done) {
-    httpGet(this, this.alias, "sak/" + saksnr + "/journal/" + journalpostId)
+    httpGet(this, this.alias, "/sak/" + saksnr + "/journal/" + journalpostId)
         .then(response => {
             this.response = response
             done()
