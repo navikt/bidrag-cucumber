@@ -9,6 +9,10 @@ const {
     httpPost
 } = require('fasit');
 const fs = require('fs')
+const {
+	attachJSON,
+	attachText
+} = require('fasit');
 
 
 When('jeg lager ny journalpost', function (body, done) {
@@ -58,9 +62,11 @@ Then('les eller opprett journalpost', function(body, done) {
 					statusCode: '201',
 					data: this.nyJournalpost
 				}
+				attachJSON(this, this.nyJournalpost)
             	done()
         	})
-        	.catch(err => {
+			.catch(err => {
+				attachText(world, 'logResponse feilet: ' + error + "; " + err)
             	done(err)
         	})
 	}
