@@ -5,6 +5,7 @@ Feature: avvik bidrag-dokument (/journalpost REST API)
     Background: Spesifiser base-url til tjenesten her så vi slipper å gjenta for hvert scenario.
         Fasit environment er gitt ved environment variabler ved oppstart.
         Given restservice 'bidragDokument'
+        And saksnummer '0000003'
         And journalpostID 'BID-34111047'
         And enhetsnummer '4806'
 

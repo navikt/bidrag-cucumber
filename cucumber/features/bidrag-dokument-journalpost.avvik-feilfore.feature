@@ -5,6 +5,7 @@ Feature: avvik bidrag-dokument-journalpost: feilfore sak
     Background: Lag/les journapost og sett felles params så vi slipper å gjenta for hvert scenario.
         Given restservice 'bidragDokumentJournalpost'
 		And journalpostfil 'feilfore.json'
+        And saksnummer '0000003'
         And les eller opprett journalpost
         """
         {

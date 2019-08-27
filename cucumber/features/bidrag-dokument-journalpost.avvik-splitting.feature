@@ -3,6 +3,7 @@ Feature: avvik bidrag-dokument-journalpost: bestill splitting
     Background: Lag/les journapost og sett felles params så vi slipper å gjenta for hvert scenario.
         Given restservice 'bidragDokumentJournalpost'
 		And journalpostfil 'splitting.json'
+        And saksnummer '0000003'
         And les eller opprett journalpost
         """
         {

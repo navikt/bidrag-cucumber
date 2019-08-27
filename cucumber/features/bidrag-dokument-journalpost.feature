@@ -5,7 +5,7 @@ Feature: bidrag-dokument-journalpost
         Given restservice 'bidragDokumentJournalpost'
 
     Scenario: Sjekk at vi får korrekt basisinnhold journalpost for en gitt journalpostId
-        When jeg henter journalpost for id "19650256"
+        When jeg henter journalpost for sak "0000003" med id "BID-19650256"
         Then statuskoden skal være '200'
         And resultatet skal være et objekt
         And objektet skal ha følgende properties:
@@ -17,7 +17,7 @@ Feature: bidrag-dokument-journalpost
             | innhold       |
 
     Scenario: Sjekk at vi får korrekt data i 'dokumenter' for en gitt journalpostId
-        When jeg henter journalpost for id "19650256"
+        When jeg henter journalpost for sak "0000003" med id "BID-19650256"
         Then statuskoden skal være '200'
         And resultatet skal være et objekt
         And objektet skal ha følgende properties:
@@ -28,7 +28,7 @@ Feature: bidrag-dokument-journalpost
             | tittel            |
 
     Scenario: Sjekk at vi får korrekt gjelderAktor for en gitt journalpostId
-        When jeg henter journalpost for id "32352090"
+        When jeg henter journalpost for sak "0000003" med id "BID-32352090"
         Then statuskoden skal være '200'
         And resultatet skal være et objekt
         And objektet skal ha følgende properties:
@@ -43,15 +43,15 @@ Feature: bidrag-dokument-journalpost
         And hvert element i listen skal ha 'fagomrade' = 'BID'
 
     Scenario: Sjekk at ukjent id gir 204
-        When jeg henter journalpost for id "12345"
+        When jeg henter journalpost for sak "0000003" med id "BID-12345"
         Then statuskoden skal være '204'
 
-    Scenario: Sjekk at id som feil type gir 400
-        When jeg henter journalpost for id "abcd"
+    Scenario: Sjekk at id uten prefix gir 400
+        When jeg henter journalpost for sak "0000003" med id "12345"
         Then statuskoden skal være '400'
 
     Scenario: Sjekk at journalpost kan oppdateres - Sylfest Strutle
-        When jeg endrer journalpost '30040789' til:
+        When jeg endrer journalpost for sak "0000004" med id 'BID-30040789' til:
             """
             {
             "journalpostId": 30040789,
@@ -71,7 +71,7 @@ Feature: bidrag-dokument-journalpost
         And objektet skal ha 'avsenderNavn' = 'Strutle, Sylfest'
 
     Scenario: Sjekk at journalpost kan oppdateres - Bjarne Bær
-        When jeg endrer journalpost '30040789' til:
+        When jeg endrer journalpost for sak "0000004" med id 'BID-30040789' til:
             """
             {
             "journalpostId": 30040789,
@@ -91,7 +91,7 @@ Feature: bidrag-dokument-journalpost
         And objektet skal ha 'avsenderNavn' = 'Bær, Bjarne'
 
     Scenario: Sjekk at dokumentDato kan oppdateres til 2001-01-01
-        When jeg endrer journalpost '30040789' til:
+        When jeg endrer journalpost for sak "0000004" med id 'BID-30040789' til:
             """
             {
             "journalpostId": 30040789,
@@ -112,7 +112,7 @@ Feature: bidrag-dokument-journalpost
         And objektet skal ha 'dokumentDato' = '2001-01-01'
 
     Scenario: Sjekk at dokumentDator kan oppdateres til 2001-02-01
-        When jeg endrer journalpost '30040789' til:
+        When jeg endrer journalpost for sak "0000004" med id 'BID-30040789' til:
             """
             {
             "journalpostId": 30040789,

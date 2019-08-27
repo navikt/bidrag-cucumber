@@ -10,10 +10,6 @@ const {
     httpPost
 } = require('fasit')
 
-function journalpostSuffix(journalId) {
-    return util.format("/journalpost/%s", journalId)
-}
-
 /**
  * URL for å få journalposter for en sak
  * 
@@ -45,8 +41,8 @@ When('jeg henter journalposter for sak {string} med fagområde {string}', functi
 /**
  * Henter spesifikk journalpost
  */
-When('jeg henter journalpost for id {string}', function (journalpostId, done) {
-    httpGet(this, this.alias, journalpostSuffix(journalpostId))
+When('jeg henter journalpost for sak {string} med id {string}', function (saksnr, journalpostId, done) {
+    httpGet(this, this.alias, "sak/" + saksnr + "/journal/" + journalpostId)
         .then(response => {
             this.response = response
             done()
@@ -56,9 +52,9 @@ When('jeg henter journalpost for id {string}', function (journalpostId, done) {
         })
 });
 
-When('jeg endrer journalpost {string} til:', function (jpid, body, done) {
+When('jeg endrer journalpost for sak {string} med id {string} til:', function (saksnr, jpid, body, done) {
     // Både bid-dok og bid-dok-journalpost bruker /journalpost som endpoint
-    httpPut(this, this.alias, "/journalpost/" + jpid, JSON.parse(body))
+    httpPut(this, this.alias, "sak/" + saksnr + "/journal/" + jpid, JSON.parse(body))
         .then(response => {
             this.response = response
             done()
