@@ -54,7 +54,7 @@ When('jeg henter journalpost for sak {string} med id {string}', function (saksnr
 
 When('jeg endrer journalpost for sak {string} med id {string} til:', function (saksnr, jpid, body, done) {
     // Både bid-dok og bid-dok-journalpost bruker /journalpost som endpoint
-    httpPut(this, this.alias, "sak/" + saksnr + "/journal/" + jpid, JSON.parse(body))
+    httpPut(this, this.alias, "/sak/" + saksnr + "/journal/" + jpid, JSON.parse(body))
         .then(response => {
             this.response = response
             done()
