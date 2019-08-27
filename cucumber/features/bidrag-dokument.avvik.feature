@@ -6,7 +6,7 @@ Feature: avvik bidrag-dokument (/sak/*/journal/*/avvik REST API)
         Fasit environment er gitt ved environment variabler ved oppstart.
         Given restservice 'bidragDokument'
         And saksnummer '0000003'
-        And journalpostID 'BID-34111047'
+        And journalpostID '34111047'
         And enhetsnummer '4806'
 
     Scenario: Reset journalpost data
