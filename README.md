@@ -43,9 +43,9 @@ I "features" katalogen legges feature testene og i "step_definitions" legges jav
 
 Scriptene i step_definitions bør inkludere fasit fra bidrag-cucumber. Fasit scriptet gjør det enkelt å kalle en REST tjeneste ved hjelp av en fasit alias og miljø. Sjekk javascript ressursene for funksjoner slik at vi ikke ender opp med varianter/duplikater. Er koden av generell interesse bør den lagres i shared.js. Ellers er navngivingen av filer i step_definitions kun underlagt sunn fornuft.
 
-<i>PS! bidrag-cucumber.feature inneholder en (enkel) test som sjekker om det finnes duplikater prosjektet</i>
+<i>PS! bidrag-cucumber.feature inneholder en (enkel) test som sjekker om det finnes duplikater i step_definitions</i>
 
-I feature katalogen navngis filene med prefix "mikrotjeneste.", hvor mikrotjeneste er navnet på mikrotjenesten testene gjelder. Ved bygg i Jenkins kjøres alle testene som matcher mikrotjenesten som bygges.
+I feature katalogen navngis features med prefix "mikrotjeneste.", hvor mikrotjeneste er navnet på mikrotjenesten testene gjelder. Ved bygg i Jenkins kjøres alle testene som matcher mikrotjenesten som bygges slik at hvert individuelle bygg kun får sine egne tester lagt ved cucumber rapporten.
 
 Eksempel stepdefs.js:
 
