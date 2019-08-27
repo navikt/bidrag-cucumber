@@ -127,8 +127,14 @@ Om begge funksjonene kalles innefor samme scenario vil this.response være tilgj
      PS Det spiller ingen rolle om man definerer funksjoner med Given, When eller Then. Resultat er nøyaktig det samme.
 </i>
 
+## Kjøre fra Jenkins
+
+Den enkleste måten å kjøre testene i cucumber på er via Jenkins: http://a34apvl00118.devillo.no:8080/job/bidrag-cucumber/
+
+Bruk "Build with parameters" linken og spesifiser miljø og prosjekt. Når jobben er kjørt klikk deg inn på loggen for kjøringen og velg "Cucumber reports" for å vise resultatet av testene.
+
 ## Kjøre fra utviklerimage
-Den enkleste måten å kjøre testene i cucumber på er via Jenkins. For å teste lokalt før man eventuelt sjekker inn kode i prosjektet kan man kjøre tester fra utviklerimage ved å sette opp noen environment variabler før kjøring.
+For å teste lokalt før man eventuelt sjekker inn kode i prosjektet kan man kjøre tester fra utviklerimage ved å sette opp noen environment variabler før kjøring.
 
 Sørg for at alle node moduler er lastet ned
 ```
@@ -181,4 +187,4 @@ Gitt at vi har cucumber_report.json fra tidligere steg kan rapporten lages:
 $ mkdir report
 $ node report.js
 ```
-v
+
