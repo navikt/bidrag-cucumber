@@ -51,7 +51,7 @@ Eksempel stepdefs.js:
 
 ```
 { httpGet } = require('fasit')
-{ Given, When } = require('cucumber')
+{ Given, When, Then } = require('cucumber')
 
 Given('fasit env {string}', function(fasitenv) {
      this.fasitenv = fasitenv
