@@ -93,7 +93,7 @@ Feature: test feature
 ```
 
 ## Fixture Code
-All koden for feature testene ligger i diverse javascript filer under cucumber/features/step_definitions. En av testene til bidrag-cucumber selv er å verifisere at det ikke finnes funksjoner med samme "navn". I den testen skrives også alle Given/When/Then funsjonene ut som et vedlegg til testen, noe som gir en oversikt over hva som finnes av uttrykk som kan brukes i feature filene.
+All koden for feature testene ligger i diverse javascript filer under cucumber/features/step_definitions. En av testene til bidrag-cucumber selv er å verifisere at det ikke finnes funksjoner med samme "navn". I den testen skrives også alle Given/When/Then funksjonene ut som et vedlegg til testen, noe som gir en oversikt over hva som finnes av uttrykk som kan brukes i feature filene.
 
 Sjekk http://a34apvl00118.devillo.no:8080/job/bidrag-cucumber/ og finn et bygg som inkludere bidrag-cucumber (eller bare kjør den selv) og se under scenariet "Sjekk duplikater i fixture code". Der skal det være et vedlegg under "Then there should be no duplicates" som lister alle funksjoner og i hvilken fil de er definert:
 
