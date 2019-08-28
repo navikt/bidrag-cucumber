@@ -24,6 +24,7 @@ setDefaultTimeout(60 * 1000)
 /** Correlation ID og logging */
 Before(function(testCase) {
     this.correlationId = `cucumber-${uniqid()}`
+    this.innloggetEnhetsnummer = process.env.innloggetEnhetsnummer || '4806'
     var url = `https://logs.adeo.no/app/kibana#/discover?_g=()&_a=(columns:!(message,envclass,environment,level,application,host),index:'96e648c0-980a-11e9-830a-e17bbd64b4db',interval:auto,query:(language:lucene,query:"${this.correlationId}"),sort:!('@timestamp',desc))`
     attachText(this, `Link til kibana for correlation-id: ${this.correlationId}\n\n` + url + "\n")
 })
@@ -33,6 +34,10 @@ Before(function(testCase) {
 Given('restservice {string}', function (alias) {
     this.alias = alias
 });
+
+Given('innlogget enhet {string}', function(innloggetEnhetsnummer) {
+    this.innloggetEnhetsnummer = innloggetEnhetsnummer
+})
 
 Given('response er', function(body) {
     this.response = {}

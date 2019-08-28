@@ -17,6 +17,7 @@ const TEST_USER = process.env.test_user
 const TEST_PASS = process.env.test_pass
 const CORRELATION_HEADER = process.env.correlation_header || "X-Correlation-ID"
 const REDIRECT_URI = process.env.redirect_uri || "https://bidrag-dokument-ui.nais.preprod.local/isso"
+const X_ENHETSNUMMER_HEADER = process.env.enhetsnummer_header || "X-Enhetsnummer"
 
 /**
  * Siste URL og token brukt
@@ -289,7 +290,6 @@ function sendRequest(world, method, alias, suffix, body) {
                 method: method,
                 proxy: false,
                 headers: {
-                    "X-Enhetsnummer": "4806", //TODO: MAKE THIS DYNAMIC
                     "Authorization": `Bearer ${tok}`,
                     "Content-Type": "application/json"
                 },
@@ -302,6 +302,9 @@ function sendRequest(world, method, alias, suffix, body) {
             }
             if(world.correlationId) {
                 options.headers[CORRELATION_HEADER] = world.correlationId
+            }
+            if(world.innloggetEnhetsNummer) {
+                options.headers[X_ENHETSNUMMER_HEADER] = world.innloggetEnhetsNummer
             }
             return request(options)
         }).then(response => {
