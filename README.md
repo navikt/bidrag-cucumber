@@ -51,41 +51,45 @@ Eksempel stepdefs.js:
 
 ```
 { httpGet } = require('fasit')
+{ Given, When } = require('cucumber')
 
-When('jeg gjør kall til {string} i {string}', function(alias, env, done) {
-    httpGet(alias, env, "/suffix-til-url-fra-fasit")
- .then(response => {
-    <do stuff>
-    done() // Dette må gjøres ved bruk av async kall i koden
+Given('fasit env {string}', function(fasitenv) {
+     this.fasitenv = fasitenv
+})
+
+When('jeg gjør kall til {string}', function(alias, done) {
+    httpGet(alias, this.fasitenv, "/suffix-til-url-fra-fasit")
+     .then(response => {
+          this.response = response
+          // Når vi bruker async funksjoner må vi ta med et ekstra
+          // parameter i funksjonen (e.g. done) slik at vi kan fortelle
+          // cucumber når vi er klare til å gå videre.
+          // For funksjoner som ikke gjør async kall trenger vi ikke denne.
+          done()         
+     .catch(err => {
+          // Hvis det feiler sender vi med error objekt eller melding
+          done(err)
+     })
 }
+
+Then('skal statuskoden være {string}', function(status) {
+     assert(this.response.statusCode == status, `Forventet ${status} fikk ${this.response.statusCode}`)
+})
 ```
 
-Eksempel feature (e.g. bidrag-sak.feature)
-
+Eksempel feature:
 ```
-Feature: bidrag-sak
-   Tester REST API til endepunktet BidragSakController i bidrag-sak.
-   URLer til tjenester hentes via fasit.adeo.no og gjøres ved å spesifisere
-   alias til en RestService record i fasit for et gitt miljø.
-
-   Background: Spesifiser base-url til tjenesten her så vi slipper å gjenta for hvert scenario.
-        Given restservice 'bidragSak'
-
-   Scenario: Sjekk at health endpoint er operativt
-        When jeg kaller status endpoint
-        Then statuskoden skal være '200'
-        And header 'content-type' skal være 'application/json;charset=UTF-8'
-        And resultatet skal være et objekt
-        And objektet skal ha 'status' = 'UP'
-
-   Scenario: Sjekk at vi får bidragssaker som involverer person angitt
-        When jeg henter bidragssaker for person med fnr "10099447805"
-        Then statuskoden skal være '200'
-        And hvert element i listen skal ha følgende properties satt:
-        | roller |
-        | eierfogd |
-        | saksstatus |
-
+Feature: test feature
+     Tester REST kall - Background seksjonen blir utført for
+     alle scenarier og er et bra sted å angi fellesverdier/defaults.
+   
+     Background: Defaults
+          Given fasit env 'q0'
+          
+     Scenario: testkall til bidragSak
+          When jeg gjør kall til 'bidragSak'
+          Then skal statuskoden være '200'
+          
 ```
 
 ## Arrow functions
