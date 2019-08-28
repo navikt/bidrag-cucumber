@@ -4,8 +4,17 @@ bidrag-cucumber (https://github.com/navikt/bidrag-cucumber) er et node prosjekt 
 
 Dette prosjektet inneholder også alle cucumber features og step definitions (fixture code) for alle bidrag mikrotjenester.
 
+Innhold
 
-## Fasit modul
+1. [Fasit modul](#fasit)
+2. [Testressurser](#testressurser)
+3. [Fixture code](#fixturecode)
+4. [Arrow functions](#arrowfunctions)
+5. [Kjøre fra Jenkins](#runjenkins)
+6. [Kjøre fra utviklerimage](#runlocal)
+7. [HTML Rapporter](#htmlreport)
+
+## Fasit modul <a name='fasit'></a>
 
 Sentralt i cucumber oppsettet er fasit modulen (bidrag-cucumber/fasit) som har kode for følgende:
 
@@ -25,7 +34,7 @@ Fasit modulen benytter seg av følgende environment variabler for å fungere:
 | fasit_url   | https://fasit.adeo.no/api/v2/resources | URL til fasit                                                                                                                                                                                                                                  |
 | oidc_alias  | bidrag-dokument-ui-oidc                | Fasit-ressurs for OIDC detaljer                                                                                                                                                                                                                |
 
-## Testressurser
+## Testressurser <a name='testressurser'></a>
 
 Alle tester ligger i bidrag-cucumber og på rot-nivå i prosjektet lages følgende filstruktur (uavhengig om tjenesten er node eller java basert):
 
@@ -92,7 +101,7 @@ Feature: test feature
           
 ```
 
-## Fixture Code
+## Fixture Code <a name='fixturecode'></a>
 All koden for feature testene ligger i diverse javascript filer under cucumber/features/step_definitions. En av testene til bidrag-cucumber selv er å verifisere at det ikke finnes funksjoner med samme "navn". I den testen skrives også alle Given/When/Then funksjonene ut som et vedlegg til testen, noe som gir en oversikt over hva som finnes av uttrykk som kan brukes i feature filene.
 
 Sjekk http://a34apvl00118.devillo.no:8080/job/bidrag-cucumber/ og finn et bygg som inkludere bidrag-cucumber (eller bare kjør den selv) og se under scenariet "Sjekk duplikater i fixture code". Der skal det være et vedlegg under "Then there should be no duplicates" som lister alle funksjoner og i hvilken fil de er definert:
@@ -110,7 +119,7 @@ Sjekk http://a34apvl00118.devillo.no:8080/job/bidrag-cucumber/ og finn et bygg s
 }
 ```
 
-## Arrow functions
+## Arrow functions <a name='arrowfunctions'></a>
 
 Cucumber-js lager et javascript-objekt som de kaller World objektet. Dette objektet blir "this" variabelen i alle Given/When/Then funksjoner slik at kode/funksjoner kan dele data i et scenario. World objektet blir nullstilt i hvert scenario så det er i utgangspunktet ikke mulig å dele data mellom to scenarier.
 
@@ -149,13 +158,13 @@ Om begge funksjonene kalles innefor samme scenario vil this.response være tilgj
      PS Det spiller ingen rolle om man definerer funksjoner med Given, When eller Then. Resultat er nøyaktig det samme.
 </i>
 
-## Kjøre fra Jenkins
+## Kjøre fra Jenkins <a name='runjenkins'></a>
 
 Den enkleste måten å kjøre testene i cucumber på er via Jenkins: http://a34apvl00118.devillo.no:8080/job/bidrag-cucumber/
 
 Bruk "Build with parameters" linken og spesifiser miljø og prosjekt. Når jobben er kjørt klikk deg inn på loggen for kjøringen og velg "Cucumber reports" for å vise resultatet av testene.
 
-## Kjøre fra utviklerimage
+## Kjøre fra utviklerimage <a name='runlocal'></a>
 For å teste lokalt før man eventuelt sjekker inn kode i prosjektet kan man kjøre tester fra utviklerimage ved å sette opp noen environment variabler før kjøring.
 
 Sørg for at alle node moduler er lastet ned
@@ -174,7 +183,7 @@ $ node_modules/cucumber/bin/cucumber-js --format json:cucumber_report.json cucum
 ```
 Dette vil gi output til skjerm men også til filen 'cucumber_report.json' som man kan bruke til å generere en mer leselig HTML rapport. 
 
-## HTML rapport
+## HTML rapport <a name='htmlreport'></a>
 
 For å lage en HTML rapport må man installere en ekstra node modul (https://www.npmjs.com/package/cucumber-html-reporter):
 
