@@ -92,6 +92,24 @@ Feature: test feature
           
 ```
 
+## Fixture Code
+All koden for GWT testene ligger i diverse javascript filer under cucumber/features/step_definitions. En av testene til bidrag-cucumber selv er å verifisere at det ikke finnes funksjoner med samme "navn". I den testen skrives også alle Given/When/Then funsjonene ut som et vedlegg til testen, noe som gir en oversikt over hva som finnes av uttrykk som kan brukes i feature filene.
+
+Sjekk http://a34apvl00118.devillo.no:8080/job/bidrag-cucumber/ og finn et bygg som inkludere bidrag-cucumber (eller bare kjør den selv) og se under scenariet "Sjekk duplikater i fixture code". Der skal det være et vedlegg under "Then there should be no duplicates" som lister alle funksjoner og i hvilken fil de er definert:
+
+
+```
+{
+    "jeg endrer journalpost til": "cucumber/features/step_definitions/avvik.js",
+    "avvikstype {string}": "cucumber/features/step_definitions/avvik.js",
+    "journalpostID {string}": "cucumber/features/step_definitions/avvik.js",
+    "enhetsnummer {string}": "cucumber/features/step_definitions/avvik.js",
+    "beskrivelse {string}": "cucumber/features/step_definitions/avvik.js",
+    "jeg søker etter oppgaver for journalpost": "cucumber/features/step_definitions/avvik.js",
+    ......
+}
+```
+
 ## Arrow functions
 
 Cucumber-js lager et javascript-objekt som de kaller World objektet. Dette objektet blir "this" variabelen i alle Given/When/Then funksjoner slik at kode/funksjoner kan dele data i et scenario. World objektet blir nullstilt i hvert scenario så det er i utgangspunktet ikke mulig å dele data mellom to scenarier.
