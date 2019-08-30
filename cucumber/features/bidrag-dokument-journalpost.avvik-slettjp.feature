@@ -35,7 +35,7 @@ Feature: avvik bidrag-dokument-journalpost: slett journalpost
         Then statuskoden skal være '200'
 
     Scenario: Sjekk avviksvalg for gitt journalpost
-        When jeg ber om |gyldige avviksvalg for journalpost
+        When jeg ber om gyldige avviksvalg for journalpost
         Then statuskoden skal være '200'
 		And listen med valg skal ikke inneholde 'SLETT_JOURNALPOST'
 
