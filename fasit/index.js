@@ -17,6 +17,7 @@ const TEST_USER = process.env.test_user
 const TEST_PASS = process.env.test_pass
 const CORRELATION_HEADER = process.env.correlation_header || "X-Correlation-ID"
 const REDIRECT_URI = process.env.redirect_uri || "https://bidrag-dokument-ui.nais.preprod.local/isso"
+const X_ENHETSNUMMER_HEADER = process.env.enhetsnummer_header || "X-Enhetsnummer"
 
 /**
  * Siste URL og token brukt
@@ -289,7 +290,6 @@ function sendRequest(world, method, alias, suffix, body) {
                 method: method,
                 proxy: false,
                 headers: {
-                    "X-Enhetsnummer": "4806", //TODO: MAKE THIS DYNAMIC
                     "Authorization": `Bearer ${tok}`,
                     "Content-Type": "application/json"
                 },
@@ -303,6 +303,10 @@ function sendRequest(world, method, alias, suffix, body) {
             if(world.correlationId) {
                 options.headers[CORRELATION_HEADER] = world.correlationId
             }
+            if(world.innloggetEnhetsnummer) {
+                options.headers[X_ENHETSNUMMER_HEADER] = world.innloggetEnhetsnummer
+            }
+			world.request_options = options
             return request(options)
         }).then(response => {
             logResponse(world, response, method, last_url + suffix, body)
@@ -358,8 +362,7 @@ function attachText(world, text) {
  */
 function logResponse(world, response, method, url, body, headers) {
     try {
-        
-        logMessageAndBodyString(world, method, url, body)
+        logMessageAndBodyString(world, method, url, body, world.request_options)
         logMessageAndBodyString(world, response.statusCode, response.statusMessage, response.body)
     } catch (error) {
         attachText(world, 'logResponse feilet: ' + error + "; " + err)
@@ -384,17 +387,21 @@ function logError(world, err, method, url, body) {
     }
 }
 
-function logMessageAndBodyString(world, p1, p2, body) {
+function logMessageAndBodyString(world, p1, p2, body, options) {
     try {
         var msg = []
         msg.push(`${p1} ${p2}`)
-        if (body) {
-            if (body && typeof body == "object") { // null and undefined -> 'object'
-                msg.push(JSON.stringify(body, null, 4))
-            } else if (typeof body == "string") {
-                msg.push(body)
-            }
-        }
+		if (options) {
+			msg.push(JSON.stringify(world.request_options, null, 4))
+		} else {
+	        if (body) {
+            	if (body && typeof body == "object") { // null and undefined -> 'object'
+                	msg.push(JSON.stringify(body, null, 4))
+            	} else if (typeof body == "string") {
+                	msg.push(body)
+            	}
+        	}
+		}
         attachText(world, msg.join('\n'))
     } catch (err) {
         attachText(world, 'logMessageAndBodyString failed ' + err);
