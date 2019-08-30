@@ -15,7 +15,7 @@ Feature: avvik bidrag-dokument-journalpost: slett journalpost
         "journaldato": "2019-01-01",
         "journalforendeEnhet": "1289",
         "journalfortAv": "Behandler, Zakarias",
-        "journalstatus": "D"
+        "journalstatus": "D",
         "mottattDato": "2019-01-01",
         "saksnummer": "0000003"
         }
