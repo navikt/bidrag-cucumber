@@ -3,6 +3,7 @@ Feature: avvik bidrag-dokument-journalpost: endre fagomrade
     Background: Lag/les journapost og sett felles params så vi slipper å gjenta for hvert scenario.
         Given restservice 'bidragDokumentJournalpost'
 		And journalpostfil 'fagomrade.json'
+        And saksnummer '0000003'
         And les eller opprett journalpost
         """
         {

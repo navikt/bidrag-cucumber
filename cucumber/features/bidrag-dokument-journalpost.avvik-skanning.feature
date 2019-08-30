@@ -4,6 +4,7 @@ Feature: avvik bidrag-dokument-journalpost: reskanning
 
     Background: Lag/les journapost og sett felles params så vi slipper å gjenta for hvert scenario.
         Given restservice 'bidragDokumentJournalpost'
+        And saksnummer '0000003'
 		And journalpostfil 'skanning.json'
         And les eller opprett journalpost
         """

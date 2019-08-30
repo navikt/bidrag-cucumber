@@ -34,6 +34,10 @@ Given('journalpostID {string}', function(journalpostid) {
     this.journalpostid = journalpostid
 })
 
+Given('saksnummer {string}', function(saksnummer) {
+    this.saksnummer = saksnummer
+})
+
 Given('enhetsnummer {string}', function(enhetsnummer) {
     this.enhetsnummer = enhetsnummer
 })
@@ -54,7 +58,7 @@ When('jeg søker etter oppgaver for journalpost', function (done) {
 })
 
 When('jeg kaller avvik endpoint', function (done) {
-    httpPost(this, this.alias, `/journalpost/avvik/${this.journalpostid}`,
+    httpPost(this, this.alias, `/sak/${this.saksnummer}/journal/BID-${this.journalpostid}/avvik`,
 			{
 				"avvikType": this.avvikType,
 				"enhetsnummer": (this.enhetsnummer || "4806"),
@@ -73,7 +77,7 @@ When('jeg kaller avvik endpoint', function (done) {
 })
 
 When('jeg ber om gyldige avviksvalg for journalpost', function (done) {
-    httpGet(this, this.alias, `/journalpost/avvik/${this.journalpostid}`)
+    httpGet(this, this.alias, `/sak/${this.saksnummer}/journal/BID-${this.journalpostid}/avvik`)
         .then(response => {
             this.response = response;
             assert(this.response != null, "Intet svar mottatt fra tjenesten");

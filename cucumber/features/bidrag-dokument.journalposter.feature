@@ -1,4 +1,4 @@
-Feature: bidrag-dokument (/journalposter REST API)
+Feature: bidrag-dokument (/sak/*/journal REST API)
 
     Tester REST API til journalpost endepunktet i bidrag-dokument.
     URLer til tjenester hentes via fasit.adeo.no og gjøres ved å spesifisere
@@ -24,7 +24,7 @@ Feature: bidrag-dokument (/journalposter REST API)
             | dokumentDato |
 
     Scenario: Sjekk at vi får korrekt basisinnhold journalpost for en gitt journalpostId
-        When jeg henter journalpost for id "BID-19650256"
+        When jeg henter journalpost for sak "0000003" med id "BID-19650256"
         Then statuskoden skal være '200'
         And resultatet skal være et objekt
         And objektet skal ha følgende properties:
@@ -41,7 +41,7 @@ Feature: bidrag-dokument (/journalposter REST API)
 
 
     Scenario: Sjekk at journalpost kan oppdateres - James Bond
-        When jeg endrer journalpost 'BID-30040789' til:
+        When jeg endrer journalpost for sak '0000004' med id 'BID-30040789' til:
             """
             {
             "journalpostId": 30040789,
@@ -61,7 +61,7 @@ Feature: bidrag-dokument (/journalposter REST API)
         And objektet skal ha 'avsenderNavn' = 'Bond, James'
 
     Scenario: Sjekk at journalpost kan oppdateres - Trygdekontoret
-        When jeg endrer journalpost 'BID-30040789' til:
+        When jeg endrer journalpost for sak '0000004' med id 'BID-30040789' til:
             """
             {
             "journalpostId": 30040789,
@@ -81,7 +81,7 @@ Feature: bidrag-dokument (/journalposter REST API)
         And objektet skal ha 'avsenderNavn' = 'Trygdekontoret'
 
     Scenario: Sjekk at dokumentDato kan oppdateres til 2001-01-01
-        When jeg endrer journalpost 'BID-30040789' til:
+        When jeg endrer journalpost for sak '0000004' med id 'BID-30040789' til:
             """
             {
             "journalpostId": 30040789,
@@ -102,7 +102,7 @@ Feature: bidrag-dokument (/journalposter REST API)
         And objektet skal ha 'dokumentDato' = '2001-01-01'
 
     Scenario: Sjekk at dokumentDator kan oppdateres til 2001-02-01
-        When jeg endrer journalpost 'BID-30040789' til:
+        When jeg endrer journalpost for sak '0000004' med id 'BID-30040789' til:
             """
             {
             "journalpostId": 30040789,

@@ -1,11 +1,12 @@
-Feature: avvik bidrag-dokument (/journalpost REST API)
+Feature: avvik bidrag-dokument (/sak/*/journal/*/avvik REST API)
 
     Tester REST API til journalpost endepunktet for avvik i bidrag-dokument.
 
     Background: Spesifiser base-url til tjenesten her så vi slipper å gjenta for hvert scenario.
         Fasit environment er gitt ved environment variabler ved oppstart.
         Given restservice 'bidragDokument'
-        And journalpostID 'BID-34111047'
+        And saksnummer '0000003'
+        And journalpostID '34111047'
         And enhetsnummer '4806'
 
     Scenario: Reset journalpost data
