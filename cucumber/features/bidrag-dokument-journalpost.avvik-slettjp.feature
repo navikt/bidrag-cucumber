@@ -9,18 +9,15 @@ Feature: avvik bidrag-dokument-journalpost: slett journalpost
         "avsenderNavn": "Cucumber Test",
         "batchNavn": "En batch",
         "beskrivelse": "Test slett journalpost",
-        "dokumentType": "I",
-        "dokumentdato": "2019-01-01",
-        "dokumentreferanse": "1234567890",
+        "dokumentType": "U",
         "fagomrade": "BID",
         "gjelder": "29118044353",
         "journaldato": "2019-01-01",
         "journalforendeEnhet": "1289",
         "journalfortAv": "Behandler, Zakarias",
+        "journalstatus": "D",
         "mottattDato": "2019-01-01",
-        "saksnummer": "0000003",
-        "skannetDato": "2019-01-01",
-        "filnavn": "svada.pdf"
+        "saksnummer": "0000003"
         }
         """
         Then statuskoden skal være '201'
@@ -35,7 +32,7 @@ Feature: avvik bidrag-dokument-journalpost: slett journalpost
     Scenario: Sjekk at jeg kan slette journalpost
         Given avvikstype 'SLETT_JOURNALPOST'
         When jeg kaller avvik endpoint
-        Then statuskoden skal være '201'
+        Then statuskoden skal være '200'
 
     Scenario: Sjekk avviksvalg for gitt journalpost
         When jeg ber om gyldige avviksvalg for journalpost
