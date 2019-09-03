@@ -9,7 +9,7 @@ const {
 } = require('fasit')
 
 function journalpostSuffix(saksnummer, fagomrade) {
-    return util.format("/api/sak/%s/journal?fagomrade=%s", saksnummer, fagomrade)
+    return util.format("/api/journalposter/%s?fagomrade=%s", saksnummer, fagomrade)
 }
 
 function enhetSuffix(enhetnr) {
@@ -31,8 +31,8 @@ When('jeg henter journalposter for sak {string} med fagområde {string} via doku
         })
 });
 
-When('jeg endrer journalpost {string} via dokument-ui til:', function (jpid, body, done) {
-    httpPut(this, this.alias, "/api/journalpost/" + jpid, JSON.parse(body))
+When('jeg endrer journalpost {string} for sak {string} via dokument-ui til:', function (jpid, saksnr, body, done) {
+    httpPut(this, this.alias, `/api/journalpost/sak/${saksnr}/journal/${jpid}`, JSON.parse(body))
         .then(response => {
             this.response = response
             done()

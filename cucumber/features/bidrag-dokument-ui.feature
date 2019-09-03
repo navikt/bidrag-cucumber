@@ -18,7 +18,7 @@ Feature: bidrag-dokument-ui
         Then statuskoden skal være '204'
 
     Scenario: Sjekk at journalpost kan oppdateres - Dolfern Lundgren
-        When jeg endrer journalpost 'BID-30040789' via dokument-ui til:
+        When jeg endrer journalpost 'BID-30040789' for sak '0000004' via dokument-ui til:
         """
         {
             "journalpostId": 30040789,
@@ -38,7 +38,7 @@ Feature: bidrag-dokument-ui
         And objektet skal ha 'avsenderNavn' = 'Lundgren, Dolfern'
 
     Scenario: Sjekk at journalpost kan oppdateres - Jon Blund
-        When jeg endrer journalpost 'BID-30040789' via dokument-ui til:
+        When jeg endrer journalpost 'BID-30040789' for sak '0000004' via dokument-ui til:
         """
         {
             "journalpostId": 30040789,
