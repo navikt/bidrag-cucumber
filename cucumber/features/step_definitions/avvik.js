@@ -127,3 +127,10 @@ Then('listen med valg skal ikke inneholde {string}', function(avvikstype) {
 
   assert(!fantAvvik, `Avvik ikke forventet: ${avvikstype}`)
 })
+
+Then('listen med journalposter skal ikke inneholde journalpost.{string}', function(prop) {
+  this.response.body.forEach(jp => {
+    console.log(jp)
+    assert(jp.journalpostId !== this.nyJournalpost[prop], `${jp.journalpostId} finnes i sakjournalen`)
+  })
+})
