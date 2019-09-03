@@ -179,6 +179,7 @@ $ export fasit_user=<fasit username>
 $ export fasit_pass=<fasit password>
 $ export test_user=<test username>
 $ export test_pass=<test password>
+$ export NODE_TLS_REJECT_UNAUTHORIZED=0
 $ node_modules/cucumber/bin/cucumber-js --format json:cucumber_report.json cucumber/features/bidrag-cucumber.feature
 ```
 Dette vil gi output til skjerm men også til filen 'cucumber_report.json' som man kan bruke til å generere en mer leselig HTML rapport. 
