@@ -9,7 +9,7 @@ const {
 } = require('fasit')
 
 function journalpostSuffix(saksnummer, fagomrade) {
-    return util.format("/api/journalposter/%s?fagomrade=%s", saksnummer, fagomrade)
+    return util.format("/api/sak/%s/journal?fagomrade=%s", saksnummer, fagomrade)
 }
 
 function enhetSuffix(enhetnr) {
