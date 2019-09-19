@@ -68,6 +68,7 @@ Feature: bidrag-dokument-journalpost
             }
             """
         Then statuskoden skal være '202'
+        And jeg henter journalpost for sak "0000004" med id 'BID-30040789'
         And objektet skal ha 'avsenderNavn' = 'Strutle, Sylfest'
 
     Scenario: Sjekk at journalpost kan oppdateres - Bjarne Bær
@@ -88,6 +89,7 @@ Feature: bidrag-dokument-journalpost
             }
             """
         Then statuskoden skal være '202'
+        And jeg henter journalpost for sak "0000004" med id 'BID-30040789'
         And objektet skal ha 'avsenderNavn' = 'Bær, Bjarne'
 
     Scenario: Sjekk at dokumentDato kan oppdateres til 2001-01-01
@@ -109,6 +111,7 @@ Feature: bidrag-dokument-journalpost
             }
             """
         Then statuskoden skal være '202'
+        And jeg henter journalpost for sak "0000004" med id 'BID-30040789'
         And objektet skal ha 'dokumentDato' = '2001-01-01'
 
     Scenario: Sjekk at dokumentDator kan oppdateres til 2001-02-01
@@ -130,4 +133,5 @@ Feature: bidrag-dokument-journalpost
             }
             """
         Then statuskoden skal være '202'
+        And jeg henter journalpost for sak "0000004" med id 'BID-30040789'
         And objektet skal ha 'dokumentDato' = '2001-02-01'
