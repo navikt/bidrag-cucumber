@@ -226,3 +226,7 @@ function _verifyContent(world, table, jp) {
     })
     return missing
 }
+
+Given('journalpostfil {string}', function(file) {
+    this.nyJournalpostFile = file
+})

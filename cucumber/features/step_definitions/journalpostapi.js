@@ -14,10 +14,6 @@ const {
   attachText
 } = require('fasit');
 
-Given('journalpostfil {string}', function(file) {
-  this.nyJournalpostFile = file
-})
-
 Then('sett {string} til journalpost.{string}', function(prop, src) {
   var value = this.nyJournalpost[src]
   if (value && src == 'journalpostId') {
