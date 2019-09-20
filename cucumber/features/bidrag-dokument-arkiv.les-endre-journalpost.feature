@@ -3,7 +3,7 @@ Feature: bidrag-dokument-arkiv - les/endre journalpost
     Background: Spesifiser base-url til tjenesten, filnavn, samt saksnummer
         som opereres p+ her så vi slipper å gjenta for hvert scenario.
         Fasit url og environment er gitt ved ENV variabler ved oppstart.
-        Given restservice 'journalpost_v1'
+        Given restservice 'journalpostV1'
         And journalpostfil 'joark-journal.json'
         And saksnummer '1900001'
         And les eller opprett journalpost med journalpost-api
@@ -12,14 +12,14 @@ Feature: bidrag-dokument-arkiv - les/endre journalpost
             "avsenderMottaker": { "navn": "Birger" },
             "behandlingstema": "BI01",
             "bruker": { "id": "06127412345", "idType": "FNR" },
-            "dokumenter": [{ "brevkode": "BREVKODEN", "dokumentKategori": "dokumentKategori", "tittel": "Tittelen på dokumentet" }],
+            "dokumenter": [{ "brevkode": "BREVKODEN", "dokumentKategori": "dokumentKategori", "tittel": "Cucumber test av bidrag-dokument-arkiv" }],
             "eksternReferanseId": "dokreferanse",
             "journalfoerendeEnhet": "666",
             "journalpostType": "N",
             "kanal": "nav.no",
             "sak": { "arkivsaksnummer": "1900001", "arkivsaksystem": "GSAK" },
             "tema": "BID",
-            "tittel": "Tittelen på journalposten"
+            "tittel": "Cucumber test av bidrag-dokument-arkiv"
         }
         """
 
