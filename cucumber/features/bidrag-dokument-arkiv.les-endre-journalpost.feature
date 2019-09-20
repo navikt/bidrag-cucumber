@@ -3,7 +3,7 @@ Feature: bidrag-dokument-arkiv - les/endre journalpost
     Background: Spesifiser base-url til tjenesten, filnavn, samt saksnummer
         som opereres p+ her så vi slipper å gjenta for hvert scenario.
         Fasit url og environment er gitt ved ENV variabler ved oppstart.
-        Given restservice 'bidragDokumentArkiv'
+        Given restservice 'journalpost_v1'
         And journalpostfil 'joark-journal.json'
         And saksnummer '1900001'
         And les eller opprett journalpost med journalpost-api
