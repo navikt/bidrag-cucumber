@@ -56,3 +56,18 @@ When('jeg henter enhet med enhetnr {string} via dokument-ui', function (enhetnr,
             done(err)
         })
 });
+
+/**
+ * Henter spesifikk journalpost
+ */
+When('jeg henter journalpost for sak {string} med id {string} via restservice {string}', function (saksnr, journalpostId,service, done) {
+    httpGet(this, service, "/sak/" + saksnr + "/journal/" + journalpostId)
+        .then(response => {
+            this.response = response
+            done()
+        })
+        .catch(err => {
+            done(err)
+        })
+});
+

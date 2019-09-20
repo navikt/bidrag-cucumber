@@ -35,7 +35,7 @@ Feature: bidrag-dokument-ui
         }
         """
         Then statuskoden skal være '202'
-        And jeg henter journalpost for sak '0000004' med id 'BID-30040789'
+        And jeg henter journalpost for sak '0000004' med id 'BID-30040789' via restservice 'bidragDokument'
         And objektet skal ha 'avsenderNavn' = 'Lundgren, Dolfern'
 
     Scenario: Sjekk at journalpost kan oppdateres - Jon Blund
@@ -56,5 +56,5 @@ Feature: bidrag-dokument-ui
         }
         """
         Then statuskoden skal være '202'
-        And jeg henter journalpost for sak '0000004' med id 'BID-30040789'
+        And jeg henter journalpost for sak '0000004' med id 'BID-30040789' via restservice 'bidragDokument'
         And objektet skal ha 'avsenderNavn' = 'Blund, Jon'
