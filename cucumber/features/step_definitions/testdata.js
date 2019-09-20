@@ -28,20 +28,6 @@ When('jeg lager ny journalpost', function (body, done) {
         })
 });
 
-Given('journalpostfil {string}', function(file) {
-	this.nyJournalpostFile = file
-})
-
-Then('sett {string} til journalpost.{string}', function(prop, src) {
-	var value = this.nyJournalpost[src] 
-	if (value && src == 'journalpostId') {
-		value = value.replace('BID-', '')
-		value = value.replace('JOARK-', '')
-	}
-	this[prop] = value
-	console.log(prop, value)
-})
-
 Then('les eller opprett journalpost', function(body, done) {
 	if (fs.existsSync(this.nyJournalpostFile)) {
     	this.nyJournalpost = JSON.parse(fs.readFileSync(this.nyJournalpostFile,'utf-8'))

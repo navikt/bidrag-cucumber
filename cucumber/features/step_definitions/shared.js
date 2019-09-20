@@ -226,3 +226,17 @@ function _verifyContent(world, table, jp) {
     })
     return missing
 }
+
+Given('journalpostfil {string}', function(file) {
+    this.nyJournalpostFile = file
+})
+
+Then('sett {string} til journalpost.{string}', function(prop, src) {
+    var value = this.nyJournalpost[src]
+    if (value && src == 'journalpostId') {
+        value = value.replace('BID-', '')
+        value = value.replace('JOARK-', '')
+    }
+    this[prop] = value
+    console.log(prop, value)
+})
