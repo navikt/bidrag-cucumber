@@ -22,6 +22,7 @@ Feature: bidrag-dokument-arkiv - les/endre journalpost
             "tittel": "Cucumber test av bidrag-dokument-arkiv"
         }
         """
+        And restservie 'bidragDokumentArkiv'
 
     Scenario: Sjekk at health endpoint er operativt
         When jeg kaller status endpoint
