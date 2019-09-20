@@ -33,7 +33,7 @@ Then('les eller opprett journalpost med journalpost-api', function(body, done) {
     }
     done()
   } else {
-    httpPost(this, 'journalpost_v1', "/rest/journalpostapi/v1/journalpost", JSON.parse(body))
+    httpPost(this, 'journalpostV1', "/rest/journalpostapi/v1/journalpost", JSON.parse(body))
     .then(response => {
       this.response = response
       assert(this.response != null, "Intet svar mottatt fra tjenesten");

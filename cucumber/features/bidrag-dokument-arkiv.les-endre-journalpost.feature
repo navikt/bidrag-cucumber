@@ -3,9 +3,8 @@ Feature: bidrag-dokument-arkiv - les/endre journalpost
     Background: Spesifiser base-url til tjenesten, filnavn, samt saksnummer
         som opereres p+ her så vi slipper å gjenta for hvert scenario.
         Fasit url og environment er gitt ved ENV variabler ved oppstart.
-        Given restservice 'journalpostV1'
+        Given restservie 'bidragDokumentArkiv'
         And journalpostfil 'joark-journal.json'
-        And saksnummer '1900001'
         And les eller opprett journalpost med journalpost-api
         """
         {
@@ -22,7 +21,6 @@ Feature: bidrag-dokument-arkiv - les/endre journalpost
             "tittel": "Cucumber test av bidrag-dokument-arkiv"
         }
         """
-        And restservie 'bidragDokumentArkiv'
 
     Scenario: Sjekk at health endpoint er operativt
         When jeg kaller status endpoint
