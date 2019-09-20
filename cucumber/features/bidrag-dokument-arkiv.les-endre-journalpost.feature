@@ -11,7 +11,7 @@ Feature: bidrag-dokument-arkiv - les/endre journalpost
         {
         "avsenderMottaker": {"navn":"Birger"},
         "behandlingstema": "BI01",
-        "bruker": {"id": 06127412345, "idType":"FNR"},
+        "bruker": {"id": "06127412345", "idType":"FNR"},
         "dokumenter": "[{ "brevkode": "BREVKODEN", "dokumentKategori":"KATEGORI", "tittel": "Tittelen på dokumentet" }],
         "eksternReferanseId": "dokumentreferanse",
         "journalfoerendeEnhet": "1234",
