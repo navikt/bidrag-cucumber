@@ -9,17 +9,17 @@ Feature: bidrag-dokument-arkiv - les/endre journalpost
         And les eller opprett journalpost med journalpost-api
         """
         {
-        "avsenderMottaker": {"navn":"Birger"},
-        "behandlingstema": "BI01",
-        "bruker": {"id": "06127412345", "idType":"FNR"},
-        "dokumenter": "[{ "brevkode": "BREVKODEN", "dokumentKategori":"KATEGORI", "tittel": "Tittelen på dokumentet" }],
-        "eksternReferanseId": "dokumentreferanse",
-        "journalfoerendeEnhet": "1234",
-        "journalpostType": "N",
-        "kanal": "nav.no",
-        "sak": { "arkivsaksnummer": "1900001", "arkivsaksystem": "GSAK" },
-        "tema": "BID",
-        "tittel": "Tittelen på journalposten"
+            "avsenderMottaker": { "navn": "Birger" },
+            "behandlingstema": "BI01",
+            "bruker": { "id": "06127412345", "idType": "FNR" },
+            "dokumenter": [{ "brevkode": "BREVKODEN", "dokumentKategori": "dokumentKategori", "tittel": "Tittelen på dokumentet" }],
+            "eksternReferanseId": "dokreferanse",
+            "journalfoerendeEnhet": "666",
+            "journalpostType": "N",
+            "kanal": "nav.no",
+            "sak": { "arkivsaksnummer": "1900001", "arkivsaksystem": "GSAK" },
+            "tema": "BID",
+            "tittel": "Tittelen på journalposten"
         }
         """
 
