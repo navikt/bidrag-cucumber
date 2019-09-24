@@ -3,6 +3,10 @@ package no.nav.bidrag.cucumber
 import org.assertj.core.api.Assertions.assertThat
 import java.io.File
 
+private const val FIXTURE_GITT = "@Gitt"
+private const val FIXTURE_NAAR = "@Når"
+private const val FIXTURE_SAA = "@Så"
+
 internal class StepDefsForSource(
         private val sourceFolder: File
 ) {
@@ -38,7 +42,7 @@ internal class StepDefsForSource(
     private fun taVarePaFeatureAnnotasjon(linje: String, fraKildefil: String) {
         val linjeTrimmed = linje.trim()
 
-        if (linjeTrimmed.startsWith("@Given") || linjeTrimmed.startsWith("@When") || linjeTrimmed.startsWith("@Then")) {
+        if (linjeTrimmed.startsWith(FIXTURE_GITT) || linjeTrimmed.startsWith(FIXTURE_NAAR) || linjeTrimmed.startsWith(FIXTURE_SAA)) {
             alleAnnotasjoner.getOrPut(linjeTrimmed) { mutableListOf() }.add(FeatureAnnotation(linjeTrimmed, fraKildefil))
         }
     }
