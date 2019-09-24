@@ -7,7 +7,7 @@ private const val FIXTURE_GITT = "@Gitt"
 private const val FIXTURE_NAAR = "@Når"
 private const val FIXTURE_SAA = "@Så"
 
-internal class StepDefsForSource(
+internal class FixturesFraKildekode(
         private val sourceFolder: File
 ) {
     private var stegdefinisjonerFraKilde: MutableList<File> = ArrayList()
@@ -47,13 +47,7 @@ internal class StepDefsForSource(
         }
     }
 
-    internal fun feilHvisDuplikater() {
-        val duplikater = hentDuplikater()
-
-        assertThat(duplikater).withFailMessage("Duplikater: %s", duplikater).isEmpty()
-    }
-
-    private fun hentDuplikater(): List<FeatureAnnotation> {
+    internal fun hentDuplikater(): List<FeatureAnnotation> {
         val duplikater = mutableListOf<FeatureAnnotation>()
 
         alleAnnotasjoner.forEach { annotasjon, listeAvTilfeller -> leggTilDuplikater(listeAvTilfeller, duplikater) }
@@ -72,13 +66,7 @@ internal class StepDefsForSource(
                 .add(FeatureAnnotation(featureAnnotasjon, simpleName ?: "StepDefsForSource.kt"))
     }
 
-    internal fun feilHvisIngenDuplikater() {
-        val duplikater = hentDuplikater()
-
-        assertThat(duplikater).withFailMessage("ingen duplikater").isNotEmpty
-    }
-
-    private data class FeatureAnnotation(
+    internal data class FeatureAnnotation(
             private val annotationText: String,
             private var kildeSti: String
     )

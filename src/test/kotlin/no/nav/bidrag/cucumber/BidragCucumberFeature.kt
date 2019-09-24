@@ -3,33 +3,38 @@ package no.nav.bidrag.cucumber
 import io.cucumber.java.no.Gitt
 import io.cucumber.java.no.Når
 import io.cucumber.java.no.Så
+import org.assertj.core.api.Assertions.assertThat
 
-open class StepDefs {
+class BidragCucumberFeature {
 
-    private lateinit var stegForKilde: StepDefsForSource
+    private lateinit var fixturesFraKildekode: FixturesFraKildekode
 
     @Gitt("filsti til kildekode: {string}")
     fun `filsti for kildekode med stegdefinisjoner`(kildesti: String) {
-        stegForKilde = StepDefsForSource(kildesti)
+        fixturesFraKildekode = FixturesFraKildekode(kildesti)
     }
 
     @Når("man sjekker for duplikater")
     fun `man sjekker for duplikater`() {
-        stegForKilde.finnDuplikater()
+        fixturesFraKildekode.finnDuplikater()
     }
 
     @Så("skal det ikke finnes duplikater")
     fun `skal det ikke finnes duplikater`() {
-        stegForKilde.feilHvisDuplikater()
+        val duplikater = fixturesFraKildekode.hentDuplikater()
+
+        assertThat(duplikater).withFailMessage("Duplikater: %s", duplikater).isEmpty()
     }
 
     @Gitt("fixture-annotasjon blir lagt til: {string}")
     fun `folgende feature annotasjon blir lagt til`(featureAnnotasjon: String) {
-        stegForKilde.leggTilDuplikat(featureAnnotasjon, this.javaClass.simpleName)
+        fixturesFraKildekode.leggTilDuplikat(featureAnnotasjon, this.javaClass.simpleName)
     }
 
     @Så("skal det finnes duplikater")
     fun `skal det finnes duplikater`() {
-        stegForKilde.feilHvisIngenDuplikater()
+        val duplikater = fixturesFraKildekode.hentDuplikater()
+
+        assertThat(duplikater).withFailMessage("ingen duplikater").isNotEmpty
     }
 }
