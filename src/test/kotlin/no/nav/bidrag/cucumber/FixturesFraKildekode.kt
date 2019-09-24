@@ -11,7 +11,7 @@ internal class FixturesFraKildekode(
         private val sourceFolder: File
 ) {
     private var stegdefinisjonerFraKilde: MutableList<File> = ArrayList()
-    private var alleAnnotasjoner: MutableMap<String, MutableList<FeatureAnnotation>> = HashMap()
+    private var alleAnnotasjoner: MutableMap<String, MutableList<GherkinAnnotation>> = HashMap()
 
     constructor(sourcePath: String) : this(File(sourcePath))
 
@@ -43,19 +43,19 @@ internal class FixturesFraKildekode(
         val linjeTrimmed = linje.trim()
 
         if (linjeTrimmed.startsWith(FIXTURE_GITT) || linjeTrimmed.startsWith(FIXTURE_NAAR) || linjeTrimmed.startsWith(FIXTURE_SAA)) {
-            alleAnnotasjoner.getOrPut(linjeTrimmed) { mutableListOf() }.add(FeatureAnnotation(linjeTrimmed, fraKildefil))
+            alleAnnotasjoner.getOrPut(linjeTrimmed) { mutableListOf() }.add(GherkinAnnotation(linjeTrimmed, fraKildefil))
         }
     }
 
-    internal fun hentDuplikater(): List<FeatureAnnotation> {
-        val duplikater = mutableListOf<FeatureAnnotation>()
+    internal fun hentDuplikater(): List<GherkinAnnotation> {
+        val duplikater = mutableListOf<GherkinAnnotation>()
 
         alleAnnotasjoner.forEach { annotasjon, listeAvTilfeller -> leggTilDuplikater(listeAvTilfeller, duplikater) }
 
         return duplikater
     }
 
-    private fun leggTilDuplikater(listeAvTilfeller: MutableList<FeatureAnnotation>, duplikater: MutableList<FeatureAnnotation>) {
+    private fun leggTilDuplikater(listeAvTilfeller: MutableList<GherkinAnnotation>, duplikater: MutableList<GherkinAnnotation>) {
         if (listeAvTilfeller.size > 1) {
             duplikater.addAll(listeAvTilfeller)
         }
@@ -63,10 +63,10 @@ internal class FixturesFraKildekode(
 
     internal fun leggTilDuplikat(featureAnnotasjon: String, simpleName: String?) {
         alleAnnotasjoner.getOrPut(featureAnnotasjon) { mutableListOf() }
-                .add(FeatureAnnotation(featureAnnotasjon, simpleName ?: "StepDefsForSource.kt"))
+                .add(GherkinAnnotation(featureAnnotasjon, simpleName ?: "FixturesFraKildekode.kt"))
     }
 
-    internal data class FeatureAnnotation(
+    internal data class GherkinAnnotation(
             private val annotationText: String,
             private var kildeSti: String
     )

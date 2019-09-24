@@ -23,12 +23,12 @@ class BidragCucumberFeature {
     fun `skal det ikke finnes duplikater`() {
         val duplikater = fixturesFraKildekode.hentDuplikater()
 
-        assertThat(duplikater).withFailMessage("Duplikater: %s", duplikater).isEmpty()
+        assertThat(duplikater).withFailMessage("Duplikater: %s", duplikater.joinToString("\n\t\t", "\n\t\t")).isEmpty()
     }
 
     @Gitt("fixture-annotasjon blir lagt til: {string}")
     fun `folgende feature annotasjon blir lagt til`(featureAnnotasjon: String) {
-        fixturesFraKildekode.leggTilDuplikat(featureAnnotasjon, this.javaClass.simpleName)
+        fixturesFraKildekode.leggTilDuplikat(featureAnnotasjon, this.javaClass.name)
     }
 
     @Så("skal det finnes duplikater")
