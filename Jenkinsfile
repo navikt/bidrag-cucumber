@@ -75,8 +75,8 @@ node {
 //                       "chown 596 ${env.WORKSPACE}/target/cucumber-report"
 //             )
 //         }
-
-        sh(script: "cp ${env.WORKSPACE}/cucumber/cucumber.json ${env.WORKSPACE}/target/cucumber-report/cucumber-node.json")
+//
+//         sh(script: "cp ${env.WORKSPACE}/cucumber/cucumber.json ${env.WORKSPACE}/target/cucumber-report/cucumber-node.json")
 
         withCredentials([
                 usernamePassword(credentialsId: 'naisUploader', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD'),
