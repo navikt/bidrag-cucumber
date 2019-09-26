@@ -5,7 +5,7 @@ import io.cucumber.java.no.Når
 import io.cucumber.java.no.Så
 import org.assertj.core.api.Assertions.assertThat
 
-class BidragCucumberFeature {
+class BidragCucumberEgenskap {
 
     private lateinit var fixturesFraKildekode: FixturesFraKildekode
 
@@ -27,8 +27,8 @@ class BidragCucumberFeature {
     }
 
     @Gitt("fixture-annotasjon blir lagt til: {string}")
-    fun `folgende feature annotasjon blir lagt til`(featureAnnotasjon: String) {
-        fixturesFraKildekode.leggTilDuplikat(featureAnnotasjon, this.javaClass.name)
+    fun `folgende fixture annotasjon blir lagt til`(fixtureAnnotasjon: String) {
+        fixturesFraKildekode.leggTilDuplikat(fixtureAnnotasjon, this.javaClass.name)
     }
 
     @Så("skal det finnes duplikater")
