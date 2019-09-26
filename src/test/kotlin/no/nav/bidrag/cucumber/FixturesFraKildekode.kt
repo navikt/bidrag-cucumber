@@ -36,10 +36,10 @@ internal class FixturesFraKildekode(
     }
 
     private fun finnDupliserteAnnotasjoner(stegdefinisjon: File) {
-        stegdefinisjon.forEachLine { taVarePaFeatureAnnotasjon(it, stegdefinisjon.absolutePath) }
+        stegdefinisjon.forEachLine { taVarePaFixtureAnnotasjon(it, stegdefinisjon.absolutePath) }
     }
 
-    private fun taVarePaFeatureAnnotasjon(linje: String, fraKildefil: String) {
+    private fun taVarePaFixtureAnnotasjon(linje: String, fraKildefil: String) {
         val linjeTrimmed = linje.trim()
 
         if (linjeTrimmed.startsWith(FIXTURE_GITT) || linjeTrimmed.startsWith(FIXTURE_NAAR) || linjeTrimmed.startsWith(FIXTURE_SAA)) {
@@ -61,9 +61,9 @@ internal class FixturesFraKildekode(
         }
     }
 
-    internal fun leggTilDuplikat(featureAnnotasjon: String, simpleName: String?) {
-        alleAnnotasjoner.getOrPut(featureAnnotasjon) { mutableListOf() }
-                .add(GherkinAnnotation(featureAnnotasjon, simpleName ?: "FixturesFraKildekode.kt"))
+    internal fun leggTilDuplikat(fixtureAnnotasjon: String, simpleName: String?) {
+        alleAnnotasjoner.getOrPut(fixtureAnnotasjon) { mutableListOf() }
+                .add(GherkinAnnotation(fixtureAnnotasjon, simpleName ?: "FixturesFraKildekode.kt"))
     }
 
     internal data class GherkinAnnotation(
