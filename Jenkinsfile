@@ -31,14 +31,36 @@ node {
         }
     }
 
-    stage("#4 Create reports") {
+    stage("#4 Cucumber tests with kotlin") {
+        println("[INFO] Run cucumber tests with kotlin")
+
+        execute(
+                "docker run --rm -v '${env.WORKSPACE}':/usr/src/mymaven -w /usr/src/mymaven " +
+                        "-v $JENKINS_HOME/.m2:/root/.m2 maven:3.6.1-jdk-12" +
+                        "mvn clean test"
+        )
+    }
+
+    stage("#5 Create cucumber report") {
         println("[INFO] Create cucumber reports")
+        sh(script: "cp '${env.WORKSPACE}/cucumber/cucumber.json '${env.WORKSPACE}'/target/cucumber-report/cucumber.node.json'")
+
+        execute(
+                "docker run --rm -v '${env.WORKSPACE}':/usr/src/mymaven -w /usr/src/mymaven " +
+                        "-v $JENKINS_HOME/.m2:/root/.m2 maven:3.6.1-jdk-12" +
+                        "mvn cluecumber-report:reporting"
+        )
+
+
         cucumber buildStatus: 'UNSTABLE', fileIncludePattern:'**/cucumber.json'
+
         def msg = sh(script: "node slackMessage.js", returnStdout: true).trim()
         def startedBy = "unknown"
+
         try {
             startedBy = currentBuild.rawBuild.getCause(Cause.UserIdCause).getUserId()
         } catch(err) {}
+
         if(startedBy == "jenkins") {
             if (msg.length() > 0) {
                 def color = msg.indexOf('FAILED') == -1 ? 'good' : '#FF0000'
@@ -48,7 +70,4 @@ node {
             println("StartedBy: ${startedBy} - ${msg}")
         }
     }
-
-
 }
-
