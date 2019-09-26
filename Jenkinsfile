@@ -47,7 +47,7 @@ node {
 
     stage("#5 Create cucumber report") {
         println("[INFO] Create cucumber reports")
-        sh(script: "cp '${env.WORKSPACE}/cucumber/cucumber.json '${env.WORKSPACE}'/target/cucumber-report/cucumber-node.json'")
+        sh(script: "cp '${env.WORKSPACE}/cucumber/cucumber.json ${env.WORKSPACE}/target/cucumber-report/cucumber-node.json'")
 
         withCredentials([
                 usernamePassword(credentialsId: 'naisUploader', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD'),
