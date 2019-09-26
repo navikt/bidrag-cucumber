@@ -53,41 +53,24 @@ node {
                 usernamePassword(credentialsId: TestUserID, usernameVariable: 'TEST_USER', passwordVariable: 'TEST_PASS')
             ]) {
             sh (script: "docker run --rm " +
-                        "-e NODE_TLS_REJECT_UNAUTHORIZED=0 " +
                         "-e environment=${NaisEnvironment} " +
-                        "-e test_user=${env.TEST_USER} " +
-                        "-e test_pass='${env.TEST_PASS}' " +
                         "-e fasit_user=${env.USERNAME} " +
                         "-e fasit_pass='${env.PASSWORD}' " +
-                        "-e project=${FeaturePrefix} " +
                         "-v '${env.WORKSPACE}':/src " +
                         "-w /src mv /cucumber/cucumber.json /target/cucumber-node.json",
                          returnStatus:true
             )
         }
 
-//         withCredentials([
-//                 usernamePassword(credentialsId: 'naisUploader', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD'),
-//                 usernamePassword(credentialsId: TestUserID, usernameVariable: 'TEST_USER', passwordVariable: 'TEST_PASS')
-//             ]) {
-//             sh(script:"docker run --rm -v '${env.WORKSPACE}':/usr/src/mymaven -w /usr/src/mymaven " +
-//                       "-v $JENKINS_HOME/.m2:/root/.m2 maven:3.6.1-jdk-12 " +
-//                       "chown 596 ${env.WORKSPACE}/target/cucumber-report"
-//             )
-//         }
-//
-//         sh(script: "cp ${env.WORKSPACE}/cucumber/cucumber.json ${env.WORKSPACE}/target/cucumber-report/cucumber-node.json")
-
         withCredentials([
                 usernamePassword(credentialsId: 'naisUploader', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD'),
                 usernamePassword(credentialsId: TestUserID, usernameVariable: 'TEST_USER', passwordVariable: 'TEST_PASS')
             ]) {
             sh(script:"docker run --rm -v '${env.WORKSPACE}':/usr/src/mymaven -w /usr/src/mymaven " +
-                      "-v $JENKINS_HOME/.m2:/root/.m2 maven:3.6.1-jdk-12" +
+                      "-v $JENKINS_HOME/.m2:/root/.m2 maven:3.6.1-jdk-12 " +
                       "mvn cluecumber-report:reporting"
             )
         }
-
 
         cucumber buildStatus: 'UNSTABLE', fileIncludePattern:'**/cucumber.json'
 
