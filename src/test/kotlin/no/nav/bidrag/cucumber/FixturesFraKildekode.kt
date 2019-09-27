@@ -22,14 +22,12 @@ internal class FixturesFraKildekode(
     }
 
     private fun les(mappe: File) {
-        val mappensFiler = mappe.listFiles { _, name -> name.endsWith(".kt") }
-
-        assertThat<File>(mappensFiler).`as`("Filer i kilde: " + mappe.absolutePath).isNotNull
+        val mappensFiler = mappe.listFiles()
 
         for (kildefil in mappensFiler!!) {
             if (kildefil.isDirectory) {
                 les(kildefil)
-            } else {
+            } else if (kildefil.name.endsWith(".kt")) {
                 stegdefinisjonerFraKilde.add(kildefil)
             }
         }
