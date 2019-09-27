@@ -1,11 +1,15 @@
 # bidrag-cucumber
 
-bidrag-cucumber (https://github.com/navikt/bidrag-cucumber) er et node prosjekt som bruker cucumber-js og egne script for å teste bidrag mikrotjenester.
+bidrag-cucumber (https://github.com/navikt/bidrag-cucumber) er et modul som bruker cucumber og egne script for å teste bidrag mikrotjenester.
+Det ligger to forskjellige teknologier bak testene som utvikles i bidrag-cucumber:
+- node
+- kotlin
 
 Dette prosjektet inneholder også alle cucumber features og step definitions (fixture code) for alle bidrag mikrotjenester.
 
 Innhold
 
+NODE
 1. [Fasit modul](#fasit)
 2. [Testressurser](#testressurser)
 3. [Fixture code](#fixturecode)
@@ -13,6 +17,11 @@ Innhold
 5. [Kjøre fra Jenkins](#runjenkins)
 6. [Kjøre fra utviklerimage](#runlocal)
 7. [HTML Rapporter](#htmlreport)
+
+KOTLIN
+1. [Cucumber med kotlin](#kotlin)
+
+## NODE
 
 ## Fasit modul <a name='fasit'></a>
 
@@ -221,3 +230,58 @@ $ mkdir report
 $ node report.js
 ```
 
+## KOTLIN
+
+## Cucumber og kotlin <a name='kotlin'></a>
+
+Kotlin gjør det enkelt å skape lett leselig tester som bruker `Gherkin`-filer (*.feature) med norsk tekst som ligger i `src/test/resources/<pakkenavn>`
+
+`Gherkin`-filene er den funksjonelle beskrivelsen av en automatisert test som bruker BDD (behaviour driven development) for å beskrive de egenskapene som skal støttes
+Eks: på en `gherkin` fil på norsk 
+
+```
+01: # language: no
+02: Egenskap: oppslagstjeneste
+03:   <detaljert beskrivelse av egenskapen>
+04: 
+05:   Scenario: fant ikke person
+06:    Gitt liste med "ansatte"
+07:    Når man forsøker å finne "Ola"
+08:    Så skal svaret være "Ola" er ikke ansatt her
+09:
+10:  Scenario: fant person
+11:    Gitt liste med "ansatte"
+12:    Når man forsøker å finne "Per"
+15:    Så skal svaret være "Per" er i "kantina"
+```
+
+Kort forklart:
+- linje 1: språk
+- linje 2: egenskapen som testes (feature)
+- linje 3: tekstlig beskrivelse av egenskapen
+- linje 5: et scenario som denne egenskapen skal støtte
+- linje 6: "Gitt" en ressurs
+- linje 7: "Når" man utfører noe
+- linje 8: "Så" forventer man et resultat
+
+Gitt - Når - Så, er blant kodeordene som `gherkin` reagerer på.
+Nøkkelord til å bruk i `gherkin`-filer er `Egenskap`, `Bakgrunn`, `Scenario`, `Eksepmel`, `Abstrakt scenario`, `Gitt`, `Når`, `Og`, `Men`, `Så`, `Eksempler`
+
+Cucumber støtter flere språk og for mer detaljert oversikt over funksjonaliteten som `gherkin` gir, se detaljert beskrivelse på nett: 
+<https://cucumber.io/docs/gherkin/reference/>
+
+### Kjøring
+
+Siden alle tester som kjører på en jvm (ikke node) bruker JUnit som plattform, kan testene bli utført i hvilken som helt editor som støtter JUnit.
+
+Testene kan også kjøres fra kommandolinja med maven - `mvn test`
+
+Når `mvn test` kjøres blir alle `gherkin`-filene (*.feature) brukt til å kjøre tester. Det finnes derfor "tags" som brukes foran egenskaper og scenarious.
+I bidrag-cucumber er det vanlig å "tagge" ei `gherkin`-fil med applikasjonsnavn slik at man kan angi å kjøre tester for en applikasjon alene.
+Det er ikke noen begrensninger på hvor mange "tagger" en `Egenskap` eller `Feature` har.
+Kjøring av "taggede" tester:
+```
+mvn test -Dcucumber.options='--tags "@bidrag-cucumber and @bidrag-dokument-journalpost"'
+``` 
+
+For en mer detaljert oversikt over cucumber og kotlin: <https://cucumber.io/docs/cucumber/api/>  

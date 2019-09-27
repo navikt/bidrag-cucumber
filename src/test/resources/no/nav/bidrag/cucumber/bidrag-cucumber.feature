@@ -1,4 +1,5 @@
 # language: no
+@bidrag-cucumber
 Egenskap: bidrag-cucumber
   Sjekker fixture-kode for duplikater
 
