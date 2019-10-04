@@ -35,7 +35,7 @@ node {
     stage("#4 Cucumber tests with kotlin") {
         println("[INFO] Run cucumber tests with kotlin")
 
-        sh script: 'if [ "${FeaturePrefix}" != "*" ] ; then export DO_TEST=\'test -Dcucumber.options=\'--tags "@bidrag-cucumber or @${FeaturePrefix}"\'\' ; else ; export DO_TEST=test ; fi'
+        sh script: 'if [ "${FeaturePrefix}" != "*" ] ; then export DO_TEST=\'test -Dcucumber.options=--tags "@bidrag-cucumber or @${FeaturePrefix}"\' ; else ; export DO_TEST=test ; fi'
         println("[INFO] running kotlin cucumber like $DO_TEST")
 
         withCredentials([
