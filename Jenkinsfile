@@ -28,16 +28,15 @@ node {
                 usernamePassword(credentialsId: TestUserID, usernameVariable: 'TEST_USER', passwordVariable: 'TEST_PASS')
             ]) {
             sh script: "export FEATURE_PREFIX=${FeaturePrefix}."
-            sh script: "echo ${FeaturePrefix}"
-            sh script: "echo $FEATURE_PREFIX"
-            sh script: "echo ${env.FEATURE_PREFIX}"
-            sh script: "echo '${env.FEATURE_PREFIX}'"
             sh (script: "docker run --rm -e NODE_TLS_REJECT_UNAUTHORIZED=0 -e environment=${NaisEnvironment} -e test_user=${env.TEST_USER} -e test_pass='${env.TEST_PASS}' -e fasit_user=${env.USERNAME} -e fasit_pass='${env.PASSWORD}' -e project=${env.FEATURE_PREFIX} -v '${env.WORKSPACE}':/src -w /src node:latest npm start", returnStatus:true)
         }
     }
 
     stage("#4 Cucumber tests with kotlin") {
         println("[INFO] Run cucumber tests with kotlin")
+
+        sh script: 'if [ "${FeaturePrefix}" != "*" ] ; then export DO_TEST=\'test -Dcucumber.options=\'--tags "@bidrag-cucumber or @${FeaturePrefix}"\'\' ; else ; export DO_TEST=test ; fi'
+        println("[INFO] running kotlin cucumber like $DO_TEST")
 
         withCredentials([
                 usernamePassword(credentialsId: 'naisUploader', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD'),
@@ -46,7 +45,7 @@ node {
             try {
                 sh(script:"docker run --rm -v '${env.WORKSPACE}':/usr/src/mymaven -w /usr/src/mymaven " +
                           "-v $JENKINS_HOME/.m2:/root/.m2 maven:3.6.1-jdk-12 " +
-                          "mvn clean test"
+                          "mvn clean $DO_TEST"
                 )
             } catch(err) {
                 // no failures... always write report
