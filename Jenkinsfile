@@ -27,7 +27,8 @@ node {
                 usernamePassword(credentialsId: 'naisUploader', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD'),
                 usernamePassword(credentialsId: TestUserID, usernameVariable: 'TEST_USER', passwordVariable: 'TEST_PASS')
             ]) {
-            sh (script: "docker run --rm -e NODE_TLS_REJECT_UNAUTHORIZED=0 -e environment=${NaisEnvironment} -e test_user=${env.TEST_USER} -e test_pass='${env.TEST_PASS}' -e fasit_user=${env.USERNAME} -e fasit_pass='${env.PASSWORD}' -e project=${FeaturePrefix} -v '${env.WORKSPACE}':/src -w /src node:latest npm start", returnStatus:true)
+            sh (script: "export TEST_APPLICATION=${TEST_APPLICATION}.")
+            sh (script: "docker run --rm -e NODE_TLS_REJECT_UNAUTHORIZED=0 -e environment=${NaisEnvironment} -e test_user=${env.TEST_USER} -e test_pass='${env.TEST_PASS}' -e fasit_user=${env.USERNAME} -e fasit_pass='${env.PASSWORD}' -e project=${env.TEST_APPLICATION} -v '${env.WORKSPACE}':/src -w /src node:latest npm start", returnStatus:true)
         }
     }
 
