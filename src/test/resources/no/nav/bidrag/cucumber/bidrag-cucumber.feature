@@ -13,3 +13,7 @@ Egenskap: bidrag-cucumber
     Og fixture-annotasjon blir lagt til: '@Så("skal det ikke finnes duplikater")'
     Når man sjekker for duplikater
     Så skal det finnes duplikater
+
+  Scenario: Finn egenskap fra classpath
+    Gitt jeg tester denne egenskapen
+    Så skal aktuell klasse være "TestEgenskap"

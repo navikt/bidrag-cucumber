@@ -48,7 +48,7 @@ internal class FixturesFraKildekode(
     internal fun hentDuplikater(): List<GherkinAnnotation> {
         val duplikater = mutableListOf<GherkinAnnotation>()
 
-        alleAnnotasjoner.forEach { annotasjon, listeAvTilfeller -> leggTilDuplikater(listeAvTilfeller, duplikater) }
+        alleAnnotasjoner.forEach { _, listeAvTilfeller -> leggTilDuplikater(listeAvTilfeller, duplikater) }
 
         return duplikater
     }

@@ -141,7 +141,7 @@
           <customParameters>
             <Tittel>Integrasjonsrapoort for bidrag innsyn</Tittel>
             <URL>https://confluence.adeo.no/display/ITTB/Team+Bidrag</URL>
-            <_avsnitt.a>Integrasjonstester gjort ifm. utvikling på nye tjenester for innsyn!</_avsnitt.a>
+            <_avsnitt.a>Integrasjonstester gjort ifm. utvikling på nye tjenester for innsyn under bidrag</_avsnitt.a>
             <_avsnitt.b>Foreløpig work in progress og omhandler bare tekniske tester</_avsnitt.b>
           </customParameters>
           <sourceJsonReportDirectory>${project.build.directory}/cucumber-report</sourceJsonReportDirectory>
