@@ -38,13 +38,12 @@ node {
                 usernamePassword(credentialsId: 'naisUploader', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD'),
                 usernamePassword(credentialsId: TestUserID, usernameVariable: 'TEST_USER', passwordVariable: 'TEST_PASS')
             ]) {
-                try {
-                    sh(script:"docker run --rm -v '${env.WORKSPACE}':/usr/src/mymaven -w /usr/src/mymaven " +
-                              "-v $JENKINS_HOME/.m2:/root/.m2 maven:3.6.1-jdk-12 " +
-                              "mvn clean test"
-                    )
-                } catch (err) { } // test failures should not end the pipeline
-            }
+            try {
+                sh(script:"docker run --rm -v '${env.WORKSPACE}':/usr/src/mymaven -w /usr/src/mymaven " +
+                          "-v $JENKINS_HOME/.m2:/root/.m2 maven:3.6.1-jdk-12 " +
+                          "mvn clean test"
+                )
+            } catch (err) { } // Test failures should not terminate the pipeline
         }
     }
 
