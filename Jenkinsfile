@@ -28,7 +28,7 @@ node {
                 usernamePassword(credentialsId: TestUserID, usernameVariable: 'TEST_USER', passwordVariable: 'TEST_PASS')
             ]) {
             sh (script: 'if [ "${FeaturePrefix}" != "*" ] ; then export FEATURE_PREFIX=${FeaturePrefix}. fi')
-            sh (script: "docker run --rm -e NODE_TLS_REJECT_UNAUTHORIZED=0 -e environment=${NaisEnvironment} -e test_user=${env.TEST_USER} -e test_pass='${env.TEST_PASS}' -e fasit_user=${env.USERNAME} -e fasit_pass='${env.PASSWORD}' -e project=${env.FEATURE_PREFIX} -v '${env.WORKSPACE}':/src -w /src node:latest npm start", returnStatus:true)
+            sh (script: "docker run --rm -e NODE_TLS_REJECT_UNAUTHORIZED=0 -e environment=${NaisEnvironment} -e test_user=${env.TEST_USER} -e test_pass='${env.TEST_PASS}' -e fasit_user=${env.USERNAME} -e fasit_pass='${env.PASSWORD}' -e project=$FEATURE_PREFIX -v '${env.WORKSPACE}':/src -w /src node:latest npm start", returnStatus:true)
         }
     }
 
