@@ -27,7 +27,7 @@ node {
                 usernamePassword(credentialsId: 'naisUploader', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD'),
                 usernamePassword(credentialsId: TestUserID, usernameVariable: 'TEST_USER', passwordVariable: 'TEST_PASS')
             ]) {
-            sh script: "export FEATURE_PREFIX=${FeaturePrefix}."
+            sh script: 'if [ "${FeaturePrefix}" != "*" ] ; then export FEATURE_PREFIX=${FeaturePrefix}. fi'
             sh (script: "docker run --rm -e NODE_TLS_REJECT_UNAUTHORIZED=0 -e environment=${NaisEnvironment} -e test_user=${env.TEST_USER} -e test_pass='${env.TEST_PASS}' -e fasit_user=${env.USERNAME} -e fasit_pass='${env.PASSWORD}' -e project=${env.FEATURE_PREFIX} -v '${env.WORKSPACE}':/src -w /src node:latest npm start", returnStatus:true)
         }
     }
@@ -35,7 +35,7 @@ node {
     stage("#4 Cucumber tests with kotlin") {
         println("[INFO] Run cucumber tests with kotlin")
 
-        sh script: 'if [ "${FeaturePrefix}" != "*" ] ; then export DO_TEST=\'test -Dcucumber.options=--tags "@bidrag-cucumber or @${FeaturePrefix}"\' ; else ; export DO_TEST=test ; fi'
+        sh script: 'if [ "${FeaturePrefix}" != "*" ] ; then export DO_TEST=\'test -Dcucumber.options=--tags "@bidrag-cucumber or @${FeaturePrefix}"\' else export DO_TEST=test fi'
         println("[INFO] running kotlin cucumber like $DO_TEST")
 
         withCredentials([
