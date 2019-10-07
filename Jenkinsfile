@@ -47,9 +47,7 @@ node {
                           "-v $JENKINS_HOME/.m2:/root/.m2 maven:3.6.1-jdk-12 " +
                           "mvn clean $DO_TEST"
                 )
-            } catch(err) {
-                // no failures... always write report
-            }
+            } catch (err) { } // Test failures should not terminate the pipeline
         }
     }
 
@@ -70,10 +68,15 @@ node {
             )
         }
 
-        sh(script:"docker run --rm -v '${env.WORKSPACE}':/usr/src/mymaven -w /usr/src/mymaven " +
-                  "-v $JENKINS_HOME/.m2:/root/.m2 maven:3.6.1-jdk-12 " +
-                  "mvn cluecumber-report:reporting"
-        )
+        withCredentials([
+                usernamePassword(credentialsId: 'naisUploader', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD'),
+                usernamePassword(credentialsId: TestUserID, usernameVariable: 'TEST_USER', passwordVariable: 'TEST_PASS')
+            ]) {
+            sh(script:"docker run --rm -v '${env.WORKSPACE}':/usr/src/mymaven -w /usr/src/mymaven " +
+                      "-v $JENKINS_HOME/.m2:/root/.m2 maven:3.6.1-jdk-12 " +
+                      "mvn cluecumber-report:reporting"
+            )
+        }
 
         cucumber buildStatus: 'UNSTABLE', fileIncludePattern:'**/cucumber.json'
 
